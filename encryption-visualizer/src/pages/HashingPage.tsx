@@ -9,7 +9,7 @@ import { QuizSystem } from '@/components/educational/QuizSystem';
 import { hashingQuizQuestions } from '@/data/quizzes/hashingQuiz';
 
 interface HashingPageProps {
-  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'glossary') => void;
+  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'glossary' | 'about') => void;
 }
 
 export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {

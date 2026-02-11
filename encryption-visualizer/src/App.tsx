@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Layout } from './components/layout/Layout';
-import { PlaybackControls } from './components/controls/PlaybackControls';
 import { AESPage } from './pages/AESPage';
 import { RSAPage } from './pages/RSAPage';
 import { HashingPage } from './pages/HashingPage';
 import { GlossaryPage } from './pages/GlossaryPage';
-import { Cpu, Key, Hash, ArrowRight } from 'lucide-react';
+import { AboutPage } from './pages/AboutPage';
+import { Cpu, Key, Hash, ArrowRight, Shield, Lock, Fingerprint } from 'lucide-react';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'aes' | 'rsa' | 'hashing' | 'glossary'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'aes' | 'rsa' | 'hashing' | 'glossary' | 'about'>('home');
 
   if (currentPage === 'aes') {
     return <AESPage onNavigate={setCurrentPage} />;
@@ -26,182 +26,262 @@ function App() {
     return <GlossaryPage />;
   }
 
+  if (currentPage === 'about') {
+    return <AboutPage onNavigate={setCurrentPage} />;
+  }
+
   return (
     <Layout onNavigate={setCurrentPage}>
-      <div className="space-y-8 sm:space-y-12">
+      <article className="space-y-16 sm:space-y-24">
         {/* Hero Section */}
-        <div className="text-center space-y-4 sm:space-y-6 py-6 sm:py-12">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight px-4">
-            <span className="block text-slate-900 dark:text-white">Master Cryptography</span>
-            <span className="block text-slate-500 dark:text-slate-400 mt-2">Through Visualization</span>
-          </h2>
-
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed px-4">
-            Explore the inner workings of <span className="text-blue-600 dark:text-blue-400 font-medium">AES</span>,{' '}
-            <span className="text-blue-600 dark:text-blue-400 font-medium">RSA</span>, and{' '}
-            <span className="text-blue-600 dark:text-blue-400 font-medium">hashing</span> with interactive,
-            step-by-step visualizations
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8 px-4">
-            <button
-              onClick={() => setCurrentPage('aes')}
-              className="btn-primary"
-            >
-              Start Learning
-              <ArrowRight className="w-4 h-4" />
-            </button>
+        <header className="relative py-8 sm:py-16">
+          {/* Subtle background pattern */}
+          <div className="absolute inset-0 -z-10 overflow-hidden">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 dark:bg-blue-400/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-indigo-500/5 dark:bg-indigo-400/5 rounded-full blur-3xl" />
           </div>
-        </div>
+
+          <div className="text-center space-y-6 sm:space-y-8">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 rounded-full">
+              <Shield className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+                Interactive Cryptography Education
+              </span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight">
+              <span className="block text-slate-900 dark:text-white">
+                See How Encryption
+              </span>
+              <span className="block bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 dark:from-blue-400 dark:via-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">
+                Actually Works
+              </span>
+            </h1>
+
+            <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+              Stop reading about cryptography. Start <em>seeing</em> it.
+              Watch bytes transform through AES rounds, witness prime numbers
+              generate RSA keys, and observe the avalanche effect in real-time.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <button
+                onClick={() => setCurrentPage('aes')}
+                className="btn-primary text-lg px-8 py-4"
+              >
+                Start with AES
+                <ArrowRight className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => setCurrentPage('glossary')}
+                className="btn-secondary text-lg px-8 py-4"
+              >
+                Browse Glossary
+              </button>
+            </div>
+          </div>
+        </header>
 
         {/* Algorithm Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-0">
-          {/* AES Card */}
-          <div
-            onClick={() => setCurrentPage('aes')}
-            className="glass-card-hover p-6 sm:p-8 space-y-4 sm:space-y-5 cursor-pointer group"
-          >
-            <div className="p-3 bg-blue-600 rounded-lg w-fit">
-              <Cpu className="w-6 h-6 text-white" strokeWidth={2} />
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                AES Encryption
-              </h3>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-                Advanced Encryption Standard - The gold standard for symmetric encryption used worldwide
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">
-                Symmetric
-              </span>
-              <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">
-                128/192/256-bit
-              </span>
-            </div>
-
-            <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-              <div className="text-sm text-slate-500 dark:text-slate-500">
-                <span className="font-medium text-slate-700 dark:text-slate-300">8 lessons</span>
-              </div>
-              <ArrowRight className="w-5 h-5 text-slate-400 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-          {/* RSA Card */}
-          <div
-            onClick={() => setCurrentPage('rsa')}
-            className="glass-card-hover p-6 sm:p-8 space-y-4 sm:space-y-5 cursor-pointer group"
-          >
-            <div className="p-3 bg-blue-600 rounded-lg w-fit">
-              <Key className="w-6 h-6 text-white" strokeWidth={2} />
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                RSA Encryption
-              </h3>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-                Public-key cryptography - Secure key exchange and digital signatures explained
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">
-                Asymmetric
-              </span>
-              <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">
-                2048/4096-bit
-              </span>
-            </div>
-
-            <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-              <div className="text-sm text-slate-500 dark:text-slate-500">
-                <span className="font-medium text-slate-700 dark:text-slate-300">12 lessons</span>
-              </div>
-              <ArrowRight className="w-5 h-5 text-slate-400 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-          {/* Hashing Card */}
-          <div
-            onClick={() => setCurrentPage('hashing')}
-            className="glass-card-hover p-6 sm:p-8 space-y-4 sm:space-y-5 cursor-pointer group"
-          >
-            <div className="p-3 bg-blue-600 rounded-lg w-fit">
-              <Hash className="w-6 h-6 text-white" strokeWidth={2} />
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                Hash Functions
-              </h3>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-                SHA-256 and avalanche effect - One-way functions that secure passwords and data
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">
-                One-way
-              </span>
-              <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">
-                256-bit output
-              </span>
-            </div>
-
-            <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-              <div className="text-sm text-slate-500 dark:text-slate-500">
-                <span className="font-medium text-slate-700 dark:text-slate-300">6 lessons</span>
-              </div>
-              <ArrowRight className="w-5 h-5 text-slate-400 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-        </div>
-
-        {/* Playback Controls Demo */}
-        <div className="space-y-4">
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white text-center">
-            Playback Controls
-          </h3>
-          <PlaybackControls />
-        </div>
-
-        {/* Visualization Area */}
-        <div className="glass-card p-8 sm:p-12 space-y-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
-              <div className="p-2 bg-blue-600 rounded-lg">
-                <Cpu className="w-5 h-5 text-white" />
-              </div>
-              Visualization Canvas
-            </h3>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full" />
-              <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Ready</span>
-            </div>
-          </div>
-
-          <div className="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl h-80 flex flex-col items-center justify-center space-y-4">
-            <p className="text-lg font-medium text-slate-600 dark:text-slate-400">
-              Select an algorithm to begin visualization
+        <section aria-labelledby="algorithms-heading">
+          <div className="text-center mb-10">
+            <h2 id="algorithms-heading" className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+              Choose Your Learning Path
+            </h2>
+            <p className="mt-3 text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+              Each algorithm is broken down into visual, digestible steps
             </p>
-            <p className="text-sm text-slate-500 dark:text-slate-500">
-              Start with AES to see step-by-step encryption in action
-            </p>
-            <button
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+            {/* AES Card */}
+            <article
               onClick={() => setCurrentPage('aes')}
-              className="btn-primary mt-4"
+              className="group relative glass-card p-8 cursor-pointer overflow-hidden"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && setCurrentPage('aes')}
+              aria-label="Learn AES Encryption - Symmetric, 128/192/256-bit, 10 rounds"
             >
-              <Cpu className="w-4 h-4" />
-              Explore AES
-            </button>
+              {/* Hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-600/0 group-hover:from-blue-500/5 group-hover:to-blue-600/10 transition-all duration-500" />
+
+              <div className="relative space-y-6">
+                <div className="flex items-start justify-between">
+                  <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg shadow-blue-500/20">
+                    <Cpu className="w-7 h-7 text-white" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-xs font-mono text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                    10 rounds
+                  </span>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    AES Encryption
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                    The worldwide standard for symmetric encryption. Watch SubBytes, ShiftRows,
+                    MixColumns, and AddRoundKey transform your data.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1.5 bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 rounded-lg text-xs font-semibold text-blue-700 dark:text-blue-300">
+                    Symmetric
+                  </span>
+                  <span className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-mono text-slate-600 dark:text-slate-400">
+                    128/192/256-bit
+                  </span>
+                </div>
+
+                <div className="pt-4 flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium">
+                  <span>Explore AES</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                </div>
+              </div>
+            </article>
+
+            {/* RSA Card */}
+            <article
+              onClick={() => setCurrentPage('rsa')}
+              className="group relative glass-card p-8 cursor-pointer overflow-hidden"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && setCurrentPage('rsa')}
+              aria-label="Learn RSA Encryption - Asymmetric, Public/Private keys"
+            >
+              {/* Hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/0 to-violet-600/0 group-hover:from-violet-500/5 group-hover:to-violet-600/10 transition-all duration-500" />
+
+              <div className="relative space-y-6">
+                <div className="flex items-start justify-between">
+                  <div className="p-3 bg-gradient-to-br from-violet-500 to-violet-600 rounded-xl shadow-lg shadow-violet-500/20">
+                    <Key className="w-7 h-7 text-white" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-xs font-mono text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                    pub/priv keys
+                  </span>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
+                    RSA Encryption
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Public-key cryptography demystified. See how prime numbers create
+                    the mathematical foundation for secure communication.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1.5 bg-violet-50 dark:bg-violet-950/50 border border-violet-100 dark:border-violet-900 rounded-lg text-xs font-semibold text-violet-700 dark:text-violet-300">
+                    Asymmetric
+                  </span>
+                  <span className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-mono text-slate-600 dark:text-slate-400">
+                    2048/4096-bit
+                  </span>
+                </div>
+
+                <div className="pt-4 flex items-center gap-2 text-violet-600 dark:text-violet-400 font-medium">
+                  <span>Explore RSA</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                </div>
+              </div>
+            </article>
+
+            {/* Hashing Card */}
+            <article
+              onClick={() => setCurrentPage('hashing')}
+              className="group relative glass-card p-8 cursor-pointer overflow-hidden"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && setCurrentPage('hashing')}
+              aria-label="Learn Hash Functions - One-way, SHA-256, Avalanche effect"
+            >
+              {/* Hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/0 to-emerald-600/0 group-hover:from-emerald-500/5 group-hover:to-emerald-600/10 transition-all duration-500" />
+
+              <div className="relative space-y-6">
+                <div className="flex items-start justify-between">
+                  <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg shadow-emerald-500/20">
+                    <Fingerprint className="w-7 h-7 text-white" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-xs font-mono text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                    one-way
+                  </span>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                    Hash Functions
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Experience the avalanche effect firsthand. See how changing
+                    one bit cascades into a completely different hash output.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1.5 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-900 rounded-lg text-xs font-semibold text-emerald-700 dark:text-emerald-300">
+                    SHA-256
+                  </span>
+                  <span className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-mono text-slate-600 dark:text-slate-400">
+                    256-bit output
+                  </span>
+                </div>
+
+                <div className="pt-4 flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-medium">
+                  <span>Explore Hashing</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                </div>
+              </div>
+            </article>
           </div>
-        </div>
-      </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="glass-card p-8 sm:p-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center space-y-4">
+              <div className="inline-flex p-3 bg-slate-100 dark:bg-slate-800 rounded-xl">
+                <Lock className="w-6 h-6 text-slate-600 dark:text-slate-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                Step-by-Step
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                Every transformation is visualized. Pause, rewind, and examine each operation at your own pace.
+              </p>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div className="inline-flex p-3 bg-slate-100 dark:bg-slate-800 rounded-xl">
+                <Cpu className="w-6 h-6 text-slate-600 dark:text-slate-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                Real Algorithms
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                Not simplified versions. See the actual S-boxes, permutations, and mathematical operations used in production.
+              </p>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div className="inline-flex p-3 bg-slate-100 dark:bg-slate-800 rounded-xl">
+                <Hash className="w-6 h-6 text-slate-600 dark:text-slate-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                Interactive Quizzes
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                Test your understanding with built-in knowledge checks after each section.
+              </p>
+            </div>
+          </div>
+        </section>
+      </article>
     </Layout>
   );
 }

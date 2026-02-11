@@ -33,7 +33,7 @@ const iconMap = {
 };
 
 interface AESPageProps {
-  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'glossary') => void;
+  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'glossary' | 'about') => void;
 }
 
 export const AESPage: React.FC<AESPageProps> = ({ onNavigate }) => {
