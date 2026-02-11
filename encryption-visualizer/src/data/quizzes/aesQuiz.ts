@@ -1,0 +1,78 @@
+import type { QuizQuestion } from '@/lib/types';
+
+export const aesQuizQuestions: QuizQuestion[] = [
+    {
+        id: "aes-basics-1",
+        question: "What is the block size of AES?",
+        options: ["64 bits", "128 bits", "256 bits", "512 bits"],
+        correct: 1,
+        explanation: "AES always operates on 128-bit (16-byte) blocks, regardless of key size.",
+        difficulty: "beginner",
+    },
+    {
+        id: "aes-basics-2",
+        question: "How many rounds does AES-128 perform?",
+        options: ["8 rounds", "10 rounds", "12 rounds", "14 rounds"],
+        correct: 1,
+        explanation: "AES-128 performs 10 rounds of encryption. AES-192 uses 12 rounds, and AES-256 uses 14 rounds.",
+        difficulty: "beginner",
+    },
+    {
+        id: "aes-operations-1",
+        question: "Which operation is NOT part of the final round in AES?",
+        options: ["SubBytes", "ShiftRows", "MixColumns", "AddRoundKey"],
+        correct: 2,
+        explanation: "The final round omits MixColumns. It only performs SubBytes, ShiftRows, and AddRoundKey.",
+        difficulty: "intermediate",
+    },
+    {
+        id: "aes-operations-2",
+        question: "What is the purpose of the SubBytes operation?",
+        options: [
+            "To shift rows left",
+            "To provide non-linear substitution",
+            "To mix columns",
+            "To add the round key",
+        ],
+        correct: 1,
+        explanation: "SubBytes provides non-linear substitution using the S-Box, adding confusion to the cipher.",
+        difficulty: "intermediate",
+    },
+    {
+        id: "aes-security-1",
+        question: "Which AES variant provides the highest level of security?",
+        options: ["AES-128", "AES-192", "AES-256", "All are equally secure"],
+        correct: 2,
+        explanation: "AES-256 offers the highest security with a 256-bit key and 14 rounds, suitable for long-term protection.",
+        difficulty: "beginner",
+    },
+    {
+        id: "aes-advanced-1",
+        question: "What field is used for MixColumns operation?",
+        options: ["Real numbers", "Integers", "Galois Field GF(2⁸)", "Complex numbers"],
+        correct: 2,
+        explanation: "MixColumns uses polynomial multiplication in Galois Field GF(2⁸) to provide diffusion.",
+        difficulty: "advanced",
+    },
+    {
+        id: "aes-modes-1",
+        question: "Which mode of operation should NEVER be used in production?",
+        options: ["CBC", "GCM", "CTR", "ECB"],
+        correct: 3,
+        explanation: "ECB (Electronic Codebook) reveals patterns in plaintext and should never be used. Use CBC, GCM, or CTR instead.",
+        difficulty: "intermediate",
+    },
+    {
+        id: "aes-practical-1",
+        question: "What is the recommended approach for encrypting large amounts of data?",
+        options: [
+            "Use AES directly on all data",
+            "Use AES with a proper mode of operation",
+            "Use multiple encryption passes",
+            "Compress then encrypt",
+        ],
+        correct: 1,
+        explanation: "Use AES with a proper mode of operation (like GCM or CBC) and authenticated encryption for integrity.",
+        difficulty: "intermediate",
+    },
+];
