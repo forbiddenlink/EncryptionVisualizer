@@ -3,19 +3,19 @@ import { Hash, Zap, Sparkles } from 'lucide-react';
 
 export const HashInputPanel: React.FC<{ onHash: (input: string) => void }> = ({ onHash }) => {
   const [input, setInput] = useState('Hello, World!');
-  
+
   const examples = [
     'Hello, World!',
     'Cryptography',
     'SHA-256',
     'Blockchain',
   ];
-  
+
   return (
     <div className="glass-card p-6 space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-          <div className="p-2 bg-gradient-to-r from-emerald-600 to-teal-500 rounded-xl">
+        <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+          <div className="p-2 bg-emerald-600 rounded-xl">
             <Hash className="w-5 h-5 text-white" />
           </div>
           Hash Function Input
@@ -24,7 +24,7 @@ export const HashInputPanel: React.FC<{ onHash: (input: string) => void }> = ({ 
 
       <div className="space-y-3">
         <div>
-          <label className="text-sm font-semibold text-white/70 mb-2 block">
+          <label className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2 block">
             Enter text to hash:
           </label>
           <div className="flex gap-3">
@@ -32,7 +32,7 @@ export const HashInputPanel: React.FC<{ onHash: (input: string) => void }> = ({ 
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-emerald-500/50 focus:bg-white/10 transition-all"
+              className="flex-1 px-4 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all"
               placeholder="Enter any text..."
             />
             <button
@@ -46,7 +46,7 @@ export const HashInputPanel: React.FC<{ onHash: (input: string) => void }> = ({ 
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <span className="text-xs text-white/50 font-semibold">Quick examples:</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Quick examples:</span>
           {examples.map((example) => (
             <button
               key={example}
@@ -54,7 +54,7 @@ export const HashInputPanel: React.FC<{ onHash: (input: string) => void }> = ({ 
                 setInput(example);
                 onHash(example);
               }}
-              className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-emerald-500/30 rounded-lg text-xs font-medium text-white/70 hover:text-white transition-all"
+              className="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 hover:border-emerald-500/30 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all"
             >
               {example}
             </button>
@@ -62,11 +62,11 @@ export const HashInputPanel: React.FC<{ onHash: (input: string) => void }> = ({ 
         </div>
       </div>
 
-      <div className="glass-card bg-emerald-500/10 border-emerald-500/30 p-4">
+      <div className="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 rounded-xl p-4">
         <div className="flex items-start gap-2">
-          <Sparkles className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
-          <div className="text-sm text-white/70 leading-relaxed">
-            <span className="font-semibold text-emerald-400">Hash Functions:</span> Transform any input into a fixed-size output. Same input always produces the same hash, but even tiny changes create completely different hashes!
+          <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
+          <div className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+            <span className="font-semibold text-emerald-600 dark:text-emerald-400">Hash Functions:</span> Transform any input into a fixed-size output. Same input always produces the same hash, but even tiny changes create completely different hashes!
           </div>
         </div>
       </div>

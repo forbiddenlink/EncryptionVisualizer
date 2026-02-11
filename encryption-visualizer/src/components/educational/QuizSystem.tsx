@@ -65,13 +65,13 @@ export const QuizSystem: React.FC<QuizSystemProps> = ({
     return (
         <div className="glass-card overflow-hidden">
             {/* Quiz Header */}
-            <div className="p-4 border-b border-white/10 flex items-center justify-between">
-                <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-yellow-400" />
+            <div className="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-yellow-500 dark:text-yellow-400" />
                     {title}
                 </h3>
                 {!isCompleted && (
-                    <span className="text-xs text-white/50 font-mono">
+                    <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
                         {currentQuestionIndex + 1} / {shuffledQuestions.length}
                     </span>
                 )}

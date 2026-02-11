@@ -64,10 +64,10 @@ export const AESPage: React.FC<AESPageProps> = ({ onNavigate }) => {
         <div className="glass-card p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl sm:text-4xl font-black gradient-text mb-2">
+              <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mb-2">
                 AES Encryption Visualizer
               </h1>
-              <p className="text-sm sm:text-base text-white/60">
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
                 Explore the Advanced Encryption Standard step-by-step
               </p>
             </div>
@@ -95,10 +95,10 @@ export const AESPage: React.FC<AESPageProps> = ({ onNavigate }) => {
               onToggle={() => toggleSection('whatIsAES')}
             >
               <div className="flex items-start gap-3">
-                <div className="p-2 bg-blue-500/20 rounded-lg">
-                  <Info className="w-5 h-5 text-blue-400" />
+                <div className="p-2 bg-blue-100 dark:bg-blue-500/20 rounded-lg">
+                  <Info className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 </div>
-                <p className="text-sm text-white/70 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                   {aesEducationalContent.whatIsAES.content}
                 </p>
               </div>
@@ -112,16 +112,16 @@ export const AESPage: React.FC<AESPageProps> = ({ onNavigate }) => {
             >
               <div className="space-y-3">
                 {aesEducationalContent.fourOperations.operations.map((op, idx) => (
-                  <div key={idx} className="glass-card bg-white/[0.02] p-3 rounded-xl">
+                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
                     <div className="flex items-center gap-2 mb-2">
                       <div
                         className="w-3 h-3 rounded-full"
                         style={{ backgroundColor: op.color }}
                       />
-                      <h4 className="font-bold text-white text-sm">{op.name}</h4>
+                      <h4 className="font-bold text-slate-900 dark:text-white text-sm">{op.name}</h4>
                     </div>
-                    <p className="text-xs text-white/60 mb-1">{op.description}</p>
-                    <p className="text-xs text-white/50">{op.detail}</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mb-1">{op.description}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-500">{op.detail}</p>
                   </div>
                 ))}
               </div>
@@ -135,13 +135,13 @@ export const AESPage: React.FC<AESPageProps> = ({ onNavigate }) => {
             >
               <div className="space-y-3">
                 {aesEducationalContent.keySize.variants.map((variant, idx) => (
-                  <div key={idx} className="glass-card bg-white/[0.02] p-3 rounded-xl">
+                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-bold text-cyan-400">{variant.bits}</span>
-                      <span className="text-xs text-white/50">{variant.rounds} rounds</span>
+                      <span className="font-bold text-blue-600 dark:text-cyan-400">{variant.bits}</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">{variant.rounds} rounds</span>
                     </div>
-                    <p className="text-xs text-white/70 mb-1">{variant.description}</p>
-                    <p className="text-xs text-white/50">{variant.usage}</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-300 mb-1">{variant.description}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{variant.usage}</p>
                   </div>
                 ))}
               </div>
@@ -156,10 +156,10 @@ export const AESPage: React.FC<AESPageProps> = ({ onNavigate }) => {
               <div className="space-y-2">
                 {aesEducationalContent.securityNotes.notes.map((note, idx) => (
                   <div key={idx} className="flex items-start gap-2">
-                    {note.type === 'strength' && <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />}
-                    {note.type === 'warning' && <AlertTriangle className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />}
-                    {note.type === 'info' && <Info className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />}
-                    <p className="text-xs text-white/70">{note.text}</p>
+                    {note.type === 'strength' && <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5" />}
+                    {note.type === 'warning' && <AlertTriangle className="w-4 h-4 text-yellow-500 dark:text-yellow-400 flex-shrink-0 mt-0.5" />}
+                    {note.type === 'info' && <Info className="w-4 h-4 text-blue-500 dark:text-blue-400 flex-shrink-0 mt-0.5" />}
+                    <p className="text-xs text-slate-600 dark:text-slate-300">{note.text}</p>
                   </div>
                 ))}
               </div>
@@ -175,14 +175,14 @@ export const AESPage: React.FC<AESPageProps> = ({ onNavigate }) => {
                 {aesEducationalContent.realWorldUse.examples.map((example, idx) => {
                   const Icon = iconMap[example.icon as keyof typeof iconMap] || Globe;
                   return (
-                    <div key={idx} className="glass-card bg-white/[0.02] p-3 rounded-xl text-center">
+                    <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl text-center">
                       <div className="flex justify-center mb-2">
-                        <div className="p-2 bg-cyan-500/20 rounded-lg">
-                          <Icon className="w-4 h-4 text-cyan-400" />
+                        <div className="p-2 bg-blue-100 dark:bg-cyan-500/20 rounded-lg">
+                          <Icon className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
                         </div>
                       </div>
-                      <h4 className="text-xs font-bold text-white mb-1">{example.name}</h4>
-                      <p className="text-[10px] text-white/50 leading-tight">{example.description}</p>
+                      <h4 className="text-xs font-bold text-slate-900 dark:text-white mb-1">{example.name}</h4>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">{example.description}</p>
                     </div>
                   );
                 })}
@@ -217,16 +217,16 @@ const EducationalCard: React.FC<EducationalCardProps> = ({
     <div className="glass-card overflow-hidden">
       <button
         onClick={onToggle}
-        className="w-full p-4 flex items-center justify-between hover:bg-white/5 transition-colors"
+        className="w-full p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
       >
-        <h3 className="text-sm font-bold text-white flex items-center gap-2">
-          <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" />
+        <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <div className="w-1.5 h-1.5 bg-blue-500 dark:bg-cyan-400 rounded-full" />
           {title}
         </h3>
         {isExpanded ? (
-          <ChevronUp className="w-4 h-4 text-white/50" />
+          <ChevronUp className="w-4 h-4 text-slate-400 dark:text-slate-500" />
         ) : (
-          <ChevronDown className="w-4 h-4 text-white/50" />
+          <ChevronDown className="w-4 h-4 text-slate-400 dark:text-slate-500" />
         )}
       </button>
 
@@ -239,7 +239,7 @@ const EducationalCard: React.FC<EducationalCardProps> = ({
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <div className="p-4 pt-0 border-t border-white/10">
+            <div className="p-4 pt-0 border-t border-slate-200 dark:border-slate-700">
               {children}
             </div>
           </motion.div>

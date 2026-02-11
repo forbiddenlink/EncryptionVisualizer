@@ -64,10 +64,10 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
         <div className="glass-card p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl sm:text-4xl font-black gradient-text mb-2">
+              <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mb-2">
                 RSA Encryption Visualizer
               </h1>
-              <p className="text-sm sm:text-base text-white/60">
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
                 Explore public-key cryptography step-by-step
               </p>
             </div>
@@ -85,9 +85,9 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
         {steps.length > 0 && (
           <div className="glass-card p-4 sm:p-6 space-y-4 sm:space-y-6">
             {/* Progress Bar */}
-            <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-purple-600 to-pink-500 transition-all duration-300"
+                className="h-full bg-purple-600 transition-all duration-300"
                 style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
               />
             </div>
@@ -96,22 +96,22 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
               <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center sm:justify-start">
                 <button
                   onClick={reset}
-                  className="p-2 sm:p-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl transition-all duration-300 hover:scale-110 active:scale-95"
+                  className="p-2 sm:p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl transition-all duration-300 hover:scale-110 active:scale-95"
                 >
-                  <Key className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
+                  <Key className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600 dark:text-purple-400" />
                 </button>
 
                 <button
                   onClick={previousStep}
                   disabled={currentStep === 0}
-                  className="p-2 sm:p-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-2 sm:p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed text-slate-700 dark:text-slate-300"
                 >
                   ←
                 </button>
 
                 <button
                   onClick={isPlaying ? pause : play}
-                  className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-pink-500 rounded-2xl text-white font-bold hover:scale-105 active:scale-95 transition-all"
+                  className="px-6 sm:px-8 py-3 sm:py-4 bg-purple-600 rounded-2xl text-white font-bold hover:scale-105 active:scale-95 transition-all"
                 >
                   {isPlaying ? 'Pause' : 'Play'}
                 </button>
@@ -119,22 +119,22 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
                 <button
                   onClick={nextStep}
                   disabled={currentStep >= steps.length - 1}
-                  className="p-2 sm:p-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-2 sm:p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed text-slate-700 dark:text-slate-300"
                 >
                   →
                 </button>
               </div>
 
-              <div className="flex items-center gap-3 sm:gap-4 glass-card px-3 sm:px-4 py-2 sm:py-3 border-white/10">
-                <span className="text-xs sm:text-sm font-semibold text-white/70">Speed</span>
+              <div className="flex items-center gap-3 sm:gap-4 glass-card px-3 sm:px-4 py-2 sm:py-3">
+                <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400">Speed</span>
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   {[0.5, 1, 2, 4].map((s) => (
                     <button
                       key={s}
                       onClick={() => setSpeed(s)}
                       className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs font-bold transition-all ${speed === s
-                        ? 'bg-gradient-to-r from-purple-600 to-pink-500 text-white'
-                        : 'bg-white/5 text-white/50 hover:bg-white/10'
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                         }`}
                     >
                       {s}x
@@ -144,7 +144,7 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            <div className="text-center text-sm font-mono text-gray-400">
+            <div className="text-center text-sm font-mono text-slate-500 dark:text-slate-400">
               Step {currentStep + 1} / {steps.length}
             </div>
           </div>

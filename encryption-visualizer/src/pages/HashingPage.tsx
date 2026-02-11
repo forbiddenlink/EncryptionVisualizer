@@ -43,10 +43,10 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
         <div className="glass-card p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h1 className="text-4xl font-black gradient-text mb-2">
+              <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-2">
                 Hash Functions Visualizer
               </h1>
-              <p className="text-white/60">
+              <p className="text-slate-600 dark:text-slate-400">
                 Explore one-way functions and the avalanche effect
               </p>
             </div>
@@ -63,9 +63,9 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
         {/* Playback Controls */}
         {steps.length > 0 && (
           <div className="glass-card p-6 space-y-4">
-            <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-emerald-600 to-teal-500 transition-all duration-300"
+                className="h-full bg-emerald-600 transition-all duration-300"
                 style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
               />
             </div>
@@ -74,33 +74,33 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setCurrentStep(0)}
-                  className="p-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl transition-all"
+                  className="p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl transition-all"
                 >
                   ⏮️
                 </button>
                 <button
                   onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
                   disabled={currentStep === 0}
-                  className="p-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl transition-all disabled:opacity-30"
+                  className="p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl transition-all disabled:opacity-30"
                 >
                   ◀️
                 </button>
                 <button
                   onClick={() => setIsPlaying(!isPlaying)}
-                  className="px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-500 rounded-2xl text-white font-bold hover:scale-105 transition-all"
+                  className="px-8 py-3 bg-emerald-600 rounded-2xl text-white font-bold hover:scale-105 transition-all"
                 >
                   {isPlaying ? '⏸️ Pause' : '▶️ Play'}
                 </button>
                 <button
                   onClick={() => setCurrentStep(Math.min(steps.length - 1, currentStep + 1))}
                   disabled={currentStep >= steps.length - 1}
-                  className="p-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl transition-all disabled:opacity-30"
+                  className="p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl transition-all disabled:opacity-30"
                 >
                   ▶️
                 </button>
               </div>
 
-              <div className="text-sm font-mono text-gray-400">
+              <div className="text-sm font-mono text-slate-500 dark:text-slate-400">
                 Step {currentStep + 1} / {steps.length}
               </div>
             </div>

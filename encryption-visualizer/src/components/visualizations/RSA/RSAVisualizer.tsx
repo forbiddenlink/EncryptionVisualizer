@@ -12,11 +12,11 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
   if (steps.length === 0) {
     return (
       <div className="glass-card p-8 text-center">
-        <div className="inline-block p-4 bg-purple-500/20 rounded-2xl mb-4">
-          <Key className="w-12 h-12 text-purple-400" />
+        <div className="inline-block p-4 bg-purple-100 dark:bg-purple-500/20 rounded-2xl mb-4">
+          <Key className="w-12 h-12 text-purple-600 dark:text-purple-400" />
         </div>
-        <h3 className="text-2xl font-bold text-white mb-2">Ready to Generate Keys</h3>
-        <p className="text-white/60">
+        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Ready to Generate Keys</h3>
+        <p className="text-slate-600 dark:text-slate-400">
           Click "Generate RSA Key Pair" above to see how RSA encryption works step-by-step
         </p>
       </div>
@@ -61,19 +61,19 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
               )}
             </div>
             <div>
-              <h3 className="text-2xl sm:text-3xl font-black text-white">{step.title}</h3>
-              <p className="text-sm text-white/50 font-semibold mt-1">
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">{step.title}</h3>
+              <p className="text-sm text-slate-500 dark:text-slate-400 font-semibold mt-1">
                 Step {step.stepNumber + 1} of {steps.length}
               </p>
             </div>
           </div>
         </div>
 
-        <p className="text-white/80 leading-relaxed">{step.description}</p>
+        <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{step.description}</p>
 
         {step.formula && (
-          <div className={`glass-card bg-white/[0.02] p-4 border-2 ${stepColor.border} rounded-xl`}>
-            <div className="text-xs text-white/50 font-semibold mb-1">FORMULA:</div>
+          <div className={`bg-slate-50 dark:bg-slate-800 p-4 border-2 ${stepColor.border} rounded-xl`}>
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">FORMULA:</div>
             <div className={`text-lg font-mono font-bold ${stepColor.text}`}>
               {step.formula}
             </div>
@@ -81,9 +81,9 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
         )}
 
         {step.calculation && (
-          <div className="glass-card bg-white/[0.02] p-4 rounded-xl">
-            <div className="text-xs text-white/50 font-semibold mb-1">CALCULATION:</div>
-            <div className="text-base font-mono text-white/90">{step.calculation}</div>
+          <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">CALCULATION:</div>
+            <div className="text-base font-mono text-slate-800 dark:text-slate-200">{step.calculation}</div>
           </div>
         )}
       </motion.div>
@@ -99,7 +99,7 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
               transition={{ duration: 0.3 }}
               className="glass-card p-4 text-center"
             >
-              <div className="text-xs text-white/50 font-semibold uppercase mb-2">{key}</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase mb-2">{key}</div>
               <div className={`text-2xl font-bold font-mono ${stepColor.text}`}>{value}</div>
             </motion.div>
           ))}
@@ -111,44 +111,44 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="glass-card p-6 border-2 border-green-500/30">
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-gradient-to-br from-green-600 to-emerald-500 rounded-xl">
+              <div className="p-3 bg-green-600 rounded-xl">
                 <Lock className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h4 className="text-lg font-bold text-white">Public Key</h4>
-                <p className="text-xs text-white/50">Share this openly</p>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white">Public Key</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Share this openly</p>
               </div>
             </div>
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-white/60">e:</span>
-                <span className="text-lg font-mono font-bold text-green-400">{step.values.e}</span>
+                <span className="text-sm text-slate-600 dark:text-slate-400">e:</span>
+                <span className="text-lg font-mono font-bold text-green-600 dark:text-green-400">{step.values.e}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-white/60">n:</span>
-                <span className="text-lg font-mono font-bold text-green-400">{step.values.n}</span>
+                <span className="text-sm text-slate-600 dark:text-slate-400">n:</span>
+                <span className="text-lg font-mono font-bold text-green-600 dark:text-green-400">{step.values.n}</span>
               </div>
             </div>
           </div>
 
           <div className="glass-card p-6 border-2 border-red-500/30">
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-gradient-to-br from-red-600 to-pink-500 rounded-xl">
+              <div className="p-3 bg-red-600 rounded-xl">
                 <Key className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h4 className="text-lg font-bold text-white">Private Key</h4>
-                <p className="text-xs text-white/50">Keep this secret!</p>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white">Private Key</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Keep this secret!</p>
               </div>
             </div>
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-white/60">d:</span>
-                <span className="text-lg font-mono font-bold text-red-400">{step.values.d}</span>
+                <span className="text-sm text-slate-600 dark:text-slate-400">d:</span>
+                <span className="text-lg font-mono font-bold text-red-600 dark:text-red-400">{step.values.d}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-white/60">n:</span>
-                <span className="text-lg font-mono font-bold text-red-400">{step.values.n}</span>
+                <span className="text-sm text-slate-600 dark:text-slate-400">n:</span>
+                <span className="text-lg font-mono font-bold text-red-600 dark:text-red-400">{step.values.n}</span>
               </div>
             </div>
           </div>

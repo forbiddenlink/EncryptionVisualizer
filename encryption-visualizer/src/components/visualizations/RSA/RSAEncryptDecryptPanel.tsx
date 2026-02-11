@@ -16,8 +16,8 @@ export const RSAEncryptDecryptPanel: React.FC<RSAEncryptDecryptPanelProps> = ({ 
   if (!keyPair) {
     return (
       <div className="glass-card p-6 text-center opacity-50">
-        <Lock className="w-12 h-12 text-white/30 mx-auto mb-3" />
-        <p className="text-white/50">Generate a key pair first to encrypt and decrypt messages</p>
+        <Lock className="w-12 h-12 text-slate-400 dark:text-slate-500 mx-auto mb-3" />
+        <p className="text-slate-500 dark:text-slate-400">Generate a key pair first to encrypt and decrypt messages</p>
       </div>
     );
   }
@@ -42,8 +42,8 @@ export const RSAEncryptDecryptPanel: React.FC<RSAEncryptDecryptPanelProps> = ({ 
   return (
     <div className="space-y-6">
       <div className="glass-card p-6 space-y-4">
-        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-          <div className="p-2 bg-gradient-to-r from-green-600 to-emerald-500 rounded-xl">
+        <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+          <div className="p-2 bg-green-600 rounded-xl">
             <Lock className="w-5 h-5 text-white" />
           </div>
           Encrypt & Decrypt Messages
@@ -51,7 +51,7 @@ export const RSAEncryptDecryptPanel: React.FC<RSAEncryptDecryptPanelProps> = ({ 
 
         {/* Message Input */}
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-white/70">
+          <label className="text-sm font-semibold text-slate-600 dark:text-slate-400">
             Enter a number to encrypt (0 to {keyPair.publicKey.n - 1}):
           </label>
           <div className="flex gap-3">
@@ -61,7 +61,7 @@ export const RSAEncryptDecryptPanel: React.FC<RSAEncryptDecryptPanelProps> = ({ 
               onChange={(e) => setMessage(e.target.value)}
               min="0"
               max={keyPair.publicKey.n - 1}
-              className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-green-500/50 focus:bg-white/10 transition-all font-mono"
+              className="flex-1 px-4 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all font-mono"
               placeholder="Enter a number..."
             />
             <button
@@ -82,19 +82,19 @@ export const RSAEncryptDecryptPanel: React.FC<RSAEncryptDecryptPanelProps> = ({ 
             className="space-y-4"
           >
             {/* Encrypted Value */}
-            <div className="glass-card bg-red-500/10 border-2 border-red-500/30 p-6">
+            <div className="bg-red-50 dark:bg-red-500/10 border-2 border-red-300 dark:border-red-500/30 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h4 className="text-lg font-bold text-white mb-1">Encrypted Message</h4>
-                  <p className="text-xs text-white/50">Using public key (e={keyPair.publicKey.e}, n={keyPair.publicKey.n})</p>
+                  <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Encrypted Message</h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Using public key (e={keyPair.publicKey.e}, n={keyPair.publicKey.n})</p>
                 </div>
-                <Lock className="w-8 h-8 text-red-400" />
+                <Lock className="w-8 h-8 text-red-500 dark:text-red-400" />
               </div>
-              <div className="bg-white/5 p-4 rounded-xl">
-                <div className="text-sm text-white/50 mb-1">Ciphertext:</div>
-                <div className="text-3xl font-bold font-mono text-red-400">{encrypted}</div>
+              <div className="bg-white dark:bg-slate-800 p-4 rounded-xl">
+                <div className="text-sm text-slate-500 dark:text-slate-400 mb-1">Ciphertext:</div>
+                <div className="text-3xl font-bold font-mono text-red-600 dark:text-red-400">{encrypted}</div>
               </div>
-              <div className="mt-4 text-xs text-white/50">
+              <div className="mt-4 text-xs text-slate-500 dark:text-slate-400">
                 Formula: C = M^e mod n = {message}^{keyPair.publicKey.e} mod {keyPair.publicKey.n} = {encrypted}
               </div>
             </div>
@@ -116,26 +116,26 @@ export const RSAEncryptDecryptPanel: React.FC<RSAEncryptDecryptPanelProps> = ({ 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="glass-card bg-green-500/10 border-2 border-green-500/30 p-6"
+                className="bg-green-50 dark:bg-green-500/10 border-2 border-green-300 dark:border-green-500/30 rounded-xl p-6"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h4 className="text-lg font-bold text-white mb-1">Decrypted Message</h4>
-                    <p className="text-xs text-white/50">Using private key (d={keyPair.privateKey.d}, n={keyPair.privateKey.n})</p>
+                    <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Decrypted Message</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Using private key (d={keyPair.privateKey.d}, n={keyPair.privateKey.n})</p>
                   </div>
-                  <Unlock className="w-8 h-8 text-green-400" />
+                  <Unlock className="w-8 h-8 text-green-500 dark:text-green-400" />
                 </div>
-                <div className="bg-white/5 p-4 rounded-xl">
-                  <div className="text-sm text-white/50 mb-1">Original message recovered:</div>
-                  <div className="text-3xl font-bold font-mono text-green-400">{decrypted}</div>
+                <div className="bg-white dark:bg-slate-800 p-4 rounded-xl">
+                  <div className="text-sm text-slate-500 dark:text-slate-400 mb-1">Original message recovered:</div>
+                  <div className="text-3xl font-bold font-mono text-green-600 dark:text-green-400">{decrypted}</div>
                 </div>
-                <div className="mt-4 text-xs text-white/50">
+                <div className="mt-4 text-xs text-slate-500 dark:text-slate-400">
                   Formula: M = C^d mod n = {encrypted}^{keyPair.privateKey.d} mod {keyPair.privateKey.n} = {decrypted}
                 </div>
                 {decrypted === parseInt(message) && (
-                  <div className="mt-4 flex items-center gap-2 p-3 bg-green-500/20 border border-green-500/30 rounded-xl">
-                    <Sparkles className="w-5 h-5 text-green-400" />
-                    <span className="text-sm font-bold text-green-300">
+                  <div className="mt-4 flex items-center gap-2 p-3 bg-green-100 dark:bg-green-500/20 border border-green-300 dark:border-green-500/30 rounded-xl">
+                    <Sparkles className="w-5 h-5 text-green-500 dark:text-green-400" />
+                    <span className="text-sm font-bold text-green-700 dark:text-green-300">
                       ✓ Successfully decrypted! Original message matches.
                     </span>
                   </div>
@@ -147,11 +147,11 @@ export const RSAEncryptDecryptPanel: React.FC<RSAEncryptDecryptPanelProps> = ({ 
       </div>
 
       {/* Info Box */}
-      <div className="glass-card bg-purple-500/10 border-purple-500/30 p-4">
+      <div className="bg-purple-50 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/30 rounded-xl p-4">
         <div className="flex items-start gap-2">
-          <Sparkles className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />
-          <div className="text-sm text-white/70 leading-relaxed">
-            <span className="font-semibold text-purple-400">The Magic of RSA:</span> Anyone can encrypt a message with your public key, but only you (with the private key) can decrypt it. This is the foundation of secure communication!
+          <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400 mt-0.5 flex-shrink-0" />
+          <div className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+            <span className="font-semibold text-purple-600 dark:text-purple-400">The Magic of RSA:</span> Anyone can encrypt a message with your public key, but only you (with the private key) can decrypt it. This is the foundation of secure communication!
           </div>
         </div>
       </div>

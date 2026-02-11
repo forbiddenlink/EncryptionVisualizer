@@ -31,7 +31,7 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
 
   if (steps.length === 0 || currentStep >= steps.length) {
     return (
-      <div className="glass-card p-12 text-center text-white/50">
+      <div className="glass-card p-12 text-center text-slate-500 dark:text-slate-400">
         <p>No visualization data available</p>
       </div>
     );
@@ -119,10 +119,10 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
                   <Cpu className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" strokeWidth={2.5} />
                 </div>
                 <div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-none">
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none">
                     {step.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-white/50 font-semibold mt-1 sm:mt-1.5">
+                  <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-semibold mt-1 sm:mt-1.5">
                     Step {step.stepNumber + 1} of {totalSteps} • Round {roundNumber}
                   </p>
                 </div>
@@ -136,11 +136,11 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
               </div>
             </div>
 
-            <div className="flex items-start gap-2 sm:gap-3 glass-card bg-white/[0.03] p-4 sm:p-5 rounded-xl sm:rounded-2xl border-white/10">
-              <div className={`p-1.5 sm:p-2 bg-gradient-to-br ${stepInfo.bg} rounded-lg sm:rounded-xl flex-shrink-0 mt-0.5`}>
+            <div className="flex items-start gap-2 sm:gap-3 glass-card bg-slate-50 dark:bg-slate-800/50 p-4 sm:p-5 rounded-xl sm:rounded-2xl border-slate-200 dark:border-slate-700">
+              <div className={`p-1.5 sm:p-2 bg-${stepInfo.color}-600 rounded-lg sm:rounded-xl flex-shrink-0 mt-0.5`}>
                 <Info className="w-3 h-3 sm:w-4 sm:h-4 text-white" strokeWidth={2.5} />
               </div>
-              <p className="text-white/80 leading-relaxed text-sm sm:text-[15px]">{step.description}</p>
+              <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-[15px]">{step.description}</p>
             </div>
           </div>
         </motion.div>
@@ -174,8 +174,8 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xs sm:text-sm font-black text-purple-400 tracking-wider">XOR</div>
-                  <div className="text-[10px] sm:text-xs text-white/40 font-mono mt-0.5">Bitwise Operation</div>
+                  <div className="text-xs sm:text-sm font-black text-purple-600 dark:text-purple-400 tracking-wider">XOR</div>
+                  <div className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">Bitwise Operation</div>
                 </div>
               </div>
 
@@ -193,20 +193,20 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
       {/* Additional Info */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         <div className="glass-card p-3 sm:p-4 space-y-2">
-          <div className="text-xs sm:text-sm font-semibold text-white/50">Transformation</div>
-          <div className="text-base sm:text-lg font-bold text-blue-400">{step.type}</div>
+          <div className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Transformation</div>
+          <div className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400">{step.type}</div>
         </div>
 
         <div className="glass-card p-3 sm:p-4 space-y-2">
-          <div className="text-xs sm:text-sm font-semibold text-white/50">Progress</div>
-          <div className="text-base sm:text-lg font-bold text-cyan-400">
+          <div className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Progress</div>
+          <div className="text-base sm:text-lg font-bold text-cyan-600 dark:text-cyan-400">
             {Math.round((currentStep / totalSteps) * 100)}%
           </div>
         </div>
 
         <div className="glass-card p-3 sm:p-4 space-y-2">
-          <div className="text-xs sm:text-sm font-semibold text-white/50">Round</div>
-          <div className="text-base sm:text-lg font-bold text-teal-400">
+          <div className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Round</div>
+          <div className="text-base sm:text-lg font-bold text-teal-600 dark:text-teal-400">
             {step.type === 'initial' ? '0 (Initial)' :
               step.type === 'final' ? '10 (Final)' :
                 Math.ceil(step.stepNumber / 4)}
