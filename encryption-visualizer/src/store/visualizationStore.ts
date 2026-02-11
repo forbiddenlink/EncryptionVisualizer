@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 import type { VisualizationState, Algorithm } from '@/lib/types';
 
-interface VisualizationStore extends VisualizationState {
+interface VisualizationStore extends Omit<VisualizationState, 'steps'> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  steps: any[];
   // Actions
   setAlgorithm: (algorithm: Algorithm) => void;
   play: () => void;
@@ -13,6 +15,7 @@ interface VisualizationStore extends VisualizationState {
   goToStep: (step: number) => void;
   setCurrentStep: (step: number) => void;
   setTotalSteps: (total: number) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setSteps: (steps: any[]) => void;
 }
 
@@ -52,5 +55,5 @@ export const useVisualizationStore = create<VisualizationStore>((set) => ({
 
   setTotalSteps: (total) => set({ totalSteps: total }),
 
-  setSteps: (steps) => set({ steps }),
+  setSteps: (steps) => set({ steps, totalSteps: steps.length }),
 }));

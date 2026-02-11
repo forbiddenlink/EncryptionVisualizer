@@ -10,7 +10,7 @@ interface AESVisualizerProps {
 }
 
 export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }) => {
-  const { currentStep, totalSteps, isPlaying, setTotalSteps, setCurrentStep, pause, steps: storeSteps } = useVisualizationStore();
+  const { currentStep, totalSteps, isPlaying, speed, setTotalSteps, setCurrentStep, pause, steps: storeSteps } = useVisualizationStore();
   const steps = propSteps || (storeSteps as unknown as AESStep[]);
 
   useEffect(() => {
@@ -21,13 +21,13 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
     if (isPlaying && currentStep < steps.length - 1) {
       const timer = setTimeout(() => {
         setCurrentStep(currentStep + 1);
-      }, 2000); // 2 seconds per step
+      }, 2000 / speed);
 
       return () => clearTimeout(timer);
     } else if (currentStep >= steps.length - 1) {
       pause();
     }
-  }, [isPlaying, currentStep, steps.length, setCurrentStep, pause]);
+  }, [isPlaying, currentStep, steps.length, speed, setCurrentStep, pause]);
 
   if (steps.length === 0 || currentStep >= steps.length) {
     return (
@@ -47,49 +47,63 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
           bg: 'from-slate-600 to-slate-700',
           icon: 'text-slate-300',
           badge: 'INIT',
-          color: 'slate'
+          badgeBorder: 'border-slate-500/30',
+          badgeBg: 'bg-slate-500/10',
+          infoBg: 'bg-slate-600'
         };
       case 'subBytes':
         return {
           bg: 'from-blue-600 to-blue-700',
           icon: 'text-blue-300',
           badge: 'SUBSTITUTE',
-          color: 'blue'
+          badgeBorder: 'border-blue-500/30',
+          badgeBg: 'bg-blue-500/10',
+          infoBg: 'bg-blue-600'
         };
       case 'shiftRows':
         return {
           bg: 'from-cyan-600 to-cyan-700',
           icon: 'text-cyan-300',
           badge: 'SHIFT',
-          color: 'cyan'
+          badgeBorder: 'border-cyan-500/30',
+          badgeBg: 'bg-cyan-500/10',
+          infoBg: 'bg-cyan-600'
         };
       case 'mixColumns':
         return {
           bg: 'from-teal-600 to-teal-700',
           icon: 'text-teal-300',
           badge: 'MIX',
-          color: 'teal'
+          badgeBorder: 'border-teal-500/30',
+          badgeBg: 'bg-teal-500/10',
+          infoBg: 'bg-teal-600'
         };
       case 'addRoundKey':
         return {
           bg: 'from-purple-600 to-purple-700',
           icon: 'text-purple-300',
           badge: 'XOR KEY',
-          color: 'purple'
+          badgeBorder: 'border-purple-500/30',
+          badgeBg: 'bg-purple-500/10',
+          infoBg: 'bg-purple-600'
         };
       case 'final':
         return {
           bg: 'from-emerald-600 to-emerald-700',
           icon: 'text-emerald-300',
           badge: 'COMPLETE',
-          color: 'emerald'
+          badgeBorder: 'border-emerald-500/30',
+          badgeBg: 'bg-emerald-500/10',
+          infoBg: 'bg-emerald-600'
         };
       default:
         return {
           bg: 'from-gray-600 to-gray-700',
           icon: 'text-gray-300',
           badge: 'STEP',
-          color: 'gray'
+          badgeBorder: 'border-gray-500/30',
+          badgeBg: 'bg-gray-500/10',
+          infoBg: 'bg-gray-600'
         };
     }
   };
@@ -128,7 +142,7 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className={`px-3 sm:px-4 py-1.5 sm:py-2 glass-card border-${stepInfo.color}-500/30 rounded-xl bg-${stepInfo.color}-500/10`}>
+                <div className={`px-3 sm:px-4 py-1.5 sm:py-2 glass-card ${stepInfo.badgeBorder} rounded-xl ${stepInfo.badgeBg}`}>
                   <span className={`text-xs sm:text-sm font-black ${stepInfo.icon} tracking-wider`}>
                     {stepInfo.badge}
                   </span>
@@ -137,7 +151,7 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
             </div>
 
             <div className="flex items-start gap-2 sm:gap-3 glass-card bg-slate-50 dark:bg-slate-800/50 p-4 sm:p-5 rounded-xl sm:rounded-2xl border-slate-200 dark:border-slate-700">
-              <div className={`p-1.5 sm:p-2 bg-${stepInfo.color}-600 rounded-lg sm:rounded-xl flex-shrink-0 mt-0.5`}>
+              <div className={`p-1.5 sm:p-2 ${stepInfo.infoBg} rounded-lg sm:rounded-xl flex-shrink-0 mt-0.5`}>
                 <Info className="w-3 h-3 sm:w-4 sm:h-4 text-white" strokeWidth={2.5} />
               </div>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-[15px]">{step.description}</p>
