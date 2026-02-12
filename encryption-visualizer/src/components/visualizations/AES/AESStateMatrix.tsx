@@ -105,14 +105,31 @@ export const AESStateMatrix: React.FC<AESStateMatrixProps> = ({
                       </div>
                     </div>
 
-                    {/* Enhanced tooltip on hover */}
-                    <div className="tooltip">
-                      <div className="space-y-1.5">
-                        <div className="flex items-center gap-2 pb-1.5 border-b border-slate-600">
-                          <Info className="w-3 h-3 text-cyan-400" />
+                    {/* Enhanced tooltip on hover - positioned based on cell location */}
+                    <div
+                      className={`
+                        absolute z-50 px-4 py-3 rounded-xl text-xs font-medium whitespace-nowrap pointer-events-none
+                        opacity-0 group-hover/cell:opacity-100 transition-opacity duration-200 delay-150
+                        bg-slate-900 dark:bg-slate-800 text-white border border-slate-700 dark:border-slate-600
+                        shadow-xl shadow-black/20
+                        ${colIndex < 2 ? 'left-full ml-3' : 'right-full mr-3'}
+                        ${rowIndex < 2 ? 'top-0' : 'bottom-0'}
+                      `}
+                    >
+                      {/* Arrow pointer */}
+                      <div
+                        className={`
+                          absolute w-2 h-2 bg-slate-900 dark:bg-slate-800 border-slate-700 dark:border-slate-600 rotate-45
+                          ${colIndex < 2 ? '-left-1 border-l border-b' : '-right-1 border-r border-t'}
+                          ${rowIndex < 2 ? 'top-4' : 'bottom-4'}
+                        `}
+                      />
+                      <div className="space-y-2 relative">
+                        <div className="flex items-center gap-2 pb-2 border-b border-slate-700">
+                          <Info className="w-3.5 h-3.5 text-cyan-400" />
                           <span className="font-semibold text-cyan-400">Byte Info</span>
                         </div>
-                        <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
+                        <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-[11px]">
                           <span className="text-slate-400">Position:</span>
                           <span className="text-white font-mono">[{rowIndex}][{colIndex}]</span>
 

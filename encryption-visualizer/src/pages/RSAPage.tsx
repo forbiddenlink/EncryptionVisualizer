@@ -5,9 +5,18 @@ import { RSAVisualizer } from '@/components/visualizations/RSA/RSAVisualizer';
 import { RSAEncryptDecryptPanel } from '@/components/visualizations/RSA/RSAEncryptDecryptPanel';
 import { generateRSAKeyPairWithSteps } from '@/lib/crypto/rsa';
 import type { RSAStep, RSAKeyPair } from '@/lib/types';
-import { BookOpen, Key } from 'lucide-react';
+import { BookOpen, Key, Info, AlertTriangle, CheckCircle, Globe, Terminal, FileText } from 'lucide-react';
 import { QuizSystem } from '@/components/educational/QuizSystem';
 import { rsaQuizQuestions } from '@/data/quizzes/rsaQuiz';
+import { EducationalCard } from '@/components/educational/EducationalCard';
+import { rsaEducationalContent } from '@/data/rsaEducationalContent';
+
+const iconMap = {
+  info: Info,
+  globe: Globe,
+  terminal: Terminal,
+  file: FileText,
+};
 
 interface RSAPageProps {
   onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'glossary' | 'about') => void;
@@ -19,6 +28,19 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['whatIsRSA', 'keyGeneration']));
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(sectionId)) {
+        next.delete(sectionId);
+      } else {
+        next.add(sectionId);
+      }
+      return next;
+    });
+  };
 
   const handleGenerate = (keySize: 'small' | 'medium' | 'large') => {
     const { keyPair: newKeyPair, steps: newSteps } = generateRSAKeyPairWithSteps(keySize);
@@ -78,8 +100,11 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Input Panel */}
-        <RSAInputPanel onGenerate={handleGenerate} />
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+          {/* Left Column: Input & Visualization */}
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
+            <RSAInputPanel onGenerate={handleGenerate} />
 
         {/* Playback Controls */}
         {steps.length > 0 && (
@@ -155,14 +180,98 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
         {/* Visualizer */}
         <RSAVisualizer steps={steps} currentStep={currentStep} />
 
-        {/* Encryption/Decryption Panel */}
-        {keyPair && steps.length > 0 && currentStep === steps.length - 1 && (
-          <RSAEncryptDecryptPanel keyPair={keyPair} />
-        )}
+            {/* Encryption/Decryption Panel */}
+            {keyPair && steps.length > 0 && currentStep === steps.length - 1 && (
+              <RSAEncryptDecryptPanel keyPair={keyPair} />
+            )}
+          </div>
 
-        {/* Interactive Quiz */}
-        <div className="max-w-3xl mx-auto w-full">
-          <QuizSystem questions={rsaQuizQuestions} title="RSA Knowledge Check" />
+          {/* Right Column: Educational Content */}
+          <div className="lg:col-span-1 space-y-4">
+            {/* What is RSA? */}
+            <EducationalCard
+              title={rsaEducationalContent.whatIsRSA.title}
+              isExpanded={expandedSections.has('whatIsRSA')}
+              onToggle={() => toggleSection('whatIsRSA')}
+            >
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-purple-100 dark:bg-purple-500/20 rounded-lg">
+                  <Info className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                </div>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {rsaEducationalContent.whatIsRSA.content}
+                </p>
+              </div>
+            </EducationalCard>
+
+            {/* Key Generation Steps */}
+            <EducationalCard
+              title={rsaEducationalContent.keyGeneration.title}
+              isExpanded={expandedSections.has('keyGeneration')}
+              onToggle={() => toggleSection('keyGeneration')}
+            >
+              <div className="space-y-3">
+                {rsaEducationalContent.keyGeneration.steps.map((step, idx) => (
+                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                    <div className="flex items-center gap-2 mb-2">
+                       <div
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: step.color }}
+                      />
+                      <h4 className="font-bold text-slate-900 dark:text-white text-sm">{step.name}</h4>
+                    </div>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mb-1">{step.description}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-500 font-mono">{step.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </EducationalCard>
+
+            {/* Security Notes */}
+            <EducationalCard
+              title={rsaEducationalContent.securitySecurity.title}
+              isExpanded={expandedSections.has('security')}
+              onToggle={() => toggleSection('security')}
+            >
+              <div className="space-y-2">
+                {rsaEducationalContent.securitySecurity.notes.map((note, idx) => (
+                  <div key={idx} className="flex items-start gap-2">
+                    {note.type === 'strength' && <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5" />}
+                    {note.type === 'warning' && <AlertTriangle className="w-4 h-4 text-yellow-500 dark:text-yellow-400 flex-shrink-0 mt-0.5" />}
+                    {note.type === 'info' && <Info className="w-4 h-4 text-blue-500 dark:text-blue-400 flex-shrink-0 mt-0.5" />}
+                    <p className="text-xs text-slate-600 dark:text-slate-300">{note.text}</p>
+                  </div>
+                ))}
+              </div>
+            </EducationalCard>
+
+             {/* Real-World Use */}
+            <EducationalCard
+              title={rsaEducationalContent.realWorldUse.title}
+              isExpanded={expandedSections.has('realWorld')}
+              onToggle={() => toggleSection('realWorld')}
+            >
+              <div className="grid grid-cols-1 gap-2">
+                {rsaEducationalContent.realWorldUse.examples.map((example, idx) => {
+                  const Icon = iconMap[example.icon as keyof typeof iconMap] || Globe;
+                  return (
+                    <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl flex items-center gap-3">
+                        <div className="p-2 bg-purple-100 dark:bg-purple-500/20 rounded-lg flex-shrink-0">
+                          <Icon className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                        </div>
+                        <div>
+                            <h4 className="text-xs font-bold text-slate-900 dark:text-white mb-0.5">{example.name}</h4>
+                            <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">{example.description}</p>
+                        </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </EducationalCard>
+
+            {/* Interactive Quiz */}
+            <QuizSystem questions={rsaQuizQuestions} title="RSA Knowledge Check" />
+          </div>
         </div>
       </div>
     </Layout>

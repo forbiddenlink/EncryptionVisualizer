@@ -1,0 +1,12 @@
+# robots.txt for CryptoViz
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://cryptoviz.app/sitemap.xml
+
+# Disallow common non-content paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/

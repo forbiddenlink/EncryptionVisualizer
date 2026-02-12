@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Zap } from 'lucide-react';
 import { QuizQuestion } from './QuizQuestion';
@@ -10,6 +10,11 @@ interface QuizSystemProps {
     title?: string;
 }
 
+// Shuffle helper function
+const shuffleAndSlice = (arr: QuizQuestionType[], count: number): QuizQuestionType[] => {
+    return [...arr].sort(() => Math.random() - 0.5).slice(0, count);
+};
+
 export const QuizSystem: React.FC<QuizSystemProps> = ({
     questions,
     title = "Knowledge Check",
@@ -19,23 +24,21 @@ export const QuizSystem: React.FC<QuizSystemProps> = ({
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [score, setScore] = useState(0);
     const [isCompleted, setIsCompleted] = useState(false);
-    const [shuffledQuestions, setShuffledQuestions] = useState<QuizQuestionType[]>([]);
+    const [quizKey, setQuizKey] = useState(0);
+
+    // Shuffle questions on mount or when quizKey changes (for retry)
+    const shuffledQuestions = useMemo(() => {
+        return shuffleAndSlice(questions, 5);
+    }, [questions, quizKey]);
 
     const resetQuiz = useCallback(() => {
-        // Shuffle logic
-        const shuffled = [...questions].sort(() => Math.random() - 0.5).slice(0, 5); // Take random 5 questions
-        setShuffledQuestions(shuffled);
+        setQuizKey((prev) => prev + 1);
         setCurrentQuestionIndex(0);
         setSelectedOption(null);
         setIsSubmitted(false);
         setScore(0);
         setIsCompleted(false);
-    }, [questions]);
-
-    // Shuffle questions on mount or reset
-    useEffect(() => {
-        resetQuiz();
-    }, [resetQuiz]);
+    }, []);
 
     const currentQuestion = shuffledQuestions[currentQuestionIndex];
 

@@ -60,7 +60,7 @@ function App() {
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              Stop reading about cryptography. Start <em>seeing</em> it.
+              Don&apos;t just read about cryptography. <em>Experience</em> it.
               Watch bytes transform through AES rounds, witness prime numbers
               generate RSA keys, and observe the avalanche effect in real-time.
             </p>
