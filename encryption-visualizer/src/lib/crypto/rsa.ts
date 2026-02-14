@@ -1,6 +1,13 @@
 /**
- * RSA Cryptography Implementation
- * Implements RSA key generation, encryption, and decryption with visualization steps
+ * RSA Cryptography Implementation for Educational Visualization
+ *
+ * IMPORTANT SECURITY NOTICE:
+ * This is an EDUCATIONAL implementation only. DO NOT use in production.
+ * - Uses Math.random() which is NOT cryptographically secure
+ * - Uses small prime numbers for visualization clarity
+ * - Production systems must use crypto.getRandomValues() and 2048+ bit keys
+ *
+ * Implements RSA key generation, encryption, and decryption with visualization steps.
  */
 
 import type { RSAKeyPair, RSAStep } from '../types/index.js';

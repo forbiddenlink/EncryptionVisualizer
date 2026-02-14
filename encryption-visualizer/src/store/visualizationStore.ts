@@ -1,9 +1,11 @@
 import { create } from 'zustand';
-import type { VisualizationState, Algorithm } from '@/lib/types';
+import type { VisualizationState, Algorithm, AESStep, RSAStep, HashStep } from '@/lib/types';
+
+// Union type for all visualization step types
+type VisualizationSteps = AESStep[] | RSAStep[] | HashStep[];
 
 interface VisualizationStore extends Omit<VisualizationState, 'steps'> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  steps: any[];
+  steps: VisualizationSteps;
   // Actions
   setAlgorithm: (algorithm: Algorithm) => void;
   play: () => void;
@@ -15,8 +17,7 @@ interface VisualizationStore extends Omit<VisualizationState, 'steps'> {
   goToStep: (step: number) => void;
   setCurrentStep: (step: number) => void;
   setTotalSteps: (total: number) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setSteps: (steps: any[]) => void;
+  setSteps: (steps: VisualizationSteps) => void;
 }
 
 export const useVisualizationStore = create<VisualizationStore>((set) => ({

@@ -3,6 +3,7 @@ import { Layout } from '@/components/layout/Layout';
 import { RSAInputPanel } from '@/components/visualizations/RSA/RSAInputPanel';
 import { RSAVisualizer } from '@/components/visualizations/RSA/RSAVisualizer';
 import { RSAEncryptDecryptPanel } from '@/components/visualizations/RSA/RSAEncryptDecryptPanel';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { generateRSAKeyPairWithSteps } from '@/lib/crypto/rsa';
 import type { RSAStep, RSAKeyPair } from '@/lib/types';
 import { BookOpen, Key, Info, AlertTriangle, CheckCircle, Globe, Terminal, FileText } from 'lucide-react';
@@ -178,7 +179,9 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
         )}
 
         {/* Visualizer */}
-        <RSAVisualizer steps={steps} currentStep={currentStep} />
+        <ErrorBoundary>
+          <RSAVisualizer steps={steps} currentStep={currentStep} />
+        </ErrorBoundary>
 
             {/* Encryption/Decryption Panel */}
             {keyPair && steps.length > 0 && currentStep === steps.length - 1 && (

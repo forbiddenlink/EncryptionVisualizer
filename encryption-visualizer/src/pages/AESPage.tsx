@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { AESInputPanel } from '@/components/visualizations/AES/AESInputPanel';
 import { AESVisualizer } from '@/components/visualizations/AES/AESVisualizer';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { encryptAESWithSteps } from '@/lib/crypto/aes';
 import { useVisualizationStore } from '@/store/visualizationStore';
 import { aesEducationalContent } from '@/data/aesEducationalContent';
@@ -81,7 +82,9 @@ export const AESPage: React.FC<AESPageProps> = ({ onNavigate }) => {
           {/* Left Column: Input & Visualization */}
           <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             <AESInputPanel onEncrypt={handleEncrypt} />
-            <AESVisualizer />
+            <ErrorBoundary>
+              <AESVisualizer />
+            </ErrorBoundary>
           </div>
 
           {/* Right Column: Educational Content */}

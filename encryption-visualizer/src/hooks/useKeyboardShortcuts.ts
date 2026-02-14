@@ -5,21 +5,12 @@ interface ShortcutConfig {
   enabled?: boolean;
 }
 
+const SPEED_LEVELS = [0.5, 1, 2, 4] as const;
+
 export function useKeyboardShortcuts(config: ShortcutConfig = {}) {
   const { enabled = true } = config;
 
-  const {
-    isPlaying,
-    currentStep,
-    totalSteps,
-    speed,
-    play,
-    pause,
-    reset,
-    nextStep,
-    previousStep,
-    setSpeed,
-  } = useVisualizationStore();
+  const store = useVisualizationStore();
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -33,98 +24,47 @@ export function useKeyboardShortcuts(config: ShortcutConfig = {}) {
         return;
       }
 
-      switch (event.code) {
-        case 'Space':
-          event.preventDefault();
-          if (isPlaying) {
-            pause();
-          } else {
-            play();
-          }
-          break;
+      const { isPlaying, currentStep, totalSteps, speed } = store;
 
-        case 'ArrowRight':
-          event.preventDefault();
-          if (currentStep < totalSteps - 1) {
-            nextStep();
-          }
-          break;
+      // Define handlers for each key code
+      const handlers: Record<string, () => void> = {
+        Space: () => (isPlaying ? store.pause() : store.play()),
+        ArrowRight: () => currentStep < totalSteps - 1 && store.nextStep(),
+        ArrowLeft: () => currentStep > 0 && store.previousStep(),
+        Home: () => store.reset(),
+        End: () => totalSteps > 0 && store.goToStep(totalSteps - 1),
+        Digit1: () => store.setSpeed(0.5),
+        Digit2: () => store.setSpeed(1),
+        Digit3: () => store.setSpeed(2),
+        Digit4: () => store.setSpeed(4),
+        Equal: () => adjustSpeed(speed, 1),
+        NumpadAdd: () => adjustSpeed(speed, 1),
+        Minus: () => adjustSpeed(speed, -1),
+        NumpadSubtract: () => adjustSpeed(speed, -1),
+      };
 
-        case 'ArrowLeft':
-          event.preventDefault();
-          if (currentStep > 0) {
-            previousStep();
-          }
-          break;
+      // Handle 'R' key separately (needs modifier check)
+      if (event.code === 'KeyR' && !event.metaKey && !event.ctrlKey) {
+        event.preventDefault();
+        store.reset();
+        return;
+      }
 
-        case 'KeyR':
-          if (!event.metaKey && !event.ctrlKey) {
-            event.preventDefault();
-            reset();
-          }
-          break;
+      const handler = handlers[event.code];
+      if (handler) {
+        event.preventDefault();
+        handler();
+      }
 
-        case 'Home':
-          event.preventDefault();
-          reset();
-          break;
-
-        case 'End':
-          event.preventDefault();
-          // Go to last step
-          if (totalSteps > 0) {
-            useVisualizationStore.getState().goToStep(totalSteps - 1);
-          }
-          break;
-
-        // Speed controls with number keys
-        case 'Digit1':
-          event.preventDefault();
-          setSpeed(0.5);
-          break;
-
-        case 'Digit2':
-          event.preventDefault();
-          setSpeed(1);
-          break;
-
-        case 'Digit3':
-          event.preventDefault();
-          setSpeed(2);
-          break;
-
-        case 'Digit4':
-          event.preventDefault();
-          setSpeed(4);
-          break;
-
-        // Speed increase/decrease with +/-
-        case 'Equal':
-        case 'NumpadAdd':
-          event.preventDefault();
-          {
-            const speeds = [0.5, 1, 2, 4];
-            const currentIndex = speeds.indexOf(speed);
-            if (currentIndex < speeds.length - 1) {
-              setSpeed(speeds[currentIndex + 1]);
-            }
-          }
-          break;
-
-        case 'Minus':
-        case 'NumpadSubtract':
-          event.preventDefault();
-          {
-            const speeds = [0.5, 1, 2, 4];
-            const currentIndex = speeds.indexOf(speed);
-            if (currentIndex > 0) {
-              setSpeed(speeds[currentIndex - 1]);
-            }
-          }
-          break;
+      function adjustSpeed(currentSpeed: number, direction: 1 | -1) {
+        const currentIndex = SPEED_LEVELS.indexOf(currentSpeed as typeof SPEED_LEVELS[number]);
+        const newIndex = currentIndex + direction;
+        if (newIndex >= 0 && newIndex < SPEED_LEVELS.length) {
+          store.setSpeed(SPEED_LEVELS[newIndex]);
+        }
       }
     },
-    [isPlaying, currentStep, totalSteps, speed, play, pause, reset, nextStep, previousStep, setSpeed]
+    [store]
   );
 
   useEffect(() => {

@@ -63,11 +63,22 @@ if (typeof window !== 'undefined') {
     applyTheme('dark');
   }
 
-  // Listen for system theme changes
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  // Listen for system theme changes (using named function for proper cleanup)
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const handleSystemThemeChange = () => {
     const { theme, setTheme } = useThemeStore.getState();
     if (theme === 'system') {
       setTheme('system');
     }
-  });
+  };
+
+  // Use the modern addEventListener (addListener is deprecated)
+  mediaQuery.addEventListener('change', handleSystemThemeChange);
+
+  // Cleanup on HMR (Vite specific)
+  if (import.meta.hot) {
+    import.meta.hot.dispose(() => {
+      mediaQuery.removeEventListener('change', handleSystemThemeChange);
+    });
+  }
 }

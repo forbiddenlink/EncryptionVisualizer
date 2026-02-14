@@ -1,6 +1,9 @@
 /**
- * Simplified SHA-256 Implementation for Educational Visualization
- * This is a working implementation for demonstration purposes
+ * Simplified Hash Function for Educational Visualization
+ *
+ * IMPORTANT: This uses FNV-1a (32-bit) for simplicity, NOT SHA-256.
+ * Real-world applications should use Web Crypto API's SHA-256.
+ * This implementation prioritizes visualization clarity over cryptographic security.
  */
 
 export interface HashStep {
@@ -160,7 +163,7 @@ export function hashWithSteps(input: string): HashStep[] {
     stepNumber: stepNumber++,
     type: 'output',
     title: 'Final Hash Output',
-    description: `The final 256-bit hash (represented as 64 hexadecimal characters): ${finalHash}`,
+    description: `The final 32-bit hash (8 hexadecimal characters): ${finalHash}. Note: This is a simplified FNV-1a hash for educational purposes. Production systems use SHA-256 (256-bit) or similar.`,
     data: {
       input,
       hash: finalHash,
