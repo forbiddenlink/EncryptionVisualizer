@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { HashInputPanel } from '@/components/visualizations/Hash/HashInputPanel';
 import { HashVisualizer } from '@/components/visualizations/Hash/HashVisualizer';
 import { AvalancheEffectDemo } from '@/components/visualizations/Hash/AvalancheEffectDemo';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { useVisualizationStore } from '@/store/visualizationStore';
 import { hashWithSteps, type HashStep } from '@/lib/crypto/hash';
 import { BookOpen } from 'lucide-react';
 import { QuizSystem } from '@/components/educational/QuizSystem';
@@ -24,9 +25,22 @@ interface HashingPageProps {
 }
 
 export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
-  const [steps, setSteps] = useState<HashStep[]>([]);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  // Use global visualization store for playback state
+  const {
+    steps,
+    currentStep,
+    isPlaying,
+    speed,
+    setSteps,
+    setCurrentStep,
+    play,
+    pause,
+    reset,
+  } = useVisualizationStore();
+
+  // Cast steps to HashStep[] for type safety in this component
+  const hashSteps = steps as HashStep[];
+
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['whatIsHashing', 'properties']));
 
   const toggleSection = (sectionId: string) => {
@@ -44,21 +58,21 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
   const handleHash = (input: string) => {
     const newSteps = hashWithSteps(input);
     setSteps(newSteps);
-    setCurrentStep(0);
-    setIsPlaying(true);
+    reset();
+    play();
   };
 
   // Auto-advance steps when playing
-  React.useEffect(() => {
+  useEffect(() => {
     if (isPlaying && currentStep < steps.length - 1) {
       const timer = setTimeout(() => {
         setCurrentStep(currentStep + 1);
-      }, 2000);
+      }, 2000 / speed);
       return () => clearTimeout(timer);
     } else if (isPlaying && currentStep === steps.length - 1) {
-      setIsPlaying(false);
+      pause();
     }
-  }, [isPlaying, currentStep, steps.length]);
+  }, [isPlaying, currentStep, steps.length, speed, setCurrentStep, pause]);
 
   return (
     <Layout onNavigate={onNavigate}>
@@ -89,19 +103,19 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
             <HashInputPanel onHash={handleHash} />
 
         {/* Playback Controls */}
-        {steps.length > 0 && (
+        {hashSteps.length > 0 && (
           <div className="glass-card p-6 space-y-4">
             <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
               <div
                 className="h-full bg-emerald-600 transition-all duration-300"
-                style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+                style={{ width: `${((currentStep + 1) / hashSteps.length) * 100}%` }}
               />
             </div>
 
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <button
-                  onClick={() => setCurrentStep(0)}
+                  onClick={reset}
                   aria-label="Go to first step"
                   className="p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl transition-all"
                 >
@@ -116,15 +130,15 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
                   ◀️
                 </button>
                 <button
-                  onClick={() => setIsPlaying(!isPlaying)}
+                  onClick={() => (isPlaying ? pause() : play())}
                   aria-label={isPlaying ? 'Pause visualization' : 'Play visualization'}
                   className="px-8 py-3 bg-emerald-600 rounded-2xl text-white font-bold hover:scale-105 transition-all"
                 >
                   {isPlaying ? '⏸️ Pause' : '▶️ Play'}
                 </button>
                 <button
-                  onClick={() => setCurrentStep(Math.min(steps.length - 1, currentStep + 1))}
-                  disabled={currentStep >= steps.length - 1}
+                  onClick={() => setCurrentStep(Math.min(hashSteps.length - 1, currentStep + 1))}
+                  disabled={currentStep >= hashSteps.length - 1}
                   aria-label="Next step"
                   className="p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl transition-all disabled:opacity-30"
                 >
@@ -133,7 +147,7 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
               </div>
 
               <div className="text-sm font-mono text-slate-500 dark:text-slate-400">
-                Step {currentStep + 1} / {steps.length}
+                Step {currentStep + 1} / {hashSteps.length}
               </div>
             </div>
           </div>
@@ -141,7 +155,7 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
 
         {/* Visualizer */}
         <ErrorBoundary>
-          <HashVisualizer steps={steps} currentStep={currentStep} />
+          <HashVisualizer steps={hashSteps} currentStep={currentStep} />
         </ErrorBoundary>
 
             {/* Avalanche Effect Demo */}

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { RSAInputPanel } from '@/components/visualizations/RSA/RSAInputPanel';
 import { RSAVisualizer } from '@/components/visualizations/RSA/RSAVisualizer';
 import { RSAEncryptDecryptPanel } from '@/components/visualizations/RSA/RSAEncryptDecryptPanel';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { generateRSAKeyPairWithSteps } from '@/lib/crypto/rsa';
-import type { RSAStep, RSAKeyPair } from '@/lib/types';
+import { useVisualizationStore } from '@/store/visualizationStore';
+import type { RSAKeyPair, RSAStep } from '@/lib/types';
 import { BookOpen, Key, Info, AlertTriangle, CheckCircle, Globe, Terminal, FileText } from 'lucide-react';
 import { QuizSystem } from '@/components/educational/QuizSystem';
 import { rsaQuizQuestions } from '@/data/quizzes/rsaQuiz';
@@ -24,12 +25,28 @@ interface RSAPageProps {
 }
 
 export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
-  const [steps, setSteps] = useState<RSAStep[]>([]);
+  // Use global visualization store for playback state
+  const {
+    steps,
+    currentStep,
+    isPlaying,
+    speed,
+    setSteps,
+    setCurrentStep,
+    play,
+    pause,
+    reset,
+    nextStep,
+    previousStep,
+    setSpeed,
+  } = useVisualizationStore();
+
+  // RSA-specific state (keyPair is not needed by other algorithms)
   const [keyPair, setKeyPair] = useState<RSAKeyPair | null>(null);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [speed, setSpeed] = useState(1);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['whatIsRSA', 'keyGeneration']));
+
+  // Cast steps to RSAStep[] for type safety in this component
+  const rsaSteps = steps as RSAStep[];
 
   const toggleSection = (sectionId: string) => {
     setExpandedSections((prev) => {
@@ -47,38 +64,21 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
     const { keyPair: newKeyPair, steps: newSteps } = generateRSAKeyPairWithSteps(keySize);
     setKeyPair(newKeyPair);
     setSteps(newSteps);
-    setCurrentStep(0);
-    setIsPlaying(true);
-  };
-
-  const play = () => setIsPlaying(true);
-  const pause = () => setIsPlaying(false);
-  const reset = () => {
-    setCurrentStep(0);
-    setIsPlaying(false);
-  };
-  const nextStep = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-  const previousStep = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
+    reset();
+    play();
   };
 
   // Auto-advance steps when playing
-  React.useEffect(() => {
+  useEffect(() => {
     if (isPlaying && currentStep < steps.length - 1) {
       const timer = setTimeout(() => {
         setCurrentStep(currentStep + 1);
       }, 2000 / speed);
       return () => clearTimeout(timer);
     } else if (isPlaying && currentStep === steps.length - 1) {
-      setIsPlaying(false);
+      pause();
     }
-  }, [isPlaying, currentStep, steps.length, speed]);
+  }, [isPlaying, currentStep, steps.length, speed, setCurrentStep, pause]);
 
   return (
     <Layout onNavigate={onNavigate}>
@@ -180,11 +180,11 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
 
         {/* Visualizer */}
         <ErrorBoundary>
-          <RSAVisualizer steps={steps} currentStep={currentStep} />
+          <RSAVisualizer steps={rsaSteps} currentStep={currentStep} />
         </ErrorBoundary>
 
             {/* Encryption/Decryption Panel */}
-            {keyPair && steps.length > 0 && currentStep === steps.length - 1 && (
+            {keyPair && rsaSteps.length > 0 && currentStep === rsaSteps.length - 1 && (
               <RSAEncryptDecryptPanel keyPair={keyPair} />
             )}
           </div>
