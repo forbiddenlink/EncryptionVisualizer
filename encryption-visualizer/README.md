@@ -1,73 +1,78 @@
-# React + TypeScript + Vite
+# CryptoViz - Encryption Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive educational web application for visualizing cryptographic algorithms. Watch AES, RSA, and hash functions work step-by-step.
 
-Currently, two official plugins are available:
+[![CI](https://github.com/forbiddenlink/EncryptionVisualizer/actions/workflows/ci.yml/badge.svg)](https://github.com/forbiddenlink/EncryptionVisualizer/actions/workflows/ci.yml)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- **AES-128 Visualization** - FIPS 197 compliant implementation with round-by-round state matrix display
+- **RSA Key Generation** - Interactive prime selection, modular arithmetic, and encryption/decryption
+- **Hash Functions** - Avalanche effect demonstration with bit-level visualization
+- **Educational Content** - Glossary, quizzes, and explanations for each algorithm
+- **Keyboard Shortcuts** - Space (play/pause), arrows (step), 1-4 (speed)
+- **Dark/Light Mode** - System preference detection with manual toggle
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Quick Start
 
-## Expanding the ESLint configuration
+```bash
+# Install dependencies
+pnpm install
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Start dev server
+pnpm dev
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Run tests
+pnpm test:run
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build for production
+pnpm build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **React 19** + TypeScript
+- **Vite** - Build tooling
+- **Zustand** - State management
+- **Framer Motion** - Animations
+- **Tailwind CSS** - Styling
+- **Vitest** - Testing (133 tests)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
+
 ```
+src/
+├── components/
+│   ├── visualizations/   # AES, RSA, Hash visualizers
+│   ├── educational/      # Quiz system, cards
+│   ├── controls/         # Playback controls
+│   └── ui/               # Theme toggle, error boundary
+├── lib/crypto/           # Algorithm implementations
+├── pages/                # AES, RSA, Hashing, Glossary, About
+├── store/                # Zustand stores
+└── data/                 # Educational content, quizzes
+```
+
+## Security Notice
+
+These implementations are for **educational purposes only**. They prioritize visualization clarity over cryptographic security:
+
+- AES-128: FIPS 197 compliant
+- RSA: Uses small primes and Math.random() (not secure)
+- Hash: Simplified FNV-1a (not SHA-256)
+
+Do not use for production cryptography.
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start dev server on port 3000 |
+| `pnpm build` | Type check and build |
+| `pnpm test:run` | Run all tests |
+| `pnpm lint` | Run ESLint |
+| `pnpm preview` | Preview production build |
+
+## License
+
+MIT
