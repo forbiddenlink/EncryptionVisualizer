@@ -26,7 +26,7 @@ export const ThemeToggle: React.FC = () => {
             focus:outline-none focus:ring-2 focus:ring-blue-500/50
             ${
               theme === value
-                ? 'bg-gradient-to-r from-blue-600/80 to-cyan-500/80 text-white shadow-lg'
+                ? 'bg-blue-600 text-white shadow-sm'
                 : 'text-white/60 hover:text-white hover:bg-white/10'
             }
           `}

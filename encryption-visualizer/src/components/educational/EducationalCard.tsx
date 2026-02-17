@@ -19,10 +19,10 @@ export const EducationalCard: React.FC<EducationalCardProps> = ({
     <div className="glass-card overflow-hidden">
       <button
         onClick={onToggle}
-        className="w-full p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+        className="w-full p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
       >
-        <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <div className="w-1.5 h-1.5 bg-blue-500 dark:bg-cyan-400 rounded-full" />
+        <h3 className="text-sm font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+          <div className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
           {title}
         </h3>
         {isExpanded ? (

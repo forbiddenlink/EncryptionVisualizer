@@ -213,7 +213,7 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
 
         <div className="glass-card p-3 sm:p-4 space-y-2">
           <div className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Progress</div>
-          <div className="text-base sm:text-lg font-bold text-cyan-600 dark:text-cyan-400">
+          <div className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400">
             {Math.round((currentStep / totalSteps) * 100)}%
           </div>
         </div>

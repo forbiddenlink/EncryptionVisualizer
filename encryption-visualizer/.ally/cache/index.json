@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "entries": {
+    "dist/index.html": {
+      "path": "dist/index.html",
+      "hash": "91d21f75794c46a911a9e58787afd84e22ea17811515d52188ec10ff126f18fc",
+      "mtime": 1771091436371.2014,
+      "result": {
+        "url": "file:///Volumes/LizsDisk/EncryptionVisualizer/encryption-visualizer/dist/index.html",
+        "file": "/Volumes/LizsDisk/EncryptionVisualizer/encryption-visualizer/dist/index.html",
+        "timestamp": "2026-02-14T17:50:50.766Z",
+        "violations": [],
+        "passes": 5,
+        "incomplete": 0
+      },
+      "standard": "wcag22aa",
+      "cachedAt": 1771091450773
+    }
+  },
+  "updatedAt": 1771091450773
+}

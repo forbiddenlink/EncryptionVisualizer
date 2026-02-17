@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "scanDate": "2026-02-14T17:50:50.774Z",
+  "totalFiles": 1,
+  "results": [
+    {
+      "url": "file:///Volumes/LizsDisk/EncryptionVisualizer/encryption-visualizer/dist/index.html",
+      "file": "/Volumes/LizsDisk/EncryptionVisualizer/encryption-visualizer/dist/index.html",
+      "timestamp": "2026-02-14T17:50:50.766Z",
+      "violations": [],
+      "passes": 5,
+      "incomplete": 0
+    }
+  ],
+  "summary": {
+    "totalViolations": 0,
+    "bySeverity": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "score": 100,
+    "topIssues": []
+  }
+}

@@ -27,12 +27,12 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
   
   const getStepColor = (type: RSAStep['type']) => {
     switch (type) {
-      case 'prime-selection': return { bg: 'from-blue-600 to-cyan-500', text: 'text-blue-400', border: 'border-blue-500/30' };
+      case 'prime-selection': return { bg: 'from-blue-600 to-indigo-500', text: 'text-blue-400', border: 'border-blue-500/30' };
       case 'modulus-calculation': return { bg: 'from-purple-600 to-pink-500', text: 'text-purple-400', border: 'border-purple-500/30' };
       case 'phi-calculation': return { bg: 'from-green-600 to-emerald-500', text: 'text-green-400', border: 'border-green-500/30' };
       case 'e-selection': return { bg: 'from-yellow-600 to-orange-500', text: 'text-yellow-400', border: 'border-yellow-500/30' };
       case 'd-calculation': return { bg: 'from-red-600 to-pink-500', text: 'text-red-400', border: 'border-red-500/30' };
-      case 'complete': return { bg: 'from-cyan-600 to-blue-500', text: 'text-cyan-400', border: 'border-cyan-500/30' };
+      case 'complete': return { bg: 'from-emerald-600 to-teal-500', text: 'text-emerald-400', border: 'border-emerald-500/30' };
       default: return { bg: 'from-gray-600 to-gray-500', text: 'text-gray-400', border: 'border-gray-500/30' };
     }
   };

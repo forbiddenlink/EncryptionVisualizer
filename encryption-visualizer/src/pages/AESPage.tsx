@@ -136,9 +136,9 @@ export const AESPage: React.FC<AESPageProps> = ({ onNavigate }) => {
             >
               <div className="space-y-3">
                 {aesEducationalContent.keySize.variants.map((variant, idx) => (
-                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-lg">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-bold text-blue-600 dark:text-cyan-400">{variant.bits}</span>
+                      <span className="font-bold text-blue-600 dark:text-blue-400">{variant.bits}</span>
                       <span className="text-xs text-slate-500 dark:text-slate-400">{variant.rounds} rounds</span>
                     </div>
                     <p className="text-xs text-slate-600 dark:text-slate-300 mb-1">{variant.description}</p>
@@ -176,10 +176,10 @@ export const AESPage: React.FC<AESPageProps> = ({ onNavigate }) => {
                 {aesEducationalContent.realWorldUse.examples.map((example, idx) => {
                   const Icon = iconMap[example.icon as keyof typeof iconMap] || Globe;
                   return (
-                    <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl text-center">
+                    <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-lg text-center">
                       <div className="flex justify-center mb-2">
-                        <div className="p-2 bg-blue-100 dark:bg-cyan-500/20 rounded-lg">
-                          <Icon className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
+                        <div className="p-2 bg-blue-100 dark:bg-blue-500/20 rounded-lg">
+                          <Icon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                         </div>
                       </div>
                       <h4 className="text-xs font-bold text-slate-900 dark:text-white mb-1">{example.name}</h4>

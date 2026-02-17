@@ -30,21 +30,29 @@
     @apply font-bold;
     letter-spacing: -0.02em;
   }
+
+  /* Focus utilities */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-blue-500/40 ring-offset-2 ring-offset-white;
+  }
+
+  .dark *:focus-visible {
+    @apply ring-offset-slate-950;
+  }
 }
 
 @layer components {
-  /* Clean Card - Light Mode */
+  /* Card System */
   .glass-card {
-    @apply bg-white border border-slate-200 rounded-xl transition-colors duration-200;
+    @apply bg-white border border-slate-200 rounded-card transition-all duration-200;
   }
 
-  /* Clean Card - Dark Mode */
   .dark .glass-card {
     @apply bg-slate-900 border-slate-800;
   }
 
   .glass-card-hover {
-    @apply glass-card transition-all duration-200;
+    @apply glass-card;
   }
 
   .glass-card-hover:hover {
@@ -52,7 +60,7 @@
   }
 
   .dark .glass-card-hover:hover {
-    @apply border-slate-700;
+    @apply border-slate-700 shadow-sm shadow-black/10;
   }
 
   /* Clean Buttons */
@@ -96,11 +104,15 @@
   }
 
   .matrix-cell:hover {
-    @apply border-blue-400;
+    @apply border-blue-500;
   }
 
   .matrix-cell-highlighted {
     @apply bg-blue-600 text-white border-blue-600;
+  }
+
+  .dark .matrix-cell-highlighted {
+    @apply bg-blue-500 border-blue-500;
   }
 
   /* Progress Ring */

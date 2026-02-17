@@ -138,21 +138,21 @@ export const PlaybackControls: React.FC = () => {
       )}
 
       {/* Progress Section */}
-      <div className="space-y-2 sm:space-y-3">
+      <div className="space-y-2">
         <div className="flex justify-between items-center text-xs sm:text-sm">
           <span className="text-slate-600 dark:text-slate-400">
-            Step <span className="font-semibold text-slate-900 dark:text-white">{currentStep + 1}</span> of{' '}
-            <span className="font-semibold text-slate-900 dark:text-white">{totalSteps || 1}</span>
+            Step <span className="font-medium text-slate-900 dark:text-white">{currentStep + 1}</span> of{' '}
+            <span className="font-medium text-slate-900 dark:text-white">{totalSteps || 1}</span>
           </span>
-          <span className="font-semibold text-slate-900 dark:text-white text-base sm:text-lg">
+          <span className="font-medium text-slate-900 dark:text-white">
             {Math.round(progress)}%
           </span>
         </div>
 
         {/* Progress Bar */}
-        <div className="relative h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+        <div className="relative h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
           <div
-            className="absolute inset-y-0 left-0 bg-blue-600 rounded-full transition-all duration-300 ease-out"
+            className="absolute inset-y-0 left-0 bg-blue-600 rounded-full transition-all duration-200 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
