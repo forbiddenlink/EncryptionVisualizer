@@ -19,6 +19,6 @@ export default defineConfig({
     globals: true,
     environment: 'happy-dom',
     setupFiles: './src/test/setup.ts',
-    exclude: ['**/node_modules/**', '**/dist/**', '**/.pnpm-store/**'],
+    exclude: ['**/node_modules/**', '**/dist/**', '**/.pnpm-store/**', '**/e2e/**'],
   },
 });
