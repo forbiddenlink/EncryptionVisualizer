@@ -40,11 +40,12 @@ export const AESInputPanel: React.FC<AESInputPanelProps> = ({ onEncrypt }) => {
       <div className="space-y-4">
         {/* Plaintext Input */}
         <div className="space-y-2">
-          <label className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400">
+          <label htmlFor="aes-plaintext" className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400">
             <FileText className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-400" />
             Plaintext (max 16 characters)
           </label>
           <input
+            id="aes-plaintext"
             type="text"
             value={plaintext}
             onChange={(e) => setPlaintext(e.target.value.slice(0, 16))}
@@ -59,11 +60,12 @@ export const AESInputPanel: React.FC<AESInputPanelProps> = ({ onEncrypt }) => {
 
         {/* Key Input */}
         <div className="space-y-2">
-          <label className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400">
+          <label htmlFor="aes-key" className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400">
             <Key className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-400" />
             Encryption Key (16 characters for AES-128)
           </label>
           <input
+            id="aes-key"
             type="text"
             value={key}
             onChange={(e) => setKey(e.target.value.slice(0, 16))}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 interface EducationalCardProps {
   title: string;
@@ -34,7 +34,7 @@ export const EducationalCard: React.FC<EducationalCardProps> = ({
 
       <AnimatePresence>
         {isExpanded && (
-          <motion.div
+          <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -44,7 +44,7 @@ export const EducationalCard: React.FC<EducationalCardProps> = ({
             <div className="p-4 pt-0 border-t border-slate-200 dark:border-slate-700">
               {children}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

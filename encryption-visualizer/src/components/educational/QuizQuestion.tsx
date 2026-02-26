@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { CheckCircle, XCircle, HelpCircle } from 'lucide-react';
 import type { QuizQuestion as QuizQuestionType } from '@/lib/types';
 
@@ -82,7 +82,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
             </div>
 
             {isSubmitted && (
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     className={`p-3 rounded-xl border ${selectedOption === question.correct ? 'border-green-500/30 bg-green-100 dark:bg-green-500/10' : 'border-red-500/30 bg-red-100 dark:bg-red-500/10'
@@ -106,7 +106,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                             </p>
                         </div>
                     </div>
-                </motion.div>
+                </m.div>
             )}
         </div>
     );

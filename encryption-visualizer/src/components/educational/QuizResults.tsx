@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Trophy, RotateCcw, Award } from 'lucide-react';
 
 interface QuizResultsProps {
@@ -31,7 +31,7 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
 
     return (
         <div className="text-center space-y-6 py-6">
-            <motion.div
+            <m.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
@@ -40,7 +40,7 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
                 <div className="w-24 h-24 rounded-full bg-yellow-100 dark:bg-yellow-500/20 flex items-center justify-center border-4 border-yellow-500/30 mb-4 mx-auto">
                     <Trophy className="w-12 h-12 text-yellow-500 dark:text-yellow-400" />
                 </div>
-            </motion.div>
+            </m.div>
 
             <div className="space-y-2">
                 <h3 className="text-2xl font-black text-slate-900 dark:text-white">Quiz Complete!</h3>
@@ -69,7 +69,7 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
             </div>
 
             {percentage === 100 && (
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
@@ -77,7 +77,7 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
                 >
                     <Award className="w-5 h-5 text-yellow-500 dark:text-yellow-400" />
                     <span className="text-sm text-yellow-700 dark:text-yellow-200">Perfect Score Achievement Unlocked!</span>
-                </motion.div>
+                </m.div>
             )}
         </div>
     );

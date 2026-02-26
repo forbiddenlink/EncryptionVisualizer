@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { encryptRSA, decryptRSA } from '@/lib/crypto/rsa';
 import type { RSAKeyPair } from '@/lib/types';
 import { Lock, Unlock, ArrowRight, Sparkles } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface RSAEncryptDecryptPanelProps {
   keyPair: RSAKeyPair | null;
@@ -76,7 +76,7 @@ export const RSAEncryptDecryptPanel: React.FC<RSAEncryptDecryptPanelProps> = ({ 
 
         {/* Encryption Flow */}
         {encrypted !== null && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="space-y-4"
@@ -113,7 +113,7 @@ export const RSAEncryptDecryptPanel: React.FC<RSAEncryptDecryptPanelProps> = ({ 
 
             {/* Decrypted Value */}
             {decrypted !== null && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-green-50 dark:bg-green-500/10 border-2 border-green-300 dark:border-green-500/30 rounded-xl p-6"
@@ -140,9 +140,9 @@ export const RSAEncryptDecryptPanel: React.FC<RSAEncryptDecryptPanelProps> = ({ 
                     </span>
                   </div>
                 )}
-              </motion.div>
+              </m.div>
             )}
-          </motion.div>
+          </m.div>
         )}
       </div>
 

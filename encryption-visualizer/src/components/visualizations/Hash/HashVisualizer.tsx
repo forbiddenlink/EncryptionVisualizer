@@ -1,6 +1,6 @@
 import React from 'react';
 import type { HashStep } from '@/lib/crypto/hash';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Hash, Binary, Cpu, CheckCircle } from 'lucide-react';
 
 interface HashVisualizerProps {
@@ -41,7 +41,7 @@ export const HashVisualizer: React.FC<HashVisualizerProps> = ({ steps, currentSt
   return (
     <div className="space-y-6">
       {/* Step Header */}
-      <motion.div
+      <m.div
         key={currentStep}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -113,7 +113,7 @@ export const HashVisualizer: React.FC<HashVisualizerProps> = ({ steps, currentSt
             )}
           </div>
         )}
-      </motion.div>
+      </m.div>
     </div>
   );
 };

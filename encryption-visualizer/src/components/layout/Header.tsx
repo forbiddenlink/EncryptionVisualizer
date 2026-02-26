@@ -21,20 +21,21 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div
+          <button
             onClick={() => handleNavClick('home')}
-            className="flex items-center gap-2 sm:gap-3 cursor-pointer"
+            className="flex items-center gap-2 sm:gap-3 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg"
+            aria-label="Go to home page"
           >
             <div className="bg-blue-600 p-2 rounded-lg">
               <Lock className="w-5 h-5 text-white" strokeWidth={2.5} />
             </div>
-            <div>
+            <div className="text-left">
               <span className="text-xl font-bold text-slate-900 dark:text-white">
                 CryptoViz
               </span>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:block">Interactive Learning</p>
             </div>
-          </div>
+          </button>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">

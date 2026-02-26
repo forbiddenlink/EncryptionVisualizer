@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Info } from 'lucide-react';
 
 interface AESStateMatrixProps {
@@ -63,7 +63,7 @@ export const AESStateMatrix: React.FC<AESStateMatrixProps> = ({
                 const highlighted = isHighlighted(rowIndex, colIndex);
                 
                 return (
-                  <motion.div
+                  <m.div
                     key={`${rowIndex}-${colIndex}`}
                     initial={showAnimation ? { scale: 0.9, opacity: 0 } : false}
                     animate={{ scale: 1, opacity: 1 }}
@@ -129,7 +129,7 @@ export const AESStateMatrix: React.FC<AESStateMatrixProps> = ({
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </div>

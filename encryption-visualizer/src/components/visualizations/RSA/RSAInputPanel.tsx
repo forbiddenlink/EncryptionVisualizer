@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, Key, Zap } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface RSAInputPanelProps {
   onGenerate: (keySize: 'small' | 'medium' | 'large') => void;
@@ -45,13 +45,13 @@ export const RSAInputPanel: React.FC<RSAInputPanelProps> = ({ onGenerate }) => {
       </div>
 
       <div className="space-y-4">
-        <div>
-          <label className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3 block">
+        <fieldset>
+          <legend className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3 block">
             Select Key Size:
-          </label>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          </legend>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" role="radiogroup" aria-label="Key size selection">
             {keySizes.map((keySize) => (
-              <motion.button
+              <m.button
                 key={keySize.size}
                 onClick={() => setSelectedSize(keySize.size)}
                 className={`relative p-4 rounded-xl border-2 transition-all duration-300 text-left ${
@@ -77,10 +77,10 @@ export const RSAInputPanel: React.FC<RSAInputPanelProps> = ({ onGenerate }) => {
                 </div>
                 <p className="text-xs text-slate-600 dark:text-slate-400 mb-1">Prime range: {keySize.primeRange}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-500">{keySize.description}</p>
-              </motion.button>
+              </m.button>
             ))}
           </div>
-        </div>
+        </fieldset>
 
         <button
           onClick={() => onGenerate(selectedSize)}

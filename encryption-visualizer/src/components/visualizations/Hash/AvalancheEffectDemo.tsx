@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { demonstrateAvalancheEffect } from '@/lib/crypto/hash';
 import { Zap, AlertTriangle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export const AvalancheEffectDemo: React.FC = () => {
   const [input, setInput] = useState('Hello');
@@ -50,13 +50,13 @@ export const AvalancheEffectDemo: React.FC = () => {
       </div>
 
       {results.length > 0 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="space-y-3"
         >
           {results.map((result, idx) => (
-            <motion.div
+            <m.div
               key={idx}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -79,7 +79,7 @@ export const AvalancheEffectDemo: React.FC = () => {
                   </div>
                 )}
               </div>
-            </motion.div>
+            </m.div>
           ))}
 
           <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-xl p-4 text-center">
@@ -90,7 +90,7 @@ export const AvalancheEffectDemo: React.FC = () => {
               ({Math.round((results.slice(1).reduce((sum, r) => sum + r.bitsChanged, 0) / Math.max(results.length - 1, 1) / (results[0]?.hash.length * 4 || 32)) * 100)}% change)
             </div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </div>
   );

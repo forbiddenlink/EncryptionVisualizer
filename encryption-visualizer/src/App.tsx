@@ -89,7 +89,7 @@ function App() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* AES Card */}
-            <article
+            <div
               onClick={() => setCurrentPage('aes')}
               className="group relative glass-card p-6 cursor-pointer overflow-hidden hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all duration-200"
               role="button"
@@ -131,10 +131,10 @@ function App() {
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
-            </article>
+            </div>
 
             {/* RSA Card */}
-            <article
+            <div
               onClick={() => setCurrentPage('rsa')}
               className="group relative glass-card p-6 cursor-pointer overflow-hidden hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all duration-200"
               role="button"
@@ -176,10 +176,10 @@ function App() {
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
-            </article>
+            </div>
 
             {/* Hashing Card */}
-            <article
+            <div
               onClick={() => setCurrentPage('hashing')}
               className="group relative glass-card p-6 cursor-pointer overflow-hidden hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all duration-200"
               role="button"
@@ -221,7 +221,7 @@ function App() {
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
-            </article>
+            </div>
           </div>
         </section>
 

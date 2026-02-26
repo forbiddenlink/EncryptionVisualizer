@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { glossaryTerms } from '@/data/glossary';
 import { Search, Book } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export const GlossaryPage: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -65,7 +65,7 @@ export const GlossaryPage: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {filteredTerms.length > 0 ? (
                         filteredTerms.map((term, index) => (
-                            <motion.div
+                            <m.div
                                 key={term.term}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ export const GlossaryPage: React.FC = () => {
                                         ))}
                                     </div>
                                 )}
-                            </motion.div>
+                            </m.div>
                         ))
                     ) : (
                         <div className="col-span-full text-center py-12 text-slate-400 dark:text-slate-500">

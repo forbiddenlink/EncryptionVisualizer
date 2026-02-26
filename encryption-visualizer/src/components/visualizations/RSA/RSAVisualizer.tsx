@@ -1,6 +1,6 @@
 import React from 'react';
 import type { RSAStep } from '@/lib/types';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Key, Lock, Hash, CheckCircle } from 'lucide-react';
 
 interface RSAVisualizerProps {
@@ -42,7 +42,7 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
   return (
     <div className="space-y-6">
       {/* Step Header */}
-      <motion.div
+      <m.div
         key={currentStep}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -86,13 +86,13 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
             <div className="text-base font-mono text-slate-800 dark:text-slate-200">{step.calculation}</div>
           </div>
         )}
-      </motion.div>
+      </m.div>
 
       {/* Values Display */}
       {step.values && (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {Object.entries(step.values).map(([key, value]) => (
-            <motion.div
+            <m.div
               key={key}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -101,7 +101,7 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
             >
               <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase mb-2">{key}</div>
               <div className={`text-2xl font-bold font-mono ${stepColor.text}`}>{value}</div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       )}

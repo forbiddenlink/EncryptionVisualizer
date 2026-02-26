@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Zap } from 'lucide-react';
 import { QuizQuestion } from './QuizQuestion';
 import { QuizResults } from './QuizResults';
@@ -27,7 +27,9 @@ export const QuizSystem: React.FC<QuizSystemProps> = ({
     const [quizKey, setQuizKey] = useState(0);
 
     // Shuffle questions on mount or when quizKey changes (for retry)
+    // quizKey forces reshuffling when user retries the quiz
     const shuffledQuestions = useMemo(() => {
+        void quizKey; // Intentionally used to trigger re-shuffle on retry
         return shuffleAndSlice(questions, 5);
     }, [questions, quizKey]);
 
@@ -83,7 +85,7 @@ export const QuizSystem: React.FC<QuizSystemProps> = ({
             <div className="p-4">
                 <AnimatePresence mode="wait">
                     {!isCompleted ? (
-                        <motion.div
+                        <m.div
                             key={currentQuestion.id}
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -117,7 +119,7 @@ export const QuizSystem: React.FC<QuizSystemProps> = ({
                                     </button>
                                 </div>
                             )}
-                        </motion.div>
+                        </m.div>
                     ) : (
                         <QuizResults
                             score={score}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { AESStateMatrix } from './AESStateMatrix';
 import { type AESStep } from '@/lib/crypto/aes';
 import { useVisualizationStore } from '@/store/visualizationStore';
@@ -115,7 +115,7 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
     <div className="space-y-6 sm:space-y-8">
       {/* Step Header */}
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={currentStep}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -157,12 +157,12 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-[15px]">{step.description}</p>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       {/* State Matrix Display */}
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={`state-${currentStep}`}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -201,7 +201,7 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
               />
             </>
           )}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       {/* Additional Info */}
