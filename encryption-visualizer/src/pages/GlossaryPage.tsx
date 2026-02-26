@@ -4,7 +4,11 @@ import { glossaryTerms } from '@/data/glossary';
 import { Search, Book } from 'lucide-react';
 import { m } from 'framer-motion';
 
-export const GlossaryPage: React.FC = () => {
+interface GlossaryPageProps {
+    onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'signatures' | 'glossary' | 'about') => void;
+}
+
+export const GlossaryPage: React.FC<GlossaryPageProps> = ({ onNavigate }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
@@ -18,7 +22,7 @@ export const GlossaryPage: React.FC = () => {
     });
 
     return (
-        <Layout>
+        <Layout onNavigate={onNavigate}>
             <div className="space-y-8 max-w-4xl mx-auto">
                 <div className="glass-card p-6 sm:p-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
                     <div>

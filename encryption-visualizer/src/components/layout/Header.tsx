@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Lock, Cpu, Hash, Menu, X, Book, Key, Info } from 'lucide-react';
+import { Lock, Cpu, Hash, Menu, X, Book, Key, Info, FileSignature } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 interface HeaderProps {
-  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'glossary' | 'about') => void;
+  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'signatures' | 'glossary' | 'about') => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleNavClick = (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'glossary' | 'about') => {
+  const handleNavClick = (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'signatures' | 'glossary' | 'about') => {
     if (onNavigate) {
       onNavigate(page);
     }
@@ -61,6 +61,14 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
             >
               <Hash className="w-4 h-4" />
               <span className="text-sm font-medium">Hashing</span>
+            </button>
+
+            <button
+              onClick={() => handleNavClick('signatures')}
+              className="px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-2"
+            >
+              <FileSignature className="w-4 h-4" />
+              <span className="text-sm font-medium">Signatures</span>
             </button>
 
             <button
@@ -125,6 +133,14 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
             >
               <Hash className="w-5 h-5 text-slate-600 dark:text-slate-400" />
               <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Hash Functions</span>
+            </button>
+
+            <button
+              onClick={() => handleNavClick('signatures')}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            >
+              <FileSignature className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Digital Signatures</span>
             </button>
 
             <button

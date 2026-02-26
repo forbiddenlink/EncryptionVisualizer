@@ -3,12 +3,13 @@ import { Layout } from './components/layout/Layout';
 import { AESPage } from './pages/AESPage';
 import { RSAPage } from './pages/RSAPage';
 import { HashingPage } from './pages/HashingPage';
+import { SignaturesPage } from './pages/SignaturesPage';
 import { GlossaryPage } from './pages/GlossaryPage';
 import { AboutPage } from './pages/AboutPage';
-import { Cpu, Key, Hash, ArrowRight, Shield, Lock, Fingerprint } from 'lucide-react';
+import { Cpu, Key, Hash, ArrowRight, Shield, Lock, Fingerprint, FileSignature } from 'lucide-react';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'aes' | 'rsa' | 'hashing' | 'glossary' | 'about'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'aes' | 'rsa' | 'hashing' | 'signatures' | 'glossary' | 'about'>('home');
 
   if (currentPage === 'aes') {
     return <AESPage onNavigate={setCurrentPage} />;
@@ -22,8 +23,12 @@ function App() {
     return <HashingPage onNavigate={setCurrentPage} />;
   }
 
+  if (currentPage === 'signatures') {
+    return <SignaturesPage onNavigate={setCurrentPage} />;
+  }
+
   if (currentPage === 'glossary') {
-    return <GlossaryPage />;
+    return <GlossaryPage onNavigate={setCurrentPage} />;
   }
 
   if (currentPage === 'about') {
@@ -87,7 +92,7 @@ function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* AES Card */}
             <div
               onClick={() => setCurrentPage('aes')}
@@ -218,6 +223,51 @@ function App() {
 
                 <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-medium text-sm">
                   <span>Explore Hashing</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </div>
+
+            {/* Signatures Card */}
+            <div
+              onClick={() => setCurrentPage('signatures')}
+              className="group relative glass-card p-6 cursor-pointer overflow-hidden hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm transition-all duration-200"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && setCurrentPage('signatures')}
+              aria-label="Learn Digital Signatures - Authentication, Integrity, Non-repudiation"
+            >
+              <div className="space-y-5">
+                <div className="flex items-start justify-between">
+                  <div className="p-2.5 bg-amber-500 rounded-lg">
+                    <FileSignature className="w-6 h-6 text-white" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                    sign/verify
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                    Digital Signatures
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    See how cryptographic signatures prove authenticity and
+                    detect tampering without hiding the message.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-2.5 py-1 bg-amber-500/10 border border-amber-500/20 rounded text-xs font-medium text-amber-700 dark:text-amber-300">
+                    RSA-based
+                  </span>
+                  <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono text-slate-600 dark:text-slate-400">
+                    non-repudiation
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 font-medium text-sm">
+                  <span>Explore Signatures</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>

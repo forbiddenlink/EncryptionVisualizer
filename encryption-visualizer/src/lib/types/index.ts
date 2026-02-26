@@ -94,6 +94,27 @@ export interface HashStep {
   };
 }
 
+// Signature Types
+export interface SignatureStep {
+  stepNumber: number;
+  type: 'message-input' | 'hash-generation' | 'sign-hash' | 'signature-complete'
+      | 'verify-input' | 'verify-hash' | 'decrypt-signature' | 'compare-hashes' | 'verify-result';
+  title: string;
+  description: string;
+  values?: {
+    message?: string;
+    messageHash?: string;
+    signature?: number;
+    decryptedHash?: string;
+    isValid?: boolean;
+    n?: number;
+    e?: number;
+    d?: number;
+  };
+  formula?: string;
+  calculation?: string;
+}
+
 // Educational Types
 export interface QuizQuestion {
   id: string;

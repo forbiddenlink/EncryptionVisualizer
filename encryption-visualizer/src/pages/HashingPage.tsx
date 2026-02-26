@@ -21,7 +21,7 @@ const iconMap = {
 };
 
 interface HashingPageProps {
-  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'glossary' | 'about') => void;
+  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'signatures' | 'glossary' | 'about') => void;
 }
 
 export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {

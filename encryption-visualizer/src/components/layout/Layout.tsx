@@ -3,7 +3,7 @@ import { Header } from './Header';
 
 interface LayoutProps {
   children: React.ReactNode;
-  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'glossary' | 'about') => void;
+  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'signatures' | 'glossary' | 'about') => void;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {

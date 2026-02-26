@@ -3,7 +3,7 @@ import { Layout } from '@/components/layout/Layout';
 import { Shield, GraduationCap, Code, Github, Mail } from 'lucide-react';
 
 interface AboutPageProps {
-  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'glossary' | 'about') => void;
+  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'signatures' | 'glossary' | 'about') => void;
 }
 
 export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {

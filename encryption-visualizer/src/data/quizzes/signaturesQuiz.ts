@@ -1,0 +1,93 @@
+import type { QuizQuestion } from '@/lib/types';
+
+export const signaturesQuizQuestions: QuizQuestion[] = [
+  {
+    id: "sig-basics-1",
+    question: "Which key do you use to CREATE a digital signature?",
+    options: ["Public Key", "Private Key", "Symmetric Key", "Session Key"],
+    correct: 1,
+    explanation: "You sign with your PRIVATE key (only you have it). Anyone can then verify the signature using your PUBLIC key.",
+    difficulty: "beginner",
+  },
+  {
+    id: "sig-basics-2",
+    question: "Which key do you use to VERIFY a digital signature?",
+    options: ["Private Key", "Public Key", "The same key used to sign", "A new key pair"],
+    correct: 1,
+    explanation: "Anyone can verify a signature using the signer's PUBLIC key. This is the opposite of encryption where public key encrypts and private key decrypts.",
+    difficulty: "beginner",
+  },
+  {
+    id: "sig-purpose-1",
+    question: "What does a digital signature prove?",
+    options: [
+      "The message is encrypted",
+      "The sender's identity and message integrity",
+      "The message was sent recently",
+      "The message is stored securely",
+    ],
+    correct: 1,
+    explanation: "Digital signatures prove authenticity (who sent it) and integrity (it wasn't changed). They do NOT encrypt or hide the message content.",
+    difficulty: "beginner",
+  },
+  {
+    id: "sig-hash-1",
+    question: "Why do we hash the message before signing?",
+    options: [
+      "To make the message shorter for display",
+      "RSA can only sign data smaller than its modulus",
+      "Hashing adds extra encryption",
+      "It's optional and just for speed",
+    ],
+    correct: 1,
+    explanation: "RSA operations require the data to be smaller than the modulus (n). Hashing creates a fixed-size fingerprint that's always small enough to sign, regardless of message size.",
+    difficulty: "intermediate",
+  },
+  {
+    id: "sig-property-1",
+    question: "What security property means the signer cannot deny having signed?",
+    options: ["Authentication", "Confidentiality", "Non-repudiation", "Integrity"],
+    correct: 2,
+    explanation: "Non-repudiation means the signer cannot deny signing because only they have the private key that created the signature. It's mathematical proof they signed.",
+    difficulty: "intermediate",
+  },
+  {
+    id: "sig-tamper-1",
+    question: "What happens if someone modifies a signed message?",
+    options: [
+      "The signature automatically updates",
+      "The signature becomes invalid (verification fails)",
+      "Nothing, signatures don't detect changes",
+      "A new signature is generated",
+    ],
+    correct: 1,
+    explanation: "Any modification to the message changes its hash. The decrypted signature hash won't match the new hash, so verification fails. This is the integrity property.",
+    difficulty: "intermediate",
+  },
+  {
+    id: "sig-vs-encrypt-1",
+    question: "What's the key difference between signing and encrypting?",
+    options: [
+      "Signing uses bigger keys",
+      "Signing proves identity; encrypting hides content",
+      "Signing is faster",
+      "Encrypting uses two key pairs",
+    ],
+    correct: 1,
+    explanation: "Signing proves WHO sent a message and that it wasn't changed. Encrypting hides the message content. A signed message is still readable by anyone.",
+    difficulty: "advanced",
+  },
+  {
+    id: "sig-use-1",
+    question: "Which is NOT a common use of digital signatures?",
+    options: [
+      "Code signing for software updates",
+      "HTTPS certificate validation",
+      "Hiding credit card numbers",
+      "Bitcoin transaction authorization",
+    ],
+    correct: 2,
+    explanation: "Digital signatures prove authenticity, not hide data. Credit card numbers need ENCRYPTION to hide them. Signatures are used for code signing, TLS certificates, and crypto transactions.",
+    difficulty: "advanced",
+  },
+];
