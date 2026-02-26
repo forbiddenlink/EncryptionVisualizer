@@ -11,7 +11,7 @@ import { QuizSystem } from '@/components/educational/QuizSystem';
 import { hashingQuizQuestions } from '@/data/quizzes/hashingQuiz';
 import { EducationalCard } from '@/components/educational/EducationalCard';
 import { hashingEducationalContent } from '@/data/hashingEducationalContent';
-import { Info, Link, Lock, FileText, Globe } from 'lucide-react';
+import { Info, Link, Lock, FileText, Globe, XCircle, Lightbulb, ExternalLink } from 'lucide-react';
 
 const iconMap = {
   info: Info,
@@ -242,7 +242,58 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
               </div>
             </EducationalCard>
 
-             {/* Interactive Quiz */}
+            {/* Common Mistakes */}
+            <EducationalCard
+              title={hashingEducationalContent.commonMistakes.title}
+              isExpanded={expandedSections.has('commonMistakes')}
+              onToggle={() => toggleSection('commonMistakes')}
+            >
+              <div className="space-y-3">
+                {hashingEducationalContent.commonMistakes.mistakes.map((mistake, idx) => (
+                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                    <div className="flex items-center gap-2 mb-2">
+                      <XCircle className="w-4 h-4 text-red-500 dark:text-red-400 flex-shrink-0" />
+                      <h4 className="font-bold text-slate-900 dark:text-white text-sm">{mistake.mistake}</h4>
+                    </div>
+                    <p className="text-xs text-red-600 dark:text-red-400 mb-1">{mistake.why}</p>
+                    <div className="flex items-start gap-1.5 mt-2">
+                      <Lightbulb className="w-3 h-3 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                      <p className="text-xs text-green-600 dark:text-green-400">{mistake.solution}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </EducationalCard>
+
+            {/* Further Learning */}
+            <EducationalCard
+              title={hashingEducationalContent.furtherLearning.title}
+              isExpanded={expandedSections.has('furtherLearning')}
+              onToggle={() => toggleSection('furtherLearning')}
+            >
+              <div className="space-y-2">
+                {hashingEducationalContent.furtherLearning.resources.map((resource, idx) => (
+                  <a
+                    key={idx}
+                    href={resource.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block bg-slate-50 dark:bg-slate-800 p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                        {resource.type}
+                      </span>
+                      <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-emerald-500 transition-colors" />
+                    </div>
+                    <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">{resource.name}</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{resource.description}</p>
+                  </a>
+                ))}
+              </div>
+            </EducationalCard>
+
+            {/* Interactive Quiz */}
             <QuizSystem questions={hashingQuizQuestions} title="Hashing Knowledge Check" />
           </div>
         </div>

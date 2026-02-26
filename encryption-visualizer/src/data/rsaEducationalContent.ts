@@ -79,4 +79,54 @@ export const rsaEducationalContent = {
       },
     ],
   },
+
+  commonMistakes: {
+    title: "Common Mistakes to Avoid",
+    mistakes: [
+      {
+        mistake: "Using small key sizes",
+        why: "Keys under 2048 bits can be factored with modern computing power",
+        solution: "Always use at least 2048-bit keys, preferably 4096-bit for long-term security",
+      },
+      {
+        mistake: "Encrypting large data directly",
+        why: "RSA is slow and has size limits (plaintext must be smaller than modulus)",
+        solution: "Use hybrid encryption: RSA encrypts a random AES key, AES encrypts the data",
+      },
+      {
+        mistake: "Reusing key pairs",
+        why: "Compromised keys expose all historical encrypted data",
+        solution: "Rotate keys periodically and use perfect forward secrecy when possible",
+      },
+      {
+        mistake: "Ignoring padding",
+        why: "Raw RSA (textbook RSA) is vulnerable to chosen-ciphertext attacks",
+        solution: "Always use OAEP padding (PKCS#1 v2.1) for encryption",
+      },
+    ],
+  },
+
+  furtherLearning: {
+    title: "Want to Learn More?",
+    resources: [
+      {
+        type: "Original Paper",
+        name: "A Method for Obtaining Digital Signatures",
+        description: "The 1977 RSA paper by Rivest, Shamir, and Adleman",
+        url: "https://people.csail.mit.edu/rivest/Rsapaper.pdf",
+      },
+      {
+        type: "Interactive Tool",
+        name: "RSA Calculator",
+        description: "Online tool to experiment with RSA calculations",
+        url: "https://www.cs.drexel.edu/~jpopyack/IntroCS/HW/RSAWorksheet.html",
+      },
+      {
+        type: "Video Course",
+        name: "Number Theory & RSA",
+        description: "Khan Academy's cryptography course covering RSA foundations",
+        url: "https://www.khanacademy.org/computing/computer-science/cryptography",
+      },
+    ],
+  },
 };

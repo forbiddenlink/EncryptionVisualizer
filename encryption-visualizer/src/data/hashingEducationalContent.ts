@@ -73,4 +73,54 @@ export const hashingEducationalContent = {
       },
     ],
   },
+
+  commonMistakes: {
+    title: "Common Mistakes to Avoid",
+    mistakes: [
+      {
+        mistake: "Using MD5 or SHA-1 for security",
+        why: "Both have known collision vulnerabilities and are considered broken",
+        solution: "Use SHA-256 or SHA-3 for cryptographic purposes",
+      },
+      {
+        mistake: "Hashing passwords without salt",
+        why: "Rainbow tables can precompute hashes for common passwords",
+        solution: "Always use a unique salt per password with bcrypt, scrypt, or Argon2",
+      },
+      {
+        mistake: "Using fast hashes for passwords",
+        why: "Fast hashes allow billions of guesses per second in brute-force attacks",
+        solution: "Use slow, memory-hard algorithms like Argon2id for password hashing",
+      },
+      {
+        mistake: "Assuming hashes are encryption",
+        why: "Hashing is one-way; you cannot decrypt a hash to get the original data",
+        solution: "Use encryption (AES) when you need to recover the original data",
+      },
+    ],
+  },
+
+  furtherLearning: {
+    title: "Want to Learn More?",
+    resources: [
+      {
+        type: "Standard",
+        name: "FIPS 180-4",
+        description: "NIST's Secure Hash Standard specifying SHA-1, SHA-224/256/384/512",
+        url: "https://csrc.nist.gov/publications/detail/fips/180/4/final",
+      },
+      {
+        type: "Interactive",
+        name: "Hash Playground",
+        description: "CyberChef - Online tool to experiment with various hash functions",
+        url: "https://gchq.github.io/CyberChef/",
+      },
+      {
+        type: "Guide",
+        name: "Password Storage Cheat Sheet",
+        description: "OWASP's best practices for secure password storage",
+        url: "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
+      },
+    ],
+  },
 };

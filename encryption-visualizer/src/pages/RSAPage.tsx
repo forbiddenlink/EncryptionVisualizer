@@ -7,7 +7,7 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { generateRSAKeyPairWithSteps } from '@/lib/crypto/rsa';
 import { useVisualizationStore } from '@/store/visualizationStore';
 import type { RSAKeyPair, RSAStep } from '@/lib/types';
-import { BookOpen, Key, Info, AlertTriangle, CheckCircle, Globe, Terminal, FileText } from 'lucide-react';
+import { BookOpen, Key, Info, AlertTriangle, CheckCircle, Globe, Terminal, FileText, XCircle, Lightbulb, ExternalLink } from 'lucide-react';
 import { QuizSystem } from '@/components/educational/QuizSystem';
 import { rsaQuizQuestions } from '@/data/quizzes/rsaQuiz';
 import { EducationalCard } from '@/components/educational/EducationalCard';
@@ -269,6 +269,57 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
                     </div>
                   );
                 })}
+              </div>
+            </EducationalCard>
+
+            {/* Common Mistakes */}
+            <EducationalCard
+              title={rsaEducationalContent.commonMistakes.title}
+              isExpanded={expandedSections.has('commonMistakes')}
+              onToggle={() => toggleSection('commonMistakes')}
+            >
+              <div className="space-y-3">
+                {rsaEducationalContent.commonMistakes.mistakes.map((mistake, idx) => (
+                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                    <div className="flex items-center gap-2 mb-2">
+                      <XCircle className="w-4 h-4 text-red-500 dark:text-red-400 flex-shrink-0" />
+                      <h4 className="font-bold text-slate-900 dark:text-white text-sm">{mistake.mistake}</h4>
+                    </div>
+                    <p className="text-xs text-red-600 dark:text-red-400 mb-1">{mistake.why}</p>
+                    <div className="flex items-start gap-1.5 mt-2">
+                      <Lightbulb className="w-3 h-3 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                      <p className="text-xs text-green-600 dark:text-green-400">{mistake.solution}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </EducationalCard>
+
+            {/* Further Learning */}
+            <EducationalCard
+              title={rsaEducationalContent.furtherLearning.title}
+              isExpanded={expandedSections.has('furtherLearning')}
+              onToggle={() => toggleSection('furtherLearning')}
+            >
+              <div className="space-y-2">
+                {rsaEducationalContent.furtherLearning.resources.map((resource, idx) => (
+                  <a
+                    key={idx}
+                    href={resource.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block bg-slate-50 dark:bg-slate-800 p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[10px] font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wider">
+                        {resource.type}
+                      </span>
+                      <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-purple-500 transition-colors" />
+                    </div>
+                    <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">{resource.name}</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{resource.description}</p>
+                  </a>
+                ))}
               </div>
             </EducationalCard>
 
