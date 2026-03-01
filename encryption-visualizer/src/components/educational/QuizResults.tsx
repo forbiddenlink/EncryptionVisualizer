@@ -26,15 +26,15 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
         color = "text-green-400";
     } else {
         message = "Keep practicing! Review the educational content and try again.";
-        color = "text-blue-400";
+        color = "text-cyber-blue";
     }
 
     return (
         <div className="text-center space-y-6 py-6">
             <m.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                initial={{ scale: 0, rotate: -15 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15, bounce: 0.5 }}
                 className="inline-block"
             >
                 <div className="w-24 h-24 rounded-full bg-yellow-100 dark:bg-yellow-500/20 flex items-center justify-center border-4 border-yellow-500/30 mb-4 mx-auto">
@@ -52,8 +52,8 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
                     <div className="text-2xl font-black text-green-600 dark:text-green-400">{score}</div>
                     <div className="text-xs text-slate-500 dark:text-slate-400">Correct</div>
                 </div>
-                <div className="glass-card p-3 rounded-xl bg-blue-100 dark:bg-blue-500/10 border-blue-500/20">
-                    <div className="text-2xl font-black text-blue-600 dark:text-blue-400">{totalQuestions}</div>
+                <div className="glass-card p-3 rounded-xl bg-cyber-blue/10 dark:bg-cyber-blue/10 border-cyber-blue/30">
+                    <div className="text-2xl font-black text-cyber-blue dark:text-cyber-cyan">{totalQuestions}</div>
                     <div className="text-xs text-slate-500 dark:text-slate-400">Total</div>
                 </div>
             </div>
@@ -70,9 +70,9 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
 
             {percentage === 100 && (
                 <m.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25, delay: 0.4 }}
                     className="glass-card p-3 rounded-xl border-yellow-500/30 bg-yellow-100 dark:bg-yellow-500/5 mt-4 flex items-center justify-center gap-3"
                 >
                     <Award className="w-5 h-5 text-yellow-500 dark:text-yellow-400" />

@@ -41,7 +41,7 @@ export const AESInputPanel: React.FC<AESInputPanelProps> = ({ onEncrypt }) => {
         {/* Plaintext Input */}
         <div className="space-y-2">
           <label htmlFor="aes-plaintext" className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400">
-            <FileText className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-400" />
+            <FileText className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-cyber-cyan" />
             Plaintext (max 16 characters)
           </label>
           <input
@@ -61,7 +61,7 @@ export const AESInputPanel: React.FC<AESInputPanelProps> = ({ onEncrypt }) => {
         {/* Key Input */}
         <div className="space-y-2">
           <label htmlFor="aes-key" className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400">
-            <Key className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-400" />
+            <Key className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-cyber-cyan" />
             Encryption Key (16 characters for AES-128)
           </label>
           <input
@@ -92,9 +92,9 @@ export const AESInputPanel: React.FC<AESInputPanelProps> = ({ onEncrypt }) => {
       {/* Info Box */}
       <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-xl p-3 sm:p-4 space-y-2">
         <div className="flex items-start gap-2">
-          <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+          <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-cyber-cyan mt-0.5 flex-shrink-0" />
           <div className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-            <span className="font-semibold text-blue-600 dark:text-blue-400">Pro Tip:</span> AES-128 uses a 128-bit (16-byte) key. Watch as your plaintext goes through 10 rounds of SubBytes, ShiftRows, MixColumns, and AddRoundKey transformations!
+            <span className="font-semibold text-blue-600 dark:text-cyber-cyan">Pro Tip:</span> AES-128 uses a 128-bit (16-byte) key. Watch as your plaintext goes through 10 rounds of SubBytes, ShiftRows, MixColumns, and AddRoundKey transformations!
           </div>
         </div>
       </div>

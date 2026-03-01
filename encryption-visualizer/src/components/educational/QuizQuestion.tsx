@@ -16,6 +16,13 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
     onSelectOption,
     isSubmitted,
 }) => {
+    let difficultyColor = 'border-red-500/30 text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-500/10';
+    if (question.difficulty === 'beginner') {
+        difficultyColor = 'border-green-500/30 text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-500/10';
+    } else if (question.difficulty === 'intermediate') {
+        difficultyColor = 'border-yellow-500/30 text-yellow-600 dark:text-yellow-400 bg-yellow-100 dark:bg-yellow-500/10';
+    }
+
     return (
         <div className="space-y-4">
             <div className="flex items-start gap-3">
@@ -24,10 +31,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                 </div>
                 <div>
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white">{question.question}</h3>
-                    <span className={`text-xs px-2 py-0.5 rounded-full border ${question.difficulty === 'beginner' ? 'border-green-500/30 text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-500/10' :
-                            question.difficulty === 'intermediate' ? 'border-yellow-500/30 text-yellow-600 dark:text-yellow-400 bg-yellow-100 dark:bg-yellow-500/10' :
-                                'border-red-500/30 text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-500/10'
-                        }`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-full border ${difficultyColor}`}>
                         {question.difficulty.charAt(0).toUpperCase() + question.difficulty.slice(1)}
                     </span>
                 </div>
@@ -40,7 +44,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                     const showResult = isSubmitted;
 
                     let borderColor = 'border-slate-200 dark:border-slate-700';
-                    let bgColor = 'bg-slate-50 dark:bg-slate-800';
+                    let bgColor = 'bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5';
                     let textColor = 'text-slate-700 dark:text-slate-300';
 
                     if (showResult) {
@@ -53,7 +57,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                             bgColor = 'bg-red-100 dark:bg-red-500/20';
                             textColor = 'text-red-700 dark:text-red-300';
                         } else {
-                            bgColor = 'bg-slate-50 dark:bg-slate-800/50';
+                            bgColor = 'bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5/50';
                             textColor = 'text-slate-400 dark:text-slate-500';
                         }
                     } else if (isSelected) {
@@ -64,10 +68,10 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
 
                     return (
                         <button
-                            key={index}
+                            key={option}
                             onClick={() => !isSubmitted && onSelectOption(index)}
                             disabled={isSubmitted}
-                            className={`w-full text-left p-3 rounded-xl border ${borderColor} ${bgColor} transition-all duration-200 flex items-center justify-between group ${!isSubmitted ? 'hover:bg-slate-100 dark:hover:bg-slate-700' : ''}`}
+                            className={`w-full text-left p-3 rounded-xl border ${borderColor} ${bgColor} transition-all duration-200 flex items-center justify-between group ${!isSubmitted ? 'hover:bg-slate-100 dark:hover:bg-cyber-surface' : ''}`}
                         >
                             <span className={`text-sm ${textColor} font-medium`}>{option}</span>
                             {showResult && isCorrect && (
@@ -83,8 +87,9 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
 
             {isSubmitted && (
                 <m.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
+                    initial={{ opacity: 0, height: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, height: 'auto', scale: 1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     className={`p-3 rounded-xl border ${selectedOption === question.correct ? 'border-green-500/30 bg-green-100 dark:bg-green-500/10' : 'border-red-500/30 bg-red-100 dark:bg-red-500/10'
                         }`}
                 >

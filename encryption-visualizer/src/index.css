@@ -6,27 +6,34 @@
 
 @layer base {
   body {
-    @apply min-h-screen transition-colors duration-200;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    @apply min-h-screen transition-colors duration-200 bg-slate-50 text-slate-900;
+    font-family:
+      'Inter',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Light mode */
-  body {
-    @apply bg-slate-50 text-slate-900;
-  }
-
   /* Dark mode */
   .dark body {
-    @apply bg-slate-950 text-white;
+    @apply bg-cyber-dark text-slate-300;
   }
 
-  code, pre, .font-mono {
+  code,
+  pre,
+  .font-mono {
     font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold;
     letter-spacing: -0.02em;
   }
@@ -44,11 +51,11 @@
 @layer components {
   /* Card System */
   .glass-card {
-    @apply bg-white border border-slate-200 rounded-card transition-all duration-200;
+    @apply bg-white border border-slate-200 rounded-card transition-all duration-300;
   }
 
   .dark .glass-card {
-    @apply bg-slate-900 border-slate-800;
+    @apply bg-cyber-surface/80 backdrop-blur-xl border-cyber-border shadow-surface text-slate-300;
   }
 
   .glass-card-hover {
@@ -60,29 +67,29 @@
   }
 
   .dark .glass-card-hover:hover {
-    @apply border-slate-700 shadow-sm shadow-black/10;
+    @apply border-white/10 shadow-surface-hover shadow-black/10;
   }
 
-  /* Clean Buttons */
+  /* Clean Buttons - Emil Perspective (< 200ms transitions, active scale down) */
   .btn-primary {
-    @apply px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center gap-2 transition-colors duration-200;
+    @apply px-6 py-3 bg-cyber-blue text-white rounded-lg font-semibold flex items-center gap-2 transition-all duration-150 ease-out active:scale-[0.98];
   }
 
   .btn-primary:hover {
-    @apply bg-blue-700;
+    @apply bg-blue-600;
   }
 
   .btn-primary:active {
-    @apply bg-blue-800;
+    @apply bg-blue-700;
   }
 
   .btn-secondary {
-    @apply px-5 py-2.5 rounded-lg font-medium flex items-center gap-2 transition-colors duration-200;
+    @apply px-5 py-2.5 rounded-lg font-medium flex items-center gap-2 transition-all duration-150 ease-out active:scale-[0.98];
     @apply bg-slate-100 text-slate-700 border border-slate-200;
   }
 
   .dark .btn-secondary {
-    @apply bg-slate-800 text-slate-300 border-slate-700;
+    @apply bg-cyber-surface border-cyber-border text-slate-300 shadow-surface;
   }
 
   .btn-secondary:hover {
@@ -90,29 +97,29 @@
   }
 
   .dark .btn-secondary:hover {
-    @apply bg-slate-700 border-slate-600;
+    @apply bg-slate-800 border-white/10 shadow-surface-hover;
   }
 
-  /* Matrix Cell Styles */
+  /* Matrix Cell Styles - Technical Data Grid */
   .matrix-cell {
-    @apply relative flex items-center justify-center rounded-lg font-mono text-sm font-semibold transition-all duration-200;
+    @apply relative flex items-center justify-center rounded-md font-mono text-sm font-semibold transition-colors duration-150 ease-out;
     @apply bg-slate-100 border border-slate-200 text-slate-700;
   }
 
   .dark .matrix-cell {
-    @apply bg-slate-800 border-slate-700 text-slate-300;
+    @apply bg-cyber-dark border border-white/5 text-slate-300;
   }
 
   .matrix-cell:hover {
-    @apply border-blue-500;
+    @apply border-cyber-blue text-cyber-cyan;
   }
 
   .matrix-cell-highlighted {
-    @apply bg-blue-600 text-white border-blue-600;
+    @apply bg-cyber-blue text-white border-cyber-blue;
   }
 
   .dark .matrix-cell-highlighted {
-    @apply bg-blue-500 border-blue-500;
+    @apply bg-cyber-blue shadow-[0_0_12px_rgba(59,130,246,0.3)] border-cyber-blue text-white;
   }
 
   /* Progress Ring */
@@ -136,30 +143,36 @@
   }
 
   /* Input Fields - Light Mode */
-  input[type="text"], textarea {
-    @apply w-full px-4 py-3 rounded-lg font-mono text-slate-900 transition-colors duration-200;
+  input[type='text'],
+  textarea {
+    @apply w-full px-4 py-3 rounded-lg font-mono text-slate-900 transition-colors duration-150 ease-out;
     @apply bg-white border border-slate-300;
   }
 
-  input[type="text"]::placeholder, textarea::placeholder {
+  input[type='text']::placeholder,
+  textarea::placeholder {
     @apply text-slate-400;
   }
 
-  input[type="text"]:focus, textarea:focus {
-    @apply outline-none border-blue-500 ring-2 ring-blue-500/20;
+  input[type='text']:focus,
+  textarea:focus {
+    @apply outline-none border-cyber-blue ring-2 ring-cyber-blue/20;
   }
 
   /* Input Fields - Dark Mode */
-  .dark input[type="text"], .dark textarea {
-    @apply bg-slate-900 border-slate-700 text-white;
+  .dark input[type='text'],
+  .dark textarea {
+    @apply bg-cyber-dark border border-white/10 text-white shadow-inner;
   }
 
-  .dark input[type="text"]::placeholder, .dark textarea::placeholder {
+  .dark input[type='text']::placeholder,
+  .dark textarea::placeholder {
     @apply text-slate-500;
   }
 
-  .dark input[type="text"]:focus, .dark textarea:focus {
-    @apply border-blue-500 ring-blue-500/20;
+  .dark input[type='text']:focus,
+  .dark textarea:focus {
+    @apply border-cyber-blue ring-cyber-blue/30 shadow-[0_0_12px_rgba(59,130,246,0.1)];
   }
 }
 

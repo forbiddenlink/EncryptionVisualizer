@@ -42,7 +42,7 @@ export const AvalancheEffectDemo: React.FC = () => {
         />
         <button
           onClick={handleDemonstrate}
-          className="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-semibold flex items-center gap-2 transition-colors"
+          className="px-6 py-3 bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg font-semibold flex items-center gap-2 transition-all duration-150 active:scale-95 shadow-md shadow-orange-500/20"
         >
           <Zap className="w-4 h-4" />
           Demonstrate
@@ -57,11 +57,11 @@ export const AvalancheEffectDemo: React.FC = () => {
         >
           {results.map((result, idx) => (
             <m.div
-              key={idx}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              className={`p-4 rounded-xl ${idx === 0 ? 'bg-emerald-50 dark:bg-emerald-500/10 border-2 border-emerald-300 dark:border-emerald-500/30' : 'bg-slate-100 dark:bg-slate-800'}`}
+              key={result.hash}
+              initial={{ opacity: 0, scale: 0.9, x: -20, filter: "blur(4px)" }}
+              animate={{ opacity: 1, scale: 1, x: 0, filter: "blur(0px)" }}
+              transition={{ type: "spring", stiffness: 350, damping: 20, delay: idx * 0.08 }}
+              className={`p-4 rounded-xl shadow-sm ${idx === 0 ? 'bg-emerald-50 dark:bg-emerald-500/10 border-2 border-emerald-300 dark:border-emerald-500/30' : 'bg-slate-100 dark:bg-cyber-surface border border-slate-200 dark:border-white/5'}`}
             >
               <div className="flex items-start justify-between gap-4 mb-2">
                 <div className="flex-1">
@@ -84,7 +84,7 @@ export const AvalancheEffectDemo: React.FC = () => {
 
           <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-xl p-4 text-center">
             <div className="text-sm text-slate-700 dark:text-slate-300">
-              Average bits changed: <span className="font-bold text-blue-600 dark:text-blue-400">
+              Average bits changed: <span className="font-bold text-blue-600 dark:text-cyber-cyan">
                 {Math.round(results.slice(1).reduce((sum, r) => sum + r.bitsChanged, 0) / Math.max(results.length - 1, 1))}
               </span> out of {results[0]?.hash.length * 4 || 32} total bits
               ({Math.round((results.slice(1).reduce((sum, r) => sum + r.bitsChanged, 0) / Math.max(results.length - 1, 1) / (results[0]?.hash.length * 4 || 32)) * 100)}% change)

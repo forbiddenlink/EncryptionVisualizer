@@ -188,7 +188,7 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
             >
               <div className="space-y-3">
                 {hashingEducationalContent.properties.items.map((item, idx) => (
-                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                  <div key={idx} className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl">
                     <div className="flex items-center gap-2 mb-2">
                        <div
                         className="w-3 h-3 rounded-full"
@@ -210,7 +210,7 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
             >
                 <div className="space-y-3">
                 {hashingEducationalContent.algorithms.list.map((item, idx) => (
-                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                  <div key={idx} className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl">
                       <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">{item.name}</h4>
                       <p className="text-xs text-slate-600 dark:text-slate-400">{item.detail}</p>
                   </div>
@@ -228,7 +228,7 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
                 {hashingEducationalContent.realWorldUse.examples.map((example, idx) => {
                   const Icon = iconMap[example.icon as keyof typeof iconMap] || Globe;
                   return (
-                    <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl flex items-center gap-3">
+                    <div key={idx} className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl flex items-center gap-3">
                         <div className="p-2 bg-emerald-100 dark:bg-emerald-500/20 rounded-lg flex-shrink-0">
                           <Icon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                         </div>
@@ -250,7 +250,7 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
             >
               <div className="space-y-3">
                 {hashingEducationalContent.commonMistakes.mistakes.map((mistake, idx) => (
-                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                  <div key={idx} className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl">
                     <div className="flex items-center gap-2 mb-2">
                       <XCircle className="w-4 h-4 text-red-500 dark:text-red-400 flex-shrink-0" />
                       <h4 className="font-bold text-slate-900 dark:text-white text-sm">{mistake.mistake}</h4>
@@ -278,7 +278,7 @@ export const HashingPage: React.FC<HashingPageProps> = ({ onNavigate }) => {
                     href={resource.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block bg-slate-50 dark:bg-slate-800 p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
+                    className="block bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-cyber-surface transition-colors group"
                   >
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">

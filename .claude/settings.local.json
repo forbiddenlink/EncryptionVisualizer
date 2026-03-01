@@ -28,7 +28,15 @@
       "Bash(test:*)",
       "Bash(npm run test:run:*)",
       "Bash(node:*)",
-      "Bash(bash:*)"
+      "Bash(bash:*)",
+      "WebSearch",
+      "Bash(pnpm run lint:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm run build:*)",
+      "Bash(pnpm add:*)",
+      "mcp__plugin_playwright_playwright__browser_snapshot",
+      "Bash(pnpm run test:e2e:*)",
+      "Bash(npx playwright test:*)"
     ]
   }
 }

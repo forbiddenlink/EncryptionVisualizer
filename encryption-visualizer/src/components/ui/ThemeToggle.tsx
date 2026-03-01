@@ -13,7 +13,7 @@ export const ThemeToggle: React.FC = () => {
 
   return (
     <div
-      className="flex items-center gap-1 p-1 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10"
+      className="flex items-center gap-1 p-1 rounded-xl bg-slate-100 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 shadow-inner"
       role="radiogroup"
       aria-label="Theme selection"
     >
@@ -22,12 +22,12 @@ export const ThemeToggle: React.FC = () => {
           key={value}
           onClick={() => setTheme(value)}
           className={`
-            p-2 rounded-lg transition-all duration-200
-            focus:outline-none focus:ring-2 focus:ring-blue-500/50
+            p-2 rounded-lg transition-all duration-150 active:scale-95
+            focus:outline-none focus:ring-2 focus:ring-cyber-blue/50
             ${
               theme === value
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'text-white/60 hover:text-white hover:bg-white/10'
+                ? 'bg-cyber-blue text-white shadow-md shadow-cyber-blue/20'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-800'
             }
           `}
           role="radio"

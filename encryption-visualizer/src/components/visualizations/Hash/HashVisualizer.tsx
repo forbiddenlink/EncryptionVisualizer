@@ -27,7 +27,7 @@ export const HashVisualizer: React.FC<HashVisualizerProps> = ({ steps, currentSt
 
   const getStepColor = (type: HashStep['type']) => {
     switch (type) {
-      case 'input': return { bg: 'bg-blue-600', text: 'text-blue-600 dark:text-blue-400', border: 'border-blue-300 dark:border-blue-500/30' };
+      case 'input': return { bg: 'bg-blue-600', text: 'text-blue-600 dark:text-cyber-cyan', border: 'border-blue-300 dark:border-blue-500/30' };
       case 'preprocessing': return { bg: 'bg-purple-600', text: 'text-purple-600 dark:text-purple-400', border: 'border-purple-300 dark:border-purple-500/30' };
       case 'initialization': return { bg: 'bg-yellow-600', text: 'text-yellow-600 dark:text-yellow-400', border: 'border-yellow-300 dark:border-yellow-500/30' };
       case 'compression': return { bg: 'bg-red-600', text: 'text-red-600 dark:text-red-400', border: 'border-red-300 dark:border-red-500/30' };
@@ -38,26 +38,29 @@ export const HashVisualizer: React.FC<HashVisualizerProps> = ({ steps, currentSt
 
   const stepColor = getStepColor(step.type);
 
+  const getStepIcon = (type: HashStep['type']) => {
+    switch (type) {
+      case 'output': return <CheckCircle className="w-7 h-7 text-white" strokeWidth={2.5} />;
+      case 'preprocessing': return <Binary className="w-7 h-7 text-white" strokeWidth={2.5} />;
+      default: return <Cpu className="w-7 h-7 text-white" strokeWidth={2.5} />;
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Step Header */}
       <m.div
         key={currentStep}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
+        transition={{ type: "spring", stiffness: 400, damping: 40 }}
         className="glass-card p-6 space-y-4"
       >
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
             <div className={`p-4 ${stepColor.bg} rounded-2xl shadow-lg`}>
-              {step.type === 'output' ? (
-                <CheckCircle className="w-7 h-7 text-white" strokeWidth={2.5} />
-              ) : step.type === 'preprocessing' ? (
-                <Binary className="w-7 h-7 text-white" strokeWidth={2.5} />
-              ) : (
-                <Cpu className="w-7 h-7 text-white" strokeWidth={2.5} />
-              )}
+              {getStepIcon(step.type)}
             </div>
             <div>
               <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">{step.title}</h3>
@@ -92,7 +95,7 @@ export const HashVisualizer: React.FC<HashVisualizerProps> = ({ steps, currentSt
             {step.data.chunks && (
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {step.data.chunks.map((chunk, idx) => (
-                  <div key={idx} className="bg-slate-100 dark:bg-slate-800 p-3 text-center rounded-lg">
+                  <div key={`chunk-${idx}-${chunk}`} className="bg-slate-100 dark:bg-slate-800 p-3 text-center rounded-lg">
                     <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">Chunk {idx + 1}</div>
                     <div className="text-sm font-mono text-slate-900 dark:text-white">{chunk}</div>
                   </div>

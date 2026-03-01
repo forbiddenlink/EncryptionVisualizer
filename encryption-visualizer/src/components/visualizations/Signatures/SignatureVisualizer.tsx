@@ -80,9 +80,10 @@ export const SignatureVisualizer: React.FC<SignatureVisualizerProps> = ({ steps,
       {/* Step Header */}
       <m.div
         key={currentStep}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
+        transition={{ type: "spring", stiffness: 400, damping: 40 }}
         className="glass-card p-6 space-y-4"
       >
         <div className="flex items-start justify-between">
@@ -102,7 +103,7 @@ export const SignatureVisualizer: React.FC<SignatureVisualizerProps> = ({ steps,
         <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{step.description}</p>
 
         {step.formula && (
-          <div className={`bg-slate-50 dark:bg-slate-800 p-4 border-2 ${stepColor.border} rounded-xl`}>
+          <div className={`bg-slate-50 dark:bg-cyber-dark p-4 border-2 ${stepColor.border} rounded-xl`}>
             <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">FORMULA:</div>
             <div className={`text-lg font-mono font-bold ${stepColor.text}`}>
               {step.formula}
@@ -111,7 +112,7 @@ export const SignatureVisualizer: React.FC<SignatureVisualizerProps> = ({ steps,
         )}
 
         {step.calculation && (
-          <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl">
+          <div className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-4 rounded-xl">
             <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">CALCULATION:</div>
             <div className="text-base font-mono text-slate-800 dark:text-slate-200">{step.calculation}</div>
           </div>
@@ -183,14 +184,14 @@ export const SignatureVisualizer: React.FC<SignatureVisualizerProps> = ({ steps,
           </div>
           <div className="space-y-3">
             {step.values.message && (
-              <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-lg">
+              <div className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-lg">
                 <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Message:</span>
                 <span className="text-sm text-slate-700 dark:text-slate-300 break-all">
                   {step.values.message.length > 100 ? step.values.message.slice(0, 100) + '...' : step.values.message}
                 </span>
               </div>
             )}
-            <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-lg">
+            <div className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-lg">
               <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Hash:</span>
               <span className="text-lg font-mono font-bold text-emerald-600 dark:text-emerald-400">
                 {step.values.messageHash}

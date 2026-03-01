@@ -31,7 +31,7 @@ export const PlaybackControls: React.FC = () => {
           {/* Reset Button */}
           <button
             onClick={reset}
-            className="p-2 sm:p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 sm:p-3 bg-slate-100 dark:bg-cyber-surface hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-lg transition-all duration-150 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyber-blue shadow-sm"
             title="Reset (R)"
             aria-label="Reset visualization"
           >
@@ -41,7 +41,7 @@ export const PlaybackControls: React.FC = () => {
           {/* Previous Button */}
           <button
             onClick={previousStep}
-            className="p-2 sm:p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 sm:p-3 bg-slate-100 dark:bg-cyber-surface hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-lg transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:active:scale-100 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-cyber-blue shadow-sm"
             disabled={currentStep === 0}
             title="Previous Step (←)"
             aria-label="Go to previous step"
@@ -52,16 +52,16 @@ export const PlaybackControls: React.FC = () => {
           {/* Play/Pause Button */}
           <button
             onClick={isPlaying ? pause : play}
-            className="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center gap-2 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="px-6 sm:px-8 py-3 sm:py-4 bg-cyber-blue hover:bg-cyber-cyan hover:text-cyber-dark text-white rounded-lg transition-all duration-150 active:scale-[0.98] flex items-center gap-2 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-cyber-cyan focus:ring-offset-2 focus:ring-offset-slate-950 shadow-[inset_0_1px_rgba(255,255,255,0.2)]"
             title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
             aria-label={isPlaying ? 'Pause visualization' : 'Play visualization'}
           >
             {isPlaying ? (
-              <Pause className="w-4 h-4 sm:w-5 sm:h-5 text-white fill-white" />
+              <Pause className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
             ) : (
-              <Play className="w-4 h-4 sm:w-5 sm:h-5 text-white fill-white" />
+              <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
             )}
-            <span className="font-semibold text-white text-sm sm:text-base">
+            <span className="font-semibold text-sm sm:text-base tracking-tight">
               {isPlaying ? 'Pause' : 'Play'}
             </span>
           </button>
@@ -69,7 +69,7 @@ export const PlaybackControls: React.FC = () => {
           {/* Next Button */}
           <button
             onClick={nextStep}
-            className="p-2 sm:p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 sm:p-3 bg-slate-100 dark:bg-cyber-surface hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-lg transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:active:scale-100 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-cyber-blue shadow-sm"
             disabled={currentStep >= totalSteps - 1}
             title="Next Step (→)"
             aria-label="Go to next step"
@@ -79,7 +79,7 @@ export const PlaybackControls: React.FC = () => {
         </div>
 
         {/* Speed Control */}
-        <div className="flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-2 sm:py-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg w-full sm:w-auto justify-center">
+        <div className="flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-2 sm:py-3 bg-slate-100 dark:bg-cyber-surface border border-slate-200 dark:border-white/5 rounded-lg w-full sm:w-auto justify-center shadow-surface">
           <div className="flex items-center gap-2">
             <Gauge className="w-3 h-3 sm:w-4 sm:h-4 text-slate-500 dark:text-slate-400" />
             <span className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">Speed</span>
@@ -89,10 +89,10 @@ export const PlaybackControls: React.FC = () => {
               <button
                 key={s}
                 onClick={() => setSpeed(s)}
-                className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-xs font-semibold transition-colors ${
+                className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-xs font-semibold transition-all duration-150 active:scale-95 ${
                   speed === s
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-600'
+                    ? 'bg-cyber-blue text-white shadow-[0_0_10px_rgba(59,130,246,0.3)]'
+                    : 'bg-white dark:bg-cyber-dark text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:border-white/20 border border-slate-200 dark:border-white/5'
                 }`}
               >
                 {s}x
@@ -103,10 +103,10 @@ export const PlaybackControls: React.FC = () => {
           {/* Keyboard shortcuts button */}
           <button
             onClick={() => setShowShortcuts(!showShortcuts)}
-            className={`p-2 sm:p-2.5 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            className={`p-2 sm:p-2.5 rounded-lg transition-all duration-150 active:scale-95 focus:outline-none focus:ring-2 focus:ring-cyber-blue ${
               showShortcuts
-                ? 'bg-blue-600 text-white'
-                : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-600'
+                ? 'bg-cyber-blue text-white shadow-[0_0_10px_rgba(59,130,246,0.3)]'
+                : 'bg-white dark:bg-cyber-dark text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:border-white/20 border border-slate-200 dark:border-white/5'
             }`}
             title="Keyboard Shortcuts (?)"
             aria-label="Show keyboard shortcuts"
@@ -150,9 +150,9 @@ export const PlaybackControls: React.FC = () => {
         </div>
 
         {/* Progress Bar */}
-        <div className="relative h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+        <div className="relative h-1.5 bg-slate-200 dark:bg-cyber-dark/80 rounded-full overflow-hidden shadow-inner">
           <div
-            className="absolute inset-y-0 left-0 bg-blue-600 rounded-full transition-all duration-200 ease-out"
+            className="absolute inset-y-0 left-0 bg-cyber-blue shadow-[0_0_8px_rgba(59,130,246,0.8)] rounded-full transition-all duration-200 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>

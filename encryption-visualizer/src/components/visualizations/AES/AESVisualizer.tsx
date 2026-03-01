@@ -109,7 +109,11 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
   };
 
   const stepInfo = getStepInfo(step.type);
-  const roundNumber = step.roundNumber !== undefined ? step.roundNumber : 0;
+  const roundNumber = step.roundNumber ?? 0;
+
+  let roundDisplayValue: string | number = Math.ceil(step.stepNumber / 4);
+  if (step.type === 'initial') roundDisplayValue = '0 (Initial)';
+  else if (step.type === 'final') roundDisplayValue = '10 (Final)';
 
   return (
     <div className="space-y-6 sm:space-y-8">
@@ -117,10 +121,10 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
       <AnimatePresence mode="wait">
         <m.div
           key={currentStep}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: -20, filter: "blur(4px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+          transition={{ type: "spring", stiffness: 400, damping: 40 }}
           className="glass-card p-4 sm:p-6 relative overflow-hidden"
         >
           {/* Background gradient */}
@@ -150,7 +154,7 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
               </div>
             </div>
 
-            <div className="flex items-start gap-2 sm:gap-3 glass-card bg-slate-50 dark:bg-slate-800/50 p-4 sm:p-5 rounded-xl sm:rounded-2xl border-slate-200 dark:border-slate-700">
+            <div className="flex items-start gap-2 sm:gap-3 glass-card bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-4 sm:p-5 rounded-xl sm:rounded-2xl">
               <div className={`p-1.5 sm:p-2 ${stepInfo.infoBg} rounded-lg sm:rounded-xl flex-shrink-0 mt-0.5`}>
                 <Info className="w-3 h-3 sm:w-4 sm:h-4 text-white" strokeWidth={2.5} />
               </div>
@@ -164,10 +168,10 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
       <AnimatePresence mode="wait">
         <m.div
           key={`state-${currentStep}`}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          exit={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+          transition={{ type: "spring", stiffness: 400, damping: 40 }}
           className="flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8"
         >
           <AESStateMatrix
@@ -182,7 +186,7 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
             <>
               <div className="flex flex-row lg:flex-col items-center gap-3 px-6">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-purple-500 rounded-2xl blur-lg opacity-30 animate-pulse-slow"></div>
+                  <div className="absolute inset-0 bg-purple-500 rounded-2xl blur-lg opacity-30 animate-[pulse_4s_cubic-bezier(0.4,0,0.6,1)_infinite]"></div>
                   <div className="relative p-3 sm:p-4 bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl shadow-lg">
                     <ArrowRight className="w-6 h-6 sm:w-8 sm:h-8 text-white lg:rotate-90" strokeWidth={2.5} />
                   </div>
@@ -208,12 +212,12 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         <div className="glass-card p-3 sm:p-4 space-y-2">
           <div className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Transformation</div>
-          <div className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400">{step.type}</div>
+          <div className="text-base sm:text-lg font-bold text-blue-600 dark:text-cyber-cyan">{step.type}</div>
         </div>
 
         <div className="glass-card p-3 sm:p-4 space-y-2">
           <div className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Progress</div>
-          <div className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400">
+          <div className="text-base sm:text-lg font-bold text-blue-600 dark:text-cyber-cyan">
             {Math.round((currentStep / totalSteps) * 100)}%
           </div>
         </div>
@@ -221,9 +225,7 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
         <div className="glass-card p-3 sm:p-4 space-y-2">
           <div className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Round</div>
           <div className="text-base sm:text-lg font-bold text-teal-600 dark:text-teal-400">
-            {step.type === 'initial' ? '0 (Initial)' :
-              step.type === 'final' ? '10 (Final)' :
-                Math.ceil(step.stepNumber / 4)}
+            {roundDisplayValue}
           </div>
         </div>
       </div>

@@ -215,7 +215,7 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
             >
               <div className="space-y-3">
                 {rsaEducationalContent.keyGeneration.steps.map((step, idx) => (
-                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                  <div key={idx} className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl">
                     <div className="flex items-center gap-2 mb-2">
                        <div
                         className="w-3 h-3 rounded-full"
@@ -258,7 +258,7 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
                 {rsaEducationalContent.realWorldUse.examples.map((example, idx) => {
                   const Icon = iconMap[example.icon as keyof typeof iconMap] || Globe;
                   return (
-                    <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl flex items-center gap-3">
+                    <div key={idx} className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl flex items-center gap-3">
                         <div className="p-2 bg-purple-100 dark:bg-purple-500/20 rounded-lg flex-shrink-0">
                           <Icon className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                         </div>
@@ -280,7 +280,7 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
             >
               <div className="space-y-3">
                 {rsaEducationalContent.commonMistakes.mistakes.map((mistake, idx) => (
-                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                  <div key={idx} className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl">
                     <div className="flex items-center gap-2 mb-2">
                       <XCircle className="w-4 h-4 text-red-500 dark:text-red-400 flex-shrink-0" />
                       <h4 className="font-bold text-slate-900 dark:text-white text-sm">{mistake.mistake}</h4>
@@ -308,7 +308,7 @@ export const RSAPage: React.FC<RSAPageProps> = ({ onNavigate }) => {
                     href={resource.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block bg-slate-50 dark:bg-slate-800 p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
+                    className="block bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-cyber-surface transition-colors group"
                   >
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-[10px] font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wider">

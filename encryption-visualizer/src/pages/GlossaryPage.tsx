@@ -27,7 +27,7 @@ export const GlossaryPage: React.FC<GlossaryPageProps> = ({ onNavigate }) => {
                 <div className="glass-card p-6 sm:p-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
                     <div>
                         <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mb-2 flex items-center justify-center sm:justify-start gap-3">
-                            <Book className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600 dark:text-blue-400" />
+                            <Book className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600 dark:text-cyber-cyan" />
                             Crypto Glossary
                         </h1>
                         <p className="text-slate-600 dark:text-slate-400 text-lg">
@@ -41,7 +41,7 @@ export const GlossaryPage: React.FC<GlossaryPageProps> = ({ onNavigate }) => {
                         </div>
                         <input
                             type="text"
-                            className="block w-full pl-10 pr-3 py-2 border border-slate-300 dark:border-slate-700 rounded-xl leading-5 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
+                            className="block w-full pl-10 pr-3 py-2 border border-slate-300 dark:border-slate-700 rounded-xl leading-5 bg-white dark:bg-cyber-dark text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyber-blue/50 focus:border-cyber-blue transition duration-150 ease-in-out sm:text-sm"
                             placeholder="Search terms..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
@@ -55,9 +55,9 @@ export const GlossaryPage: React.FC<GlossaryPageProps> = ({ onNavigate }) => {
                         <button
                             key={category}
                             onClick={() => setSelectedCategory(category)}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${selectedCategory === category
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white'
+                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 active:scale-95 ${selectedCategory === category
+                                    ? 'bg-cyber-blue text-white shadow-md shadow-cyber-blue/20'
+                                    : 'bg-slate-100 dark:bg-cyber-surface border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                         >
                             {category}
@@ -74,7 +74,7 @@ export const GlossaryPage: React.FC<GlossaryPageProps> = ({ onNavigate }) => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.05 }}
-                                className="glass-card p-5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors border-l-4 border-l-blue-500"
+                                className="glass-card-hover p-5 border-l-4 border-l-cyber-blue"
                             >
                                 <div className="flex justify-between items-start mb-2">
                                     <h3 className="text-xl font-bold text-slate-900 dark:text-white">{term.term}</h3>
@@ -89,7 +89,7 @@ export const GlossaryPage: React.FC<GlossaryPageProps> = ({ onNavigate }) => {
                                     <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700 flex flex-wrap gap-2">
                                         <span className="text-xs text-slate-400 dark:text-slate-500 mr-1">Related:</span>
                                         {term.relatedTerms.map((related) => (
-                                            <span key={related} className="text-xs text-blue-600 dark:text-blue-400 font-medium">
+                                            <span key={related} className="text-xs text-blue-600 dark:text-cyber-cyan font-medium">
                                                 {related}
                                             </span>
                                         ))}

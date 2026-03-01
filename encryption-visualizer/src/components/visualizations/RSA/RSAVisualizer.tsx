@@ -39,26 +39,29 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
 
   const stepColor = getStepColor(step.type);
 
+  const getStepIcon = (type: RSAStep['type']) => {
+    switch (type) {
+      case 'complete': return <CheckCircle className="w-7 h-7 text-white" strokeWidth={2.5} />;
+      case 'prime-selection': return <Hash className="w-7 h-7 text-white" strokeWidth={2.5} />;
+      default: return <Key className="w-7 h-7 text-white" strokeWidth={2.5} />;
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Step Header */}
       <m.div
         key={currentStep}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
+        transition={{ type: "spring", stiffness: 400, damping: 40 }}
         className="glass-card p-6 space-y-4"
       >
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
             <div className={`p-4 bg-gradient-to-br ${stepColor.bg} rounded-2xl shadow-lg`}>
-              {step.type === 'complete' ? (
-                <CheckCircle className="w-7 h-7 text-white" strokeWidth={2.5} />
-              ) : step.type.includes('prime') ? (
-                <Hash className="w-7 h-7 text-white" strokeWidth={2.5} />
-              ) : (
-                <Key className="w-7 h-7 text-white" strokeWidth={2.5} />
-              )}
+              {getStepIcon(step.type)}
             </div>
             <div>
               <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">{step.title}</h3>
@@ -72,7 +75,7 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
         <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{step.description}</p>
 
         {step.formula && (
-          <div className={`bg-slate-50 dark:bg-slate-800 p-4 border-2 ${stepColor.border} rounded-xl`}>
+          <div className={`bg-slate-50 dark:bg-cyber-dark p-4 border-2 ${stepColor.border} rounded-xl`}>
             <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">FORMULA:</div>
             <div className={`text-lg font-mono font-bold ${stepColor.text}`}>
               {step.formula}
@@ -81,7 +84,7 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
         )}
 
         {step.calculation && (
-          <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl">
+          <div className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-4 rounded-xl">
             <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">CALCULATION:</div>
             <div className="text-base font-mono text-slate-800 dark:text-slate-200">{step.calculation}</div>
           </div>

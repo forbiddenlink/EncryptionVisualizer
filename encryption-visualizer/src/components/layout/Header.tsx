@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, Cpu, Hash, Menu, X, Book, Key, Info, FileSignature } from 'lucide-react';
+import { Cpu, Hash, Menu, X, Book, Key, Info, FileSignature } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 interface HeaderProps {
@@ -23,17 +23,17 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
           {/* Logo */}
           <button
             onClick={() => handleNavClick('home')}
-            className="flex items-center gap-2 sm:gap-3 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg"
+            className="flex items-center gap-2 sm:gap-3 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg group"
             aria-label="Go to home page"
           >
-            <div className="bg-blue-600 p-2 rounded-lg">
-              <Lock className="w-5 h-5 text-white" strokeWidth={2.5} />
+            <div className="bg-cyber-blue group-hover:bg-cyan-500 p-2 border border-cyber-cyan/30 rounded-lg shadow-inner transition-colors duration-150">
+              <img src="/logo.png" alt="CryptoViz" className="w-5 h-5 object-contain" />
             </div>
             <div className="text-left">
-              <span className="text-xl font-bold text-slate-900 dark:text-white">
+              <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-cyber-cyan transition-colors duration-150">
                 CryptoViz
               </span>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:block">Interactive Learning</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider hidden sm:block">Interactive Learning</p>
             </div>
           </button>
 

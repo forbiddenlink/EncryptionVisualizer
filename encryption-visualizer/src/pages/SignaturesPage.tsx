@@ -240,7 +240,7 @@ export const SignaturesPage: React.FC<SignaturesPageProps> = ({ onNavigate }) =>
             >
               <div className="space-y-3">
                 {signaturesEducationalContent.howSigningWorks.steps.map((step, idx) => (
-                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                  <div key={idx} className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl">
                     <div className="flex items-center gap-2 mb-2">
                       <div
                         className="w-3 h-3 rounded-full"
@@ -263,7 +263,7 @@ export const SignaturesPage: React.FC<SignaturesPageProps> = ({ onNavigate }) =>
             >
               <div className="space-y-3">
                 {signaturesEducationalContent.howVerificationWorks.steps.map((step, idx) => (
-                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                  <div key={idx} className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl">
                     <div className="flex items-center gap-2 mb-2">
                       <div
                         className="w-3 h-3 rounded-full"
@@ -348,7 +348,7 @@ export const SignaturesPage: React.FC<SignaturesPageProps> = ({ onNavigate }) =>
                   return (
                     <div
                       key={idx}
-                      className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl flex items-center gap-3"
+                      className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl flex items-center gap-3"
                     >
                       <div className="p-2 bg-amber-100 dark:bg-amber-500/20 rounded-lg flex-shrink-0">
                         <Icon className="w-4 h-4 text-amber-600 dark:text-amber-400" />
@@ -373,7 +373,7 @@ export const SignaturesPage: React.FC<SignaturesPageProps> = ({ onNavigate }) =>
             >
               <div className="space-y-3">
                 {signaturesEducationalContent.commonMistakes.mistakes.map((mistake, idx) => (
-                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
+                  <div key={idx} className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl">
                     <div className="flex items-center gap-2 mb-2">
                       <XCircle className="w-4 h-4 text-red-500 dark:text-red-400 flex-shrink-0" />
                       <h4 className="font-bold text-slate-900 dark:text-white text-sm">{mistake.mistake}</h4>
@@ -401,7 +401,7 @@ export const SignaturesPage: React.FC<SignaturesPageProps> = ({ onNavigate }) =>
                     href={resource.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block bg-slate-50 dark:bg-slate-800 p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
+                    className="block bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-cyber-surface transition-colors group"
                   >
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-[10px] font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider">

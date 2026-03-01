@@ -57,7 +57,7 @@ export const RSAInputPanel: React.FC<RSAInputPanelProps> = ({ onGenerate }) => {
                 className={`relative p-4 rounded-xl border-2 transition-all duration-300 text-left ${
                   selectedSize === keySize.size
                     ? 'border-purple-500 bg-purple-100 dark:bg-purple-500/20'
-                    : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700'
+                    : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-100 dark:hover:bg-cyber-surface'
                 }`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

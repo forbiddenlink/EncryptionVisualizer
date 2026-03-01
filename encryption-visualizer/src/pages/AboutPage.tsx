@@ -12,8 +12,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
       <div className="space-y-8 max-w-3xl mx-auto">
         {/* Header */}
         <div className="glass-card p-6 sm:p-8 text-center">
-          <div className="inline-flex p-4 bg-blue-100 dark:bg-blue-900/30 rounded-2xl mb-6">
-            <Shield className="w-10 h-10 text-blue-600 dark:text-blue-400" />
+          <div className="inline-flex p-4 bg-cyber-blue/10 dark:bg-cyber-blue/20 border border-cyber-blue/20 rounded-2xl mb-6 shadow-inner">
+            <Shield className="w-10 h-10 text-cyber-blue dark:text-cyber-cyan" />
           </div>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mb-4">
             About CryptoViz
@@ -26,7 +26,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
         {/* Mission */}
         <section className="glass-card p-6 sm:p-8">
           <div className="flex items-center gap-3 mb-4">
-            <GraduationCap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <GraduationCap className="w-6 h-6 text-cyber-blue dark:text-cyber-cyan" />
             <h2 className="text-xl font-bold text-slate-900 dark:text-white">Our Mission</h2>
           </div>
           <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -40,16 +40,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
         {/* What We Cover */}
         <section className="glass-card p-6 sm:p-8">
           <div className="flex items-center gap-3 mb-4">
-            <Code className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <Code className="w-6 h-6 text-cyber-blue dark:text-cyber-cyan" />
             <h2 className="text-xl font-bold text-slate-900 dark:text-white">What We Cover</h2>
           </div>
           <ul className="space-y-3 text-slate-600 dark:text-slate-400">
             <li className="flex items-start gap-3">
-              <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></span>
+              <span className="w-2 h-2 bg-cyber-blue rounded-full mt-2 flex-shrink-0"></span>
               <span><strong className="text-slate-900 dark:text-white">AES (Advanced Encryption Standard)</strong> - The most widely used symmetric encryption algorithm, visualized round-by-round including SubBytes, ShiftRows, MixColumns, and AddRoundKey operations.</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mt-2 flex-shrink-0"></span>
+              <span className="w-2 h-2 bg-cyber-cyan rounded-full mt-2 flex-shrink-0"></span>
               <span><strong className="text-slate-900 dark:text-white">RSA</strong> - Public-key cryptography explained through prime number generation, key derivation, and modular arithmetic.</span>
             </li>
             <li className="flex items-start gap-3">
@@ -75,14 +75,14 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-medium hover:opacity-90 transition-opacity"
+              className="btn-primary"
             >
               <Github className="w-5 h-5" />
               View on GitHub
             </a>
             <a
               href="mailto:contact@example.com"
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700"
+              className="btn-secondary"
             >
               <Mail className="w-5 h-5" />
               Contact Us

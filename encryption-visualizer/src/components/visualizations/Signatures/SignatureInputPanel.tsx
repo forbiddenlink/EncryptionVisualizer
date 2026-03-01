@@ -85,7 +85,7 @@ export const SignatureInputPanel: React.FC<SignatureInputPanelProps> = ({ onSign
                 className={`relative p-4 rounded-xl border-2 transition-all duration-300 text-left ${
                   selectedSize === keySize.size
                     ? 'border-amber-500 bg-amber-100 dark:bg-amber-500/20'
-                    : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700'
+                    : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-100 dark:hover:bg-cyber-surface'
                 }`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -112,7 +112,7 @@ export const SignatureInputPanel: React.FC<SignatureInputPanelProps> = ({ onSign
 
         {/* Current Key Pair Display */}
         {keyPair && (
-          <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="bg-slate-50 dark:bg-cyber-dark border border-slate-200 dark:border-white/5 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
             <div className="flex items-center gap-2 mb-3">
               <Key className="w-4 h-4 text-amber-500" />
               <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">Current Key Pair</span>
