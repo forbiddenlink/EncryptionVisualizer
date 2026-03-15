@@ -63,3 +63,4 @@ out/
 
 # Next.js
 .next/
+.env*
