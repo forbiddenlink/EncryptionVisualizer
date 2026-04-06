@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-import type { VisualizationState, Algorithm, AESStep, RSAStep, HashStep, SignatureStep } from '@/lib/types';
+import type { VisualizationState, Algorithm, AESStep, RSAStep, HashStep, SignatureStep, DHStep, BlockModeStep } from '@/lib/types';
 
 // Union type for all visualization step types
-type VisualizationSteps = AESStep[] | RSAStep[] | HashStep[] | SignatureStep[];
+type VisualizationSteps = AESStep[] | RSAStep[] | HashStep[] | SignatureStep[] | DHStep[] | BlockModeStep[];
 
 interface VisualizationStore extends Omit<VisualizationState, 'steps'> {
   steps: VisualizationSteps;

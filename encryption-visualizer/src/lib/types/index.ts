@@ -115,6 +115,44 @@ export interface SignatureStep {
   calculation?: string;
 }
 
+// Block Mode Types
+export interface BlockModeStep {
+  type: 'input' | 'split-blocks' | 'encrypt-block' | 'xor-operation' | 'output';
+  mode: 'ecb' | 'cbc' | 'gcm';
+  stepNumber: number;
+  title: string;
+  description: string;
+  blocks?: string[];
+  currentBlock?: number;
+  iv?: string;
+  previousCiphertext?: string;
+  counter?: number;
+  authTag?: string;
+  values?: Record<string, string | number>;
+}
+
+// Diffie-Hellman Types
+export interface DHStep {
+  type: 'setup' | 'alice-private' | 'alice-public' | 'bob-private' | 'bob-public' | 'alice-shared' | 'bob-shared' | 'complete';
+  stepNumber: number;
+  title: string;
+  description: string;
+  values?: Record<string, string | number>;
+  formula?: string;
+  calculation?: string;
+  actor?: 'system' | 'alice' | 'bob';
+}
+
+export interface DHParams {
+  p: number;
+  g: number;
+  alicePrivate: number;
+  alicePublic: number;
+  bobPrivate: number;
+  bobPublic: number;
+  sharedSecret: number;
+}
+
 // Educational Types
 export interface QuizQuestion {
   id: string;

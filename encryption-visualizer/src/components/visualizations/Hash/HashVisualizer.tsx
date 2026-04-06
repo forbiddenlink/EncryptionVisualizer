@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { HashStep } from '@/lib/crypto/hash';
 import { m } from 'framer-motion';
 import { Hash, Binary, Cpu, CheckCircle } from 'lucide-react';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 interface HashVisualizerProps {
   steps: HashStep[];
@@ -9,6 +10,15 @@ interface HashVisualizerProps {
 }
 
 export const HashVisualizer: React.FC<HashVisualizerProps> = ({ steps, currentStep }) => {
+  const prefersReducedMotion = useReducedMotion();
+
+  const transition = useMemo(() =>
+    prefersReducedMotion
+      ? { duration: 0 }
+      : { type: 'spring' as const, stiffness: 400, damping: 40 },
+    [prefersReducedMotion]
+  );
+
   if (steps.length === 0) {
     return (
       <div className="glass-card p-8 text-center">
@@ -51,10 +61,10 @@ export const HashVisualizer: React.FC<HashVisualizerProps> = ({ steps, currentSt
       {/* Step Header */}
       <m.div
         key={currentStep}
-        initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
-        transition={{ type: "spring", stiffness: 400, damping: 40 }}
+        initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20, filter: "blur(4px)" }}
+        animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
+        exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -20, filter: "blur(4px)" }}
+        transition={transition}
         className="glass-card p-6 space-y-4"
       >
         <div className="flex items-start justify-between">

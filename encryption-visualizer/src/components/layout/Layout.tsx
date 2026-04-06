@@ -3,10 +3,9 @@ import { Header } from './Header';
 
 interface LayoutProps {
   children: React.ReactNode;
-  onNavigate?: (page: 'home' | 'aes' | 'rsa' | 'hashing' | 'signatures' | 'glossary' | 'about') => void;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen">
       {/* Skip to main content link for accessibility */}
@@ -17,7 +16,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
         Skip to main content
       </a>
 
-      <Header onNavigate={onNavigate} />
+      <Header />
 
       <main
         id="main-content"

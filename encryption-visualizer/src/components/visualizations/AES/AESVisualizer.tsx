@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { AESStateMatrix } from './AESStateMatrix';
 import { type AESStep } from '@/lib/crypto/aes';
 import { useVisualizationStore } from '@/store/visualizationStore';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ArrowRight, Info, Cpu } from 'lucide-react';
 
 interface AESVisualizerProps {
@@ -12,6 +13,14 @@ interface AESVisualizerProps {
 export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }) => {
   const { currentStep, totalSteps, isPlaying, speed, setTotalSteps, setCurrentStep, pause, steps: storeSteps } = useVisualizationStore();
   const steps = propSteps || (storeSteps as unknown as AESStep[]);
+  const prefersReducedMotion = useReducedMotion();
+
+  const transition = useMemo(() =>
+    prefersReducedMotion
+      ? { duration: 0 }
+      : { type: 'spring' as const, stiffness: 400, damping: 40 },
+    [prefersReducedMotion]
+  );
 
   useEffect(() => {
     setTotalSteps(steps.length);
@@ -121,10 +130,10 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
       <AnimatePresence mode="wait">
         <m.div
           key={currentStep}
-          initial={{ opacity: 0, y: -20, filter: "blur(4px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-          transition={{ type: "spring", stiffness: 400, damping: 40 }}
+          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -20, filter: "blur(4px)" }}
+          animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20, filter: "blur(4px)" }}
+          transition={transition}
           className="glass-card p-4 sm:p-6 relative overflow-hidden"
         >
           {/* Background gradient */}
@@ -168,10 +177,10 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
       <AnimatePresence mode="wait">
         <m.div
           key={`state-${currentStep}`}
-          initial={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          exit={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
-          transition={{ type: "spring", stiffness: 400, damping: 40 }}
+          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+          animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1, filter: "blur(0px)" }}
+          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+          transition={transition}
           className="flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8"
         >
           <AESStateMatrix

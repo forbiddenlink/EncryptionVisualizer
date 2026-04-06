@@ -1,13 +1,15 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Zap } from 'lucide-react';
 import { QuizQuestion } from './QuizQuestion';
 import { QuizResults } from './QuizResults';
+import { useProgressStore } from '@/store/progressStore';
 import type { QuizQuestion as QuizQuestionType } from '@/lib/types';
 
 interface QuizSystemProps {
     questions: QuizQuestionType[];
     title?: string;
+    algorithmId?: string;
 }
 
 // Shuffle helper function
@@ -18,6 +20,7 @@ const shuffleAndSlice = (arr: QuizQuestionType[], count: number): QuizQuestionTy
 export const QuizSystem: React.FC<QuizSystemProps> = ({
     questions,
     title = "Knowledge Check",
+    algorithmId,
 }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -25,6 +28,15 @@ export const QuizSystem: React.FC<QuizSystemProps> = ({
     const [score, setScore] = useState(0);
     const [isCompleted, setIsCompleted] = useState(false);
     const [quizKey, setQuizKey] = useState(0);
+
+    const saveQuizScore = useProgressStore((state) => state.saveQuizScore);
+
+    // Save score when quiz is completed
+    useEffect(() => {
+        if (isCompleted && algorithmId) {
+            saveQuizScore(algorithmId, score, 5); // 5 is the number of questions
+        }
+    }, [isCompleted, algorithmId, score, saveQuizScore]);
 
     // Shuffle questions on mount or when quizKey changes (for retry)
     // quizKey forces reshuffling when user retries the quiz

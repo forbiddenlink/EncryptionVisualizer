@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { RSAStep } from '@/lib/types';
 import { m } from 'framer-motion';
 import { Key, Lock, Hash, CheckCircle } from 'lucide-react';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 interface RSAVisualizerProps {
   steps: RSAStep[];
@@ -9,6 +10,22 @@ interface RSAVisualizerProps {
 }
 
 export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep }) => {
+  const prefersReducedMotion = useReducedMotion();
+
+  const transition = useMemo(() =>
+    prefersReducedMotion
+      ? { duration: 0 }
+      : { type: 'spring' as const, stiffness: 400, damping: 40 },
+    [prefersReducedMotion]
+  );
+
+  const itemTransition = useMemo(() =>
+    prefersReducedMotion
+      ? { duration: 0 }
+      : { duration: 0.3 },
+    [prefersReducedMotion]
+  );
+
   if (steps.length === 0) {
     return (
       <div className="glass-card p-8 text-center">
@@ -52,10 +69,10 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
       {/* Step Header */}
       <m.div
         key={currentStep}
-        initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
-        transition={{ type: "spring", stiffness: 400, damping: 40 }}
+        initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20, filter: "blur(4px)" }}
+        animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
+        exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -20, filter: "blur(4px)" }}
+        transition={transition}
         className="glass-card p-6 space-y-4"
       >
         <div className="flex items-start justify-between">
@@ -97,9 +114,9 @@ export const RSAVisualizer: React.FC<RSAVisualizerProps> = ({ steps, currentStep
           {Object.entries(step.values).map(([key, value]) => (
             <m.div
               key={key}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
+              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
+              animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+              transition={itemTransition}
               className="glass-card p-4 text-center"
             >
               <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase mb-2">{key}</div>
