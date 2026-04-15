@@ -52,5 +52,10 @@
     "vitest": "^4.0.17"
   },
   "description": "Interactive encryption algorithm visualizer built with React and Vite",
-  "license": "MIT"
+  "license": "MIT",
+  "pnpm": {
+    "overrides": {
+      "picomatch": "^4.0.4"
+    }
+  }
 }
