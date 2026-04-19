@@ -1,16 +1,4 @@
-// Core types for the Encryption Visualizer
-
 export type Algorithm = 'AES' | 'RSA' | 'SHA-256';
-
-export type KeySize = 128 | 192 | 256;
-
-export interface VisualizationStep {
-  id: string;
-  name: string;
-  description: string;
-  data: unknown;
-  timestamp: number;
-}
 
 export interface VisualizationState {
   algorithm: Algorithm;
@@ -18,20 +6,8 @@ export interface VisualizationState {
   currentStep: number;
   totalSteps: number;
   speed: number; // 0.5x to 4x
-  steps: VisualizationStep[];
 }
 
-export interface AESState {
-  plaintext: string;
-  key: string;
-  keySize: KeySize;
-  ciphertext: string;
-  stateMatrix: number[][];
-  roundKeys: number[][][];
-  currentRound: number;
-}
-
-// AES Step type
 export interface AESStep {
   stepNumber: number;
   type: 'initial' | 'subBytes' | 'shiftRows' | 'mixColumns' | 'addRoundKey' | 'final';
@@ -40,10 +16,9 @@ export interface AESStep {
   state: number[][];
   roundKey?: number[][];
   highlightCells?: { row: number; col: number }[];
-  round?: number;
+  roundNumber?: number;
 }
 
-// RSA Types
 export interface RSAStep {
   stepNumber: number;
   type: 'prime-selection' | 'modulus-calculation' | 'phi-calculation' | 'e-selection' | 'd-calculation' | 'encryption' | 'decryption' | 'complete';
@@ -78,7 +53,6 @@ export interface RSAKeyPair {
   phi: number;
 }
 
-// Hash Types
 export interface HashStep {
   stepNumber: number;
   type: 'input' | 'preprocessing' | 'initialization' | 'compression' | 'output';
@@ -94,7 +68,6 @@ export interface HashStep {
   };
 }
 
-// Signature Types
 export interface SignatureStep {
   stepNumber: number;
   type: 'message-input' | 'hash-generation' | 'sign-hash' | 'signature-complete'
@@ -115,7 +88,6 @@ export interface SignatureStep {
   calculation?: string;
 }
 
-// Block Mode Types
 export interface BlockModeStep {
   type: 'input' | 'split-blocks' | 'encrypt-block' | 'xor-operation' | 'output';
   mode: 'ecb' | 'cbc' | 'gcm';
@@ -131,7 +103,6 @@ export interface BlockModeStep {
   values?: Record<string, string | number>;
 }
 
-// Diffie-Hellman Types
 export interface DHStep {
   type: 'setup' | 'alice-private' | 'alice-public' | 'bob-private' | 'bob-public' | 'alice-shared' | 'bob-shared' | 'complete';
   stepNumber: number;
@@ -153,7 +124,6 @@ export interface DHParams {
   sharedSecret: number;
 }
 
-// Educational Types
 export interface QuizQuestion {
   id: string;
   question: string;

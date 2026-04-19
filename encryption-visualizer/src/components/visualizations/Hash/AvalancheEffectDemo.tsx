@@ -86,8 +86,8 @@ export const AvalancheEffectDemo: React.FC = () => {
             <div className="text-sm text-slate-700 dark:text-slate-300">
               Average bits changed: <span className="font-bold text-blue-600 dark:text-cyber-cyan">
                 {Math.round(results.slice(1).reduce((sum, r) => sum + r.bitsChanged, 0) / Math.max(results.length - 1, 1))}
-              </span> out of {results[0]?.hash.length * 4 || 32} total bits
-              ({Math.round((results.slice(1).reduce((sum, r) => sum + r.bitsChanged, 0) / Math.max(results.length - 1, 1) / (results[0]?.hash.length * 4 || 32)) * 100)}% change)
+              </span> out of {results[0].hash.length * 4} total bits
+              ({Math.round((results.slice(1).reduce((sum, r) => sum + r.bitsChanged, 0) / Math.max(results.length - 1, 1) / (results[0].hash.length * 4)) * 100)}% change)
             </div>
           </div>
         </m.div>

@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useExpandedSections } from '@/hooks/useExpandedSections';
+import { useAutoAdvance } from '@/hooks/useAutoAdvance';
 import { HashInputPanel } from '@/components/visualizations/Hash/HashInputPanel';
 import { LearningResourceSchema } from '@/components/seo/JsonLd';
 import { algorithmSchemas } from '@/data/structuredData';
@@ -31,7 +32,6 @@ export const HashingPage = () => {
     steps,
     currentStep,
     isPlaying,
-    speed,
     setSteps,
     setCurrentStep,
     play,
@@ -42,19 +42,7 @@ export const HashingPage = () => {
   // Cast steps to HashStep[] for type safety in this component
   const hashSteps = steps as HashStep[];
 
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['whatIsHashing', 'properties']));
-
-  const toggleSection = (sectionId: string) => {
-    setExpandedSections((prev) => {
-      const next = new Set(prev);
-      if (next.has(sectionId)) {
-        next.delete(sectionId);
-      } else {
-        next.add(sectionId);
-      }
-      return next;
-    });
-  };
+  const { expandedSections, toggleSection } = useExpandedSections(['whatIsHashing', 'properties']);
 
   const handleHash = (input: string) => {
     const newSteps = hashWithSteps(input);
@@ -64,16 +52,7 @@ export const HashingPage = () => {
   };
 
   // Auto-advance steps when playing
-  useEffect(() => {
-    if (isPlaying && currentStep < steps.length - 1) {
-      const timer = setTimeout(() => {
-        setCurrentStep(currentStep + 1);
-      }, 2000 / speed);
-      return () => clearTimeout(timer);
-    } else if (isPlaying && currentStep === steps.length - 1) {
-      pause();
-    }
-  }, [isPlaying, currentStep, steps.length, speed, setCurrentStep, pause]);
+  useAutoAdvance(steps.length);
 
   return (
     <>

@@ -6,23 +6,9 @@
  * This implementation prioritizes visualization clarity over cryptographic security.
  */
 
-export interface HashStep {
-  stepNumber: number;
-  type: 'input' | 'preprocessing' | 'initialization' | 'compression' | 'output';
-  title: string;
-  description: string;
-  data?: {
-    input?: string;
-    binary?: string;
-    padded?: string;
-    chunks?: string[];
-    hash?: string;
-    roundValues?: string[];
-  };
-}
+import type { HashStep } from '@/lib/types';
+export type { HashStep };
 
-// Simple hash function for educational purposes (not cryptographically secure)
-// Uses a simplified version to make visualization understandable
 export function simpleHash(input: string): string {
   let hash = 0x811c9dc5; // FNV offset basis
   
@@ -35,14 +21,12 @@ export function simpleHash(input: string): string {
   return hash.toString(16).padStart(8, '0');
 }
 
-// Convert string to binary representation
 export function stringToBinary(str: string): string {
   return Array.from(str)
     .map(char => char.charCodeAt(0).toString(2).padStart(8, '0'))
     .join(' ');
 }
 
-// Demonstrate avalanche effect
 export function demonstrateAvalancheEffect(input: string): Array<{
   input: string;
   hash: string;
@@ -51,14 +35,12 @@ export function demonstrateAvalancheEffect(input: string): Array<{
   const results = [];
   const originalHash = simpleHash(input);
   
-  // Original
   results.push({
     input: input,
     hash: originalHash,
     bitsChanged: 0,
   });
   
-  // Single character changes
   const variations = [
     input + ' ', // Add space
     input.slice(0, -1), // Remove last character
@@ -82,7 +64,6 @@ export function demonstrateAvalancheEffect(input: string): Array<{
   return results;
 }
 
-// Count bit differences between two hex strings
 function countBitDifference(hash1: string, hash2: string): number {
   let count = 0;
   const maxLength = Math.max(hash1.length, hash2.length);
@@ -103,12 +84,10 @@ function countBitDifference(hash1: string, hash2: string): number {
   return count;
 }
 
-// Generate visualization steps for hashing
 export function hashWithSteps(input: string): HashStep[] {
   const steps: HashStep[] = [];
   let stepNumber = 0;
   
-  // Step 1: Input
   steps.push({
     stepNumber: stepNumber++,
     type: 'input',
@@ -119,7 +98,6 @@ export function hashWithSteps(input: string): HashStep[] {
     },
   });
   
-  // Step 2: Binary Conversion
   const binary = stringToBinary(input.slice(0, 16)); // Limit for display
   steps.push({
     stepNumber: stepNumber++,
@@ -132,7 +110,6 @@ export function hashWithSteps(input: string): HashStep[] {
     },
   });
   
-  // Step 3: Initialization
   steps.push({
     stepNumber: stepNumber++,
     type: 'initialization',
@@ -144,7 +121,6 @@ export function hashWithSteps(input: string): HashStep[] {
     },
   });
   
-  // Step 4: Compression (simplified)
   const chunks = input.match(/.{1,4}/g) || [input];
   steps.push({
     stepNumber: stepNumber++,
@@ -157,7 +133,6 @@ export function hashWithSteps(input: string): HashStep[] {
     },
   });
   
-  // Step 5: Final Hash
   const finalHash = simpleHash(input);
   steps.push({
     stepNumber: stepNumber++,
@@ -173,7 +148,6 @@ export function hashWithSteps(input: string): HashStep[] {
   return steps;
 }
 
-// Compare two inputs
 export function compareHashes(input1: string, input2: string): {
   input1: string;
   hash1: string;

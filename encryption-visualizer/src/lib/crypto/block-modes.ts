@@ -438,4 +438,4 @@ export function demonstrateECBPatternProblem(pattern: string, repetitions: numbe
   };
 }
 
-export { BLOCK_SIZE, stringToHex, hexToBytes };
+export { BLOCK_SIZE };

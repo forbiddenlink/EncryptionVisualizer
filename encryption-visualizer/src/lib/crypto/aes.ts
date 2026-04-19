@@ -1,10 +1,10 @@
 /**
  * AES (Advanced Encryption Standard) Implementation
- * ACCURATE implementation of AES-128 encryption for educational visualization
+ * Implementation of AES-128 encryption for educational visualization
  * Based on FIPS 197 specification
  */
 
-// S-Box lookup table (Rijndael S-box) - VERIFIED
+// S-Box lookup table (Rijndael S-box)
 const S_BOX = [
   0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
   0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0,
@@ -24,21 +24,13 @@ const S_BOX = [
   0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16,
 ];
 
-// Round Constants for AES key expansion - VERIFIED
+// Round Constants for AES key expansion
 const RCON = [
   0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36,
 ];
 
-export interface AESStep {
-  stepNumber: number;
-  type: 'initial' | 'subBytes' | 'shiftRows' | 'mixColumns' | 'addRoundKey' | 'final';
-  title: string;
-  description: string;
-  state: number[][];
-  roundKey?: number[][];
-  highlightCells?: { row: number; col: number }[];
-  roundNumber?: number;
-}
+import type { AESStep } from '@/lib/types';
+export type { AESStep };
 
 /**
  * Convert a string to a 4x4 state matrix (COLUMN-MAJOR ORDER)
@@ -57,9 +49,6 @@ export function stringToState(input: string): number[][] {
   return state;
 }
 
-/**
- * Convert a state matrix back to string
- */
 export function stateToString(state: number[][]): string {
   let result = '';
   for (let col = 0; col < 4; col++) {
@@ -70,22 +59,16 @@ export function stateToString(state: number[][]): string {
   return result;
 }
 
-/**
- * Convert state matrix to hex display
- */
 export function stateToHex(state: number[][]): string[][] {
   return state.map(row => row.map(byte => byte.toString(16).padStart(2, '0').toUpperCase()));
 }
 
-/**
- * SubBytes transformation - substitutes each byte using S-Box
- */
 export function subBytes(state: number[][]): number[][] {
   return state.map(row => row.map(byte => S_BOX[byte]));
 }
 
 /**
- * ShiftRows transformation - VERIFIED
+ * ShiftRows transformation
  * Row 0: no shift
  * Row 1: shift left by 1
  * Row 2: shift left by 2
@@ -104,7 +87,7 @@ export function shiftRows(state: number[][]): number[][] {
 }
 
 /**
- * Galois Field (2^8) multiplication - VERIFIED
+ * Galois Field (2^8) multiplication
  */
 function gmul(a: number, b: number): number {
   let p = 0;
@@ -126,7 +109,7 @@ function gmul(a: number, b: number): number {
 }
 
 /**
- * MixColumns transformation - VERIFIED
+ * MixColumns transformation
  * Multiplies each column by the fixed MixColumns matrix
  */
 export function mixColumns(state: number[][]): number[][] {
@@ -147,24 +130,19 @@ export function mixColumns(state: number[][]): number[][] {
   return newState;
 }
 
-/**
- * AddRoundKey - XOR state with round key
- */
 export function addRoundKey(state: number[][], roundKey: number[][]): number[][] {
   return state.map((row, i) => row.map((byte, j) => byte ^ roundKey[i][j]));
 }
 
 /**
- * PROPER AES-128 Key Expansion (Key Schedule) - VERIFIED
+ * AES-128 Key Expansion (Key Schedule)
  * Generates 11 round keys (44 words) from the initial 128-bit key
  */
 export function generateRoundKeys(key: string): number[][][] {
   const paddedKey = key.padEnd(16, '\0');
   
-  // Convert key to words (32-bit values)
   const w: number[][] = [];
-  
-  // First 4 words are the original key
+
   for (let i = 0; i < 4; i++) {
     w[i] = [
       paddedKey.charCodeAt(4 * i),
@@ -193,7 +171,6 @@ export function generateRoundKeys(key: string): number[][][] {
     w[i] = w[i - 4].map((byte, j) => byte ^ temp[j]);
   }
   
-  // Convert words to round key matrices
   const roundKeys: number[][][] = [];
   for (let round = 0; round < 11; round++) {
     const roundKey: number[][] = [[], [], [], []];
@@ -210,7 +187,7 @@ export function generateRoundKeys(key: string): number[][][] {
 }
 
 /**
- * Perform ACCURATE AES-128 encryption and return all steps for visualization
+ * Perform AES-128 encryption and return all steps for visualization
  */
 export function encryptAESWithSteps(plaintext: string, key: string): AESStep[] {
   const steps: AESStep[] = [];

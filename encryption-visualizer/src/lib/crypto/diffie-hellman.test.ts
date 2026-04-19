@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import {
-  generateDHPrime,
   findGenerator,
   generatePrivateKey,
   computePublicKey,
@@ -8,13 +7,13 @@ import {
   generateDHKeyExchangeWithSteps,
   verifyDHExchange,
 } from './diffie-hellman';
-import { isPrime, modPow } from './rsa';
+import { isPrime, modPow, generatePrime } from './rsa';
 
 describe('Diffie-Hellman Key Exchange', () => {
-  describe('generateDHPrime', () => {
+  describe('generatePrime (used for DH)', () => {
     it('should generate a prime number within the specified range', () => {
       for (let i = 0; i < 10; i++) {
-        const prime = generateDHPrime(23, 97);
+        const prime = generatePrime(23, 97);
         expect(prime).toBeGreaterThanOrEqual(23);
         expect(prime).toBeLessThanOrEqual(97);
         expect(isPrime(prime)).toBe(true);
@@ -22,8 +21,8 @@ describe('Diffie-Hellman Key Exchange', () => {
     });
 
     it('should generate different primes for different size ranges', () => {
-      const smallPrime = generateDHPrime(23, 50);
-      const mediumPrime = generateDHPrime(101, 200);
+      const smallPrime = generatePrime(23, 50);
+      const mediumPrime = generatePrime(101, 200);
 
       expect(smallPrime).toBeLessThanOrEqual(50);
       expect(mediumPrime).toBeGreaterThanOrEqual(101);

@@ -96,8 +96,30 @@ export const GlossaryPage = () => {
                         </m.div>
                     ))
                 ) : (
-                    <div className="col-span-full text-center py-12 text-slate-400 dark:text-slate-500">
-                        No terms found matching your search.
+                    <div className="col-span-full flex flex-col items-center justify-center py-16 text-center">
+                        <div className="p-4 bg-slate-100 dark:bg-slate-800/50 rounded-full mb-4">
+                            <Search className="w-8 h-8 text-slate-300 dark:text-slate-600" />
+                        </div>
+                        <p className="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                            No terms found for &lsquo;{searchTerm || selectedCategory}&rsquo;
+                        </p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-sm">
+                            Try different keywords or browse by category
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-2">
+                            {categories.filter((c) => c !== 'All').map((category) => (
+                                <button
+                                    key={category}
+                                    onClick={() => {
+                                        setSearchTerm('');
+                                        setSelectedCategory(category);
+                                    }}
+                                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-cyber-surface border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all duration-150 active:scale-95"
+                                >
+                                    {category}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 )}
             </div>

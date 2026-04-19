@@ -1,12 +1,10 @@
 import { create } from 'zustand';
 import type { VisualizationState, Algorithm, AESStep, RSAStep, HashStep, SignatureStep, DHStep, BlockModeStep } from '@/lib/types';
 
-// Union type for all visualization step types
-type VisualizationSteps = AESStep[] | RSAStep[] | HashStep[] | SignatureStep[] | DHStep[] | BlockModeStep[];
+export type VisualizationSteps = AESStep[] | RSAStep[] | HashStep[] | SignatureStep[] | DHStep[] | BlockModeStep[];
 
-interface VisualizationStore extends Omit<VisualizationState, 'steps'> {
+interface VisualizationStore extends VisualizationState {
   steps: VisualizationSteps;
-  // Actions
   setAlgorithm: (algorithm: Algorithm) => void;
   play: () => void;
   pause: () => void;
@@ -21,7 +19,6 @@ interface VisualizationStore extends Omit<VisualizationState, 'steps'> {
 }
 
 export const useVisualizationStore = create<VisualizationStore>((set) => ({
-  // Initial state
   algorithm: 'AES',
   isPlaying: false,
   currentStep: 0,
@@ -29,7 +26,6 @@ export const useVisualizationStore = create<VisualizationStore>((set) => ({
   speed: 1,
   steps: [],
 
-  // Actions
   setAlgorithm: (algorithm) => set({ algorithm, currentStep: 0, steps: [] }),
 
   play: () => set({ isPlaying: true }),

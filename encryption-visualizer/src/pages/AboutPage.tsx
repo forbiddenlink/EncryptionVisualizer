@@ -65,7 +65,7 @@ export const AboutPage = () => {
         <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Get Involved</h2>
         <div className="flex flex-col sm:flex-row gap-4">
           <a
-            href="https://github.com"
+            href="https://github.com/forbiddenlink/encryption-visualizer"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary"
@@ -74,11 +74,13 @@ export const AboutPage = () => {
             View on GitHub
           </a>
           <a
-            href="mailto:contact@example.com"
+            href="https://github.com/forbiddenlink/encryption-visualizer/issues"
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-secondary"
           >
             <Mail className="w-5 h-5" />
-            Contact Us
+            Report an Issue
           </a>
         </div>
       </section>

@@ -2,13 +2,18 @@ export const ROUTES = {
   HOME: '/',
   AES: '/aes',
   RSA: '/rsa',
+  ECC: '/ecc',
   BLOCK_MODES: '/block-modes',
   DIFFIE_HELLMAN: '/diffie-hellman',
   HASHING: '/hashing',
+  HMAC: '/hmac',
   SIGNATURES: '/signatures',
+  PADDING: '/padding',
+  PASSWORD_HASHING: '/password-hashing',
+  TLS: '/tls',
+  CRYPTANALYSIS: '/cryptanalysis',
   COMPARE: '/compare',
+  LEARNING_PATHS: '/learn',
   GLOSSARY: '/glossary',
   ABOUT: '/about',
 } as const;
-
-export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];

@@ -8,30 +8,67 @@ interface QuizQuestionProps {
     selectedOption: number | null;
     onSelectOption: (index: number) => void;
     isSubmitted: boolean;
+    currentIndex?: number;
+    totalQuestions?: number;
 }
+
+const DIFFICULTY_STYLES: Record<QuizQuestionType['difficulty'], { badge: string; dot: string }> = {
+    beginner: {
+        badge: 'border-green-500/30 text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-500/10',
+        dot: 'bg-green-500',
+    },
+    intermediate: {
+        badge: 'border-yellow-500/30 text-yellow-600 dark:text-yellow-400 bg-yellow-100 dark:bg-yellow-500/10',
+        dot: 'bg-yellow-500',
+    },
+    advanced: {
+        badge: 'border-red-500/30 text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-500/10',
+        dot: 'bg-red-500',
+    },
+};
 
 export const QuizQuestion: React.FC<QuizQuestionProps> = ({
     question,
     selectedOption,
     onSelectOption,
     isSubmitted,
+    currentIndex,
+    totalQuestions,
 }) => {
-    let difficultyColor = 'border-red-500/30 text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-500/10';
-    if (question.difficulty === 'beginner') {
-        difficultyColor = 'border-green-500/30 text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-500/10';
-    } else if (question.difficulty === 'intermediate') {
-        difficultyColor = 'border-yellow-500/30 text-yellow-600 dark:text-yellow-400 bg-yellow-100 dark:bg-yellow-500/10';
-    }
+    const styles = DIFFICULTY_STYLES[question.difficulty];
 
     return (
         <div className="space-y-4">
+            {/* Progress bar */}
+            {currentIndex !== undefined && totalQuestions !== undefined && totalQuestions > 1 && (
+                <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                        <div className="flex gap-1">
+                            {Array.from({ length: totalQuestions }, (_, i) => (
+                                <div
+                                    key={i}
+                                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                                        i < currentIndex
+                                            ? 'w-4 bg-purple-500 dark:bg-purple-400'
+                                            : i === currentIndex
+                                              ? 'w-6 bg-purple-600 dark:bg-purple-300'
+                                              : 'w-4 bg-slate-200 dark:bg-slate-700'
+                                    }`}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="flex items-start gap-3">
                 <div className="p-2 bg-purple-100 dark:bg-purple-500/20 rounded-lg flex-shrink-0">
                     <HelpCircle className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white">{question.question}</h3>
-                    <span className={`text-xs px-2 py-0.5 rounded-full border ${difficultyColor}`}>
+                    <span className={`inline-flex items-center gap-1.5 text-xs px-2 py-0.5 rounded-full border mt-1 ${styles.badge}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${styles.dot}`} />
                         {question.difficulty.charAt(0).toUpperCase() + question.difficulty.slice(1)}
                     </span>
                 </div>

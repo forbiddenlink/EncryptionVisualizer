@@ -1,14 +1,20 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import { Header } from './Header';
+import { ScrollToTop } from './ScrollToTop';
+import { ToastContainer } from '@/components/ui/Toast';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const location = useLocation();
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <div className="min-h-screen">
-      {/* Skip to main content link for accessibility */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-lg focus:outline-none"
@@ -16,6 +22,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         Skip to main content
       </a>
 
+      <ScrollToTop />
       <Header />
 
       <main
@@ -23,8 +30,20 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         role="main"
         className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-12"
       >
-        {children}
+        <AnimatePresence mode="wait">
+          <m.div
+            key={location.pathname}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={shouldReduceMotion ? undefined : { opacity: 0 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+          >
+            {children}
+          </m.div>
+        </AnimatePresence>
       </main>
+
+      <ToastContainer />
     </div>
   );
 };

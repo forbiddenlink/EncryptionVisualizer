@@ -11,29 +11,13 @@
  */
 
 import type { DHStep, DHParams } from '../types/index.js';
-import { isPrime, modPow } from './rsa.js';
-
-/**
- * Generate a random prime number within a range suitable for DH
- * Uses small primes for educational visualization
- */
-export function generateDHPrime(min: number, max: number): number {
-  let candidate = Math.floor(Math.random() * (max - min + 1)) + min;
-
-  while (!isPrime(candidate)) {
-    candidate = Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  return candidate;
-}
+import { isPrime, modPow, generatePrime } from './rsa.js';
 
 /**
  * Find a primitive root (generator) for a given prime p
  * For simplicity in educational context, we use small generators
  */
 export function findGenerator(p: number): number {
-  // For educational purposes, we'll use common small generators
-  // In practice, finding primitive roots is more complex
   const commonGenerators = [2, 3, 5, 7];
 
   for (const g of commonGenerators) {
@@ -64,7 +48,6 @@ export function findGenerator(p: number): number {
  * Generate a random private key in range [2, p-2]
  */
 export function generatePrivateKey(p: number): number {
-  // Private key should be in range [2, p-2] for security
   const min = 2;
   const max = p - 2;
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -104,7 +87,7 @@ export function generateDHKeyExchangeWithSteps(keySize: 'small' | 'medium' | 'la
   const range = ranges[keySize];
 
   // Step 1: Setup - Choose prime p and generator g
-  const p = generateDHPrime(range.min, range.max);
+  const p = generatePrime(range.min, range.max);
   const g = findGenerator(p);
 
   steps.push({

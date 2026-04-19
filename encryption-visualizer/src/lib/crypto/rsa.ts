@@ -12,7 +12,6 @@
 
 import type { RSAKeyPair, RSAStep } from '../types/index.js';
 
-// Helper function to check if a number is prime
 export function isPrime(num: number): boolean {
   if (num <= 1) return false;
   if (num <= 3) return true;
@@ -25,7 +24,6 @@ export function isPrime(num: number): boolean {
   return true;
 }
 
-// Generate a random prime number within a range
 export function generatePrime(min: number, max: number): number {
   let prime = Math.floor(Math.random() * (max - min + 1)) + min;
   
@@ -36,7 +34,7 @@ export function generatePrime(min: number, max: number): number {
   return prime;
 }
 
-// Calculate Greatest Common Divisor using Euclidean algorithm
+// Euclidean algorithm
 export function gcd(a: number, b: number): number {
   while (b !== 0) {
     const temp = b;
@@ -46,7 +44,7 @@ export function gcd(a: number, b: number): number {
   return a;
 }
 
-// Extended Euclidean Algorithm to find modular multiplicative inverse
+// Extended Euclidean Algorithm
 export function modInverse(e: number, phi: number): number {
   let [old_r, r] = [phi, e];
   let [old_s, s] = [0, 1];
@@ -57,7 +55,6 @@ export function modInverse(e: number, phi: number): number {
     [old_s, s] = [s, old_s - quotient * s];
   }
   
-  // Make sure the result is positive
   if (old_s < 0) {
     old_s += phi;
   }
@@ -65,7 +62,6 @@ export function modInverse(e: number, phi: number): number {
   return old_s;
 }
 
-// Modular exponentiation: (base^exp) mod mod
 export function modPow(base: number, exp: number, mod: number): number {
   if (mod === 1) return 0;
   

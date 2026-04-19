@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useExpandedSections } from '@/hooks/useExpandedSections';
+import { useAutoAdvance } from '@/hooks/useAutoAdvance';
 import { DHInputPanel } from '@/components/visualizations/DiffieHellman/DHInputPanel';
 import { DHVisualizer } from '@/components/visualizations/DiffieHellman/DHVisualizer';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
@@ -26,7 +27,6 @@ export const DiffieHellmanPage = () => {
     isPlaying,
     speed,
     setSteps,
-    setCurrentStep,
     play,
     pause,
     reset,
@@ -36,22 +36,10 @@ export const DiffieHellmanPage = () => {
   } = useVisualizationStore();
 
   // DH-specific state
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['whatIsDH', 'keyExchangeSteps']));
+  const { expandedSections, toggleSection } = useExpandedSections(['whatIsDH', 'keyExchangeSteps']);
 
   // Cast steps to DHStep[] for type safety in this component
   const dhSteps = steps as DHStep[];
-
-  const toggleSection = (sectionId: string) => {
-    setExpandedSections((prev) => {
-      const next = new Set(prev);
-      if (next.has(sectionId)) {
-        next.delete(sectionId);
-      } else {
-        next.add(sectionId);
-      }
-      return next;
-    });
-  };
 
   const handleGenerate = (keySize: 'small' | 'medium' | 'large') => {
     const { steps: newSteps } = generateDHKeyExchangeWithSteps(keySize);
@@ -61,16 +49,7 @@ export const DiffieHellmanPage = () => {
   };
 
   // Auto-advance steps when playing
-  useEffect(() => {
-    if (isPlaying && currentStep < steps.length - 1) {
-      const timer = setTimeout(() => {
-        setCurrentStep(currentStep + 1);
-      }, 2000 / speed);
-      return () => clearTimeout(timer);
-    } else if (isPlaying && currentStep === steps.length - 1) {
-      pause();
-    }
-  }, [isPlaying, currentStep, steps.length, speed, setCurrentStep, pause]);
+  useAutoAdvance(steps.length);
 
   return (
     <div className="space-y-6 sm:space-y-8">

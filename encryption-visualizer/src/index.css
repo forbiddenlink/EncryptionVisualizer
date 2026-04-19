@@ -38,13 +38,18 @@
     letter-spacing: -0.02em;
   }
 
-  /* Focus utilities */
+  /* Focus utilities - visible only for keyboard navigation */
   *:focus-visible {
-    @apply outline-none ring-2 ring-blue-500/40 ring-offset-2 ring-offset-white;
+    @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-white;
   }
 
   .dark *:focus-visible {
-    @apply ring-offset-slate-950;
+    @apply ring-cyber-cyan ring-offset-slate-950;
+  }
+
+  /* Remove focus ring on mouse click for elements that handle it */
+  *:focus:not(:focus-visible) {
+    @apply outline-none ring-0;
   }
 }
 

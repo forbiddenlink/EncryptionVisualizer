@@ -1,0 +1,108 @@
+import type { QuizQuestion } from '@/lib/types';
+
+export const paddingQuizQuestions: QuizQuestion[] = [
+  {
+    id: "padding-why-1",
+    question: "Why do block ciphers need padding?",
+    options: [
+      "To make the data harder to decrypt",
+      "To ensure plaintext length is a multiple of the block size",
+      "To add encryption keys to the data",
+      "To compress the data before encryption",
+    ],
+    correct: 1,
+    explanation: "Block ciphers process data in fixed-size blocks (e.g., 16 bytes for AES). If the plaintext is not a perfect multiple of the block size, padding must be added to fill the last block.",
+    difficulty: "beginner",
+  },
+  {
+    id: "padding-pkcs7-1",
+    question: "In PKCS#7 padding, if 4 bytes of padding are needed, what are the padding bytes?",
+    options: [
+      "00 00 00 04",
+      "04 04 04 04",
+      "01 02 03 04",
+      "FF FF FF FF",
+    ],
+    correct: 1,
+    explanation: "In PKCS#7, each padding byte is set to the number of padding bytes added. So 4 bytes of padding means each byte is 0x04: [04, 04, 04, 04].",
+    difficulty: "beginner",
+  },
+  {
+    id: "padding-pkcs7-full-1",
+    question: "What happens in PKCS#7 when the plaintext is already a multiple of the block size?",
+    options: [
+      "No padding is added",
+      "A full block of padding is added",
+      "The last block is removed",
+      "The data is truncated",
+    ],
+    correct: 1,
+    explanation: "PKCS#7 always adds padding. When data is already block-aligned, a full block of padding bytes is added (e.g., 16 bytes of 0x10 for a 16-byte block). This ensures unpadding is always unambiguous.",
+    difficulty: "intermediate",
+  },
+  {
+    id: "padding-zero-problem-1",
+    question: "What is the main problem with zero padding?",
+    options: [
+      "It is too slow",
+      "It cannot distinguish padding zeros from data zeros",
+      "It only works with AES",
+      "It adds too many bytes",
+    ],
+    correct: 1,
+    explanation: "Zero padding is ambiguous: if the original data ends with zero bytes, there is no way to know where the data ends and padding begins. This makes it unsuitable for binary data.",
+    difficulty: "intermediate",
+  },
+  {
+    id: "padding-ansi-1",
+    question: "How does ANSI X.923 padding differ from PKCS#7?",
+    options: [
+      "It uses random bytes instead of the count",
+      "All padding bytes are 0x00 except the last, which is the count",
+      "It does not encode the padding length",
+      "It uses a different block size",
+    ],
+    correct: 1,
+    explanation: "ANSI X.923 fills padding positions with 0x00 bytes, but the very last byte stores the total padding count. PKCS#7, by contrast, fills every padding byte with the count value.",
+    difficulty: "intermediate",
+  },
+  {
+    id: "padding-oracle-1",
+    question: "What is a padding oracle attack?",
+    options: [
+      "An attack that steals encryption keys from Oracle databases",
+      "An attack where error messages about padding validity are used to decrypt ciphertext",
+      "An attack that adds extra padding to overflow buffers",
+      "An attack that removes padding to corrupt data",
+    ],
+    correct: 1,
+    explanation: "A padding oracle attack exploits a server that reveals whether decrypted padding is valid. By manipulating ciphertext bytes and observing responses, an attacker can decrypt data one byte at a time without knowing the key.",
+    difficulty: "advanced",
+  },
+  {
+    id: "padding-stream-1",
+    question: "Which cipher mode does NOT require padding?",
+    options: [
+      "ECB (Electronic Codebook)",
+      "CBC (Cipher Block Chaining)",
+      "CTR (Counter Mode)",
+      "Both ECB and CBC require padding",
+    ],
+    correct: 2,
+    explanation: "CTR mode turns a block cipher into a stream cipher by encrypting sequential counters to generate a keystream. The keystream is XORed with plaintext of any length, so no padding is needed.",
+    difficulty: "intermediate",
+  },
+  {
+    id: "padding-prevention-1",
+    question: "What is the best defense against padding oracle attacks?",
+    options: [
+      "Using longer encryption keys",
+      "Using authenticated encryption (e.g., AES-GCM)",
+      "Adding more padding bytes",
+      "Using zero padding instead of PKCS#7",
+    ],
+    correct: 1,
+    explanation: "Authenticated encryption modes like AES-GCM verify data integrity before decryption. If the ciphertext has been tampered with, decryption is rejected entirely, eliminating the padding oracle.",
+    difficulty: "advanced",
+  },
+];

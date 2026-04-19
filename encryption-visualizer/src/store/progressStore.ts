@@ -10,6 +10,8 @@ interface QuizScore {
 interface ProgressStore {
   completedAlgorithms: string[];
   quizScores: Record<string, QuizScore>;
+  sectionProgress: Record<string, Record<string, boolean>>;
+  missedQuestions: Record<string, string[]>;
 
   markAlgorithmComplete: (algorithm: string) => void;
   saveQuizScore: (algorithm: string, score: number, total: number) => void;
@@ -17,6 +19,13 @@ interface ProgressStore {
   getQuizScore: (algorithm: string) => QuizScore | null;
   getCompletionPercentage: () => number;
   resetProgress: () => void;
+
+  markSectionViewed: (algorithm: string, sectionId: string) => void;
+  getSectionProgress: (algorithm: string) => number;
+
+  addMissedQuestion: (algorithm: string, questionId: string) => void;
+  removeMissedQuestion: (algorithm: string, questionId: string) => void;
+  getMissedQuestions: (algorithm: string) => string[];
 }
 
 const ALL_ALGORITHMS = ['aes', 'rsa', 'hashing', 'signatures'];
@@ -26,6 +35,8 @@ export const useProgressStore = create<ProgressStore>()(
     (set, get) => ({
       completedAlgorithms: [],
       quizScores: {},
+      sectionProgress: {},
+      missedQuestions: {},
 
       markAlgorithmComplete: (algorithm: string) => {
         set((state) => {
@@ -60,7 +71,7 @@ export const useProgressStore = create<ProgressStore>()(
       },
 
       getQuizScore: (algorithm: string) => {
-        return get().quizScores[algorithm] || null;
+        return get().quizScores[algorithm] ?? null;
       },
 
       getCompletionPercentage: () => {
@@ -72,7 +83,63 @@ export const useProgressStore = create<ProgressStore>()(
         set({
           completedAlgorithms: [],
           quizScores: {},
+          sectionProgress: {},
+          missedQuestions: {},
         });
+      },
+
+      markSectionViewed: (algorithm: string, sectionId: string) => {
+        set((state) => {
+          const existing = state.sectionProgress[algorithm] ?? {};
+          if (existing[sectionId]) return state;
+          return {
+            sectionProgress: {
+              ...state.sectionProgress,
+              [algorithm]: {
+                ...existing,
+                [sectionId]: true,
+              },
+            },
+          };
+        });
+      },
+
+      getSectionProgress: (algorithm: string) => {
+        const sections = get().sectionProgress[algorithm];
+        if (!sections) return 0;
+        const viewed = Object.values(sections).filter(Boolean).length;
+        // Return the count; the page knows the total and computes percentage
+        return viewed;
+      },
+
+      addMissedQuestion: (algorithm: string, questionId: string) => {
+        set((state) => {
+          const existing = state.missedQuestions[algorithm] ?? [];
+          if (existing.includes(questionId)) return state;
+          return {
+            missedQuestions: {
+              ...state.missedQuestions,
+              [algorithm]: [...existing, questionId],
+            },
+          };
+        });
+      },
+
+      removeMissedQuestion: (algorithm: string, questionId: string) => {
+        set((state) => {
+          const existing = state.missedQuestions[algorithm] ?? [];
+          if (!existing.includes(questionId)) return state;
+          return {
+            missedQuestions: {
+              ...state.missedQuestions,
+              [algorithm]: existing.filter((id) => id !== questionId),
+            },
+          };
+        });
+      },
+
+      getMissedQuestions: (algorithm: string) => {
+        return get().missedQuestions[algorithm] ?? [];
       },
     }),
     {

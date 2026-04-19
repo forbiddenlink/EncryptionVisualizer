@@ -1,10 +1,25 @@
 import { Link } from 'react-router-dom';
-import { Cpu, Key, Hash, ArrowRight, Shield, Lock, Fingerprint, FileSignature } from 'lucide-react';
+import { Cpu, Key, Hash, ArrowRight, Shield, Lock, Fingerprint, FileSignature, GitCompare, Users, Globe, ShieldAlert, KeyRound, Ellipsis, GraduationCap } from 'lucide-react';
 import { ROUTES } from '@/router/routes';
 import { useProgressStore } from '@/store/progressStore';
 import { CompletionBadge } from '@/components/ui/ProgressIndicator';
 import { WebSiteSchema } from '@/components/seo/JsonLd';
 import { websiteSchema } from '@/data/structuredData';
+
+const algorithmCards = [
+  { to: ROUTES.AES, icon: Cpu, title: 'AES Encryption', description: 'The worldwide standard for symmetric encryption. Watch SubBytes, ShiftRows, MixColumns, and AddRoundKey transform your data.', tag: 'symmetric', slug: 'aes' },
+  { to: ROUTES.RSA, icon: Key, title: 'RSA Encryption', description: 'Public-key cryptography demystified. See how prime numbers create the mathematical foundation for secure communication.', tag: 'asymmetric', slug: 'rsa' },
+  { to: ROUTES.ECC, icon: GitCompare, title: 'Elliptic Curve Crypto', description: 'Modern cryptography on curves. Smaller keys, same security. See point addition, scalar multiplication, and ECDH.', tag: 'asymmetric', slug: 'ecc' },
+  { to: ROUTES.HASHING, icon: Fingerprint, title: 'Hash Functions', description: 'Experience the avalanche effect firsthand. See how changing one bit cascades into a completely different hash output.', tag: 'one-way', slug: 'hashing' },
+  { to: ROUTES.HMAC, icon: KeyRound, title: 'HMAC', description: 'Hash-based message authentication. See how combining a key with a hash provides both integrity and authenticity.', tag: 'authentication', slug: 'hmac' },
+  { to: ROUTES.SIGNATURES, icon: FileSignature, title: 'Digital Signatures', description: 'See how cryptographic signatures prove authenticity and detect tampering without hiding the message.', tag: 'sign/verify', slug: 'signatures' },
+  { to: ROUTES.DIFFIE_HELLMAN, icon: Users, title: 'Diffie-Hellman', description: 'Watch two parties establish a shared secret over a public channel. The foundation of modern key exchange.', tag: 'key exchange', slug: 'diffie-hellman' },
+  { to: ROUTES.BLOCK_MODES, icon: Cpu, title: 'Block Cipher Modes', description: 'ECB, CBC, GCM — see why mode of operation matters as much as the cipher itself.', tag: 'modes', slug: 'block-modes' },
+  { to: ROUTES.PADDING, icon: Ellipsis, title: 'Padding Schemes', description: 'PKCS#7, zero padding, ANSI X.923 — see how block ciphers handle data that does not fit neatly into blocks.', tag: 'block cipher', slug: 'padding' },
+  { to: ROUTES.PASSWORD_HASHING, icon: Lock, title: 'Password Hashing', description: 'Why SHA-256 is wrong for passwords. See how bcrypt, scrypt, and Argon2 use deliberate slowness for security.', tag: 'passwords', slug: 'password-hashing' },
+  { to: ROUTES.TLS, icon: Globe, title: 'TLS Handshake', description: 'Watch a complete TLS 1.3 handshake. See how DH, AES, signatures, and hashing combine to secure the web.', tag: 'protocol', slug: 'tls' },
+  { to: ROUTES.CRYPTANALYSIS, icon: ShieldAlert, title: 'Cryptanalysis', description: 'Break ciphers yourself. Frequency analysis, brute force, padding oracle — understand attacks to build better defenses.', tag: 'attacks', slug: 'cryptanalysis' },
+];
 
 export const HomePage = () => {
   const isAlgorithmComplete = useProgressStore((state) => state.isAlgorithmComplete);
@@ -68,145 +83,45 @@ export const HomePage = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* AES Card */}
-          <Link
-            to={ROUTES.AES}
-            className="group relative glass-card-hover p-6 cursor-pointer overflow-hidden text-left block w-full"
-            aria-label="Learn AES Encryption - Symmetric, 128/192/256-bit, 10 rounds"
-          >
-            <CompletionBadge isComplete={isAlgorithmComplete('aes')} quizScore={getQuizScore('aes')} />
-            <div className="space-y-5">
-              <div className="flex items-start justify-between">
-                <div className="p-2.5 bg-cyber-dark border border-white/5 rounded-lg group-hover:border-cyber-blue/30 transition-colors duration-300">
-                  <Cpu className="w-6 h-6 text-cyber-blue group-hover:text-cyber-cyan transition-colors" strokeWidth={1.5} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {algorithmCards.map(({ to, icon: Icon, title, description, tag, slug }) => (
+            <Link
+              key={to}
+              to={to}
+              className="group relative glass-card-hover p-6 cursor-pointer overflow-hidden text-left block w-full"
+            >
+              <CompletionBadge isComplete={isAlgorithmComplete(slug)} quizScore={getQuizScore(slug)} />
+              <div className="space-y-5">
+                <div className="flex items-start justify-between">
+                  <div className="p-2.5 bg-cyber-dark border border-white/5 rounded-lg group-hover:border-cyber-blue/30 transition-colors duration-300">
+                    <Icon className="w-6 h-6 text-cyber-blue group-hover:text-cyber-cyan transition-colors" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-xs font-mono text-slate-500 bg-cyber-dark px-2 py-1 rounded border border-white/5">
+                    {tag}
+                  </span>
                 </div>
-                <span className="text-xs font-mono text-slate-500 bg-cyber-dark px-2 py-1 rounded border border-white/5">
-                  10 rounds
-                </span>
-              </div>
-
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-cyber-cyan transition-colors duration-150 tracking-tight">
-                  AES Encryption
-                </h3>
-                <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                  The worldwide standard for symmetric encryption. Watch SubBytes, ShiftRows,
-                  MixColumns, and AddRoundKey transform your data.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                 <span className="text-[11px] font-mono text-slate-400 bg-cyber-dark px-2 py-1 rounded border border-white/5">
-                  128/192/256-bit
-                </span>
-              </div>
-            </div>
-          </Link>
-
-          {/* RSA Card */}
-          <Link
-            to={ROUTES.RSA}
-            className="group relative glass-card-hover p-6 cursor-pointer overflow-hidden text-left block w-full"
-            aria-label="Learn RSA Encryption - Asymmetric, Public/Private keys"
-          >
-            <CompletionBadge isComplete={isAlgorithmComplete('rsa')} quizScore={getQuizScore('rsa')} />
-            <div className="space-y-5">
-              <div className="flex items-start justify-between">
-                 <div className="p-2.5 bg-cyber-dark border border-white/5 rounded-lg group-hover:border-cyber-blue/30 transition-colors duration-300">
-                  <Key className="w-6 h-6 text-cyber-blue group-hover:text-cyber-cyan transition-colors" strokeWidth={1.5} />
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-cyber-cyan transition-colors duration-150 tracking-tight">
+                    {title}
+                  </h3>
+                  <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                    {description}
+                  </p>
                 </div>
-                <span className="text-xs font-mono text-slate-500 bg-cyber-dark px-2 py-1 rounded border border-white/5">
-                  pub/priv keys
-                </span>
               </div>
+            </Link>
+          ))}
+        </div>
 
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-cyber-cyan transition-colors duration-150 tracking-tight">
-                  RSA Encryption
-                </h3>
-                <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                  Public-key cryptography demystified. See how prime numbers create
-                  the mathematical foundation for secure communication.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-               <span className="text-[11px] font-mono text-slate-400 bg-cyber-dark px-2 py-1 rounded border border-white/5">
-                  2048/4096-bit
-                </span>
-              </div>
-            </div>
-          </Link>
-
-          {/* Hashing Card */}
+        {/* Learning Paths CTA */}
+        <div className="mt-8 text-center">
           <Link
-            to={ROUTES.HASHING}
-            className="group relative glass-card-hover p-6 cursor-pointer overflow-hidden text-left block w-full"
-            aria-label="Learn Hash Functions - One-way, SHA-256, Avalanche effect"
+            to={ROUTES.LEARNING_PATHS}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl transition-colors text-sm font-semibold text-slate-700 dark:text-slate-300"
           >
-            <CompletionBadge isComplete={isAlgorithmComplete('hashing')} quizScore={getQuizScore('hashing')} />
-             <div className="space-y-5">
-              <div className="flex items-start justify-between">
-                 <div className="p-2.5 bg-cyber-dark border border-white/5 rounded-lg group-hover:border-cyber-blue/30 transition-colors duration-300">
-                  <Fingerprint className="w-6 h-6 text-cyber-blue group-hover:text-cyber-cyan transition-colors" strokeWidth={1.5} />
-                </div>
-                <span className="text-xs font-mono text-slate-500 bg-cyber-dark px-2 py-1 rounded border border-white/5">
-                  one-way
-                </span>
-              </div>
-
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-cyber-cyan transition-colors duration-150 tracking-tight">
-                  Hash Functions
-                </h3>
-                <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                  Experience the avalanche effect firsthand. See how changing
-                  one bit cascades into a completely different hash output.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                 <span className="text-[11px] font-mono text-slate-400 bg-cyber-dark px-2 py-1 rounded border border-white/5">
-                  SHA-256
-                </span>
-              </div>
-            </div>
-          </Link>
-
-          {/* Signatures Card */}
-          <Link
-            to={ROUTES.SIGNATURES}
-            className="group relative glass-card-hover p-6 cursor-pointer overflow-hidden text-left block w-full"
-            aria-label="Learn Digital Signatures - Authentication, Integrity, Non-repudiation"
-          >
-            <CompletionBadge isComplete={isAlgorithmComplete('signatures')} quizScore={getQuizScore('signatures')} />
-             <div className="space-y-5">
-              <div className="flex items-start justify-between">
-                 <div className="p-2.5 bg-cyber-dark border border-white/5 rounded-lg group-hover:border-cyber-blue/30 transition-colors duration-300">
-                  <FileSignature className="w-6 h-6 text-cyber-blue group-hover:text-cyber-cyan transition-colors" strokeWidth={1.5} />
-                </div>
-                <span className="text-xs font-mono text-slate-500 bg-cyber-dark px-2 py-1 rounded border border-white/5">
-                  sign/verify
-                </span>
-              </div>
-
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-cyber-cyan transition-colors duration-150 tracking-tight">
-                  Digital Signatures
-                </h3>
-                <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                  See how cryptographic signatures prove authenticity and
-                  detect tampering without hiding the message.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                <span className="text-[11px] font-mono text-slate-400 bg-cyber-dark px-2 py-1 rounded border border-white/5">
-                  RSA-based
-                </span>
-              </div>
-            </div>
+            <GraduationCap className="w-5 h-5" />
+            Follow a Guided Learning Path
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

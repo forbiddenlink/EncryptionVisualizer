@@ -31,35 +31,35 @@ export const PlaybackControls: React.FC = () => {
           {/* Reset Button */}
           <button
             onClick={reset}
-            className="p-2 sm:p-3 bg-slate-100 dark:bg-cyber-surface hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-lg transition-all duration-150 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyber-blue shadow-sm"
+            className="min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 p-2.5 sm:p-3 bg-slate-100 dark:bg-cyber-surface hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-lg transition-all duration-150 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyber-blue shadow-sm flex items-center justify-center"
             title="Reset (R)"
             aria-label="Reset visualization"
           >
-            <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5 text-slate-600 dark:text-slate-400" />
+            <RotateCcw className="w-5 h-5 sm:w-5 sm:h-5 text-slate-600 dark:text-slate-400" />
           </button>
 
           {/* Previous Button */}
           <button
             onClick={previousStep}
-            className="p-2 sm:p-3 bg-slate-100 dark:bg-cyber-surface hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-lg transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:active:scale-100 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-cyber-blue shadow-sm"
+            className="min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 p-2.5 sm:p-3 bg-slate-100 dark:bg-cyber-surface hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-lg transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:active:scale-100 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-cyber-blue shadow-sm flex items-center justify-center"
             disabled={currentStep === 0}
             title="Previous Step (←)"
             aria-label="Go to previous step"
           >
-            <SkipBack className="w-4 h-4 sm:w-5 sm:h-5 text-slate-600 dark:text-slate-400" />
+            <SkipBack className="w-5 h-5 sm:w-5 sm:h-5 text-slate-600 dark:text-slate-400" />
           </button>
 
           {/* Play/Pause Button */}
           <button
             onClick={isPlaying ? pause : play}
-            className="px-6 sm:px-8 py-3 sm:py-4 bg-cyber-blue hover:bg-cyber-cyan hover:text-cyber-dark text-white rounded-lg transition-all duration-150 active:scale-[0.98] flex items-center gap-2 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-cyber-cyan focus:ring-offset-2 focus:ring-offset-slate-950 shadow-[inset_0_1px_rgba(255,255,255,0.2)]"
+            className="min-h-[44px] px-6 sm:px-8 py-3 sm:py-4 bg-cyber-blue hover:bg-cyber-cyan hover:text-cyber-dark text-white rounded-lg transition-all duration-150 active:scale-[0.98] flex items-center gap-2 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-cyber-cyan focus:ring-offset-2 focus:ring-offset-slate-950 shadow-[inset_0_1px_rgba(255,255,255,0.2)]"
             title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
             aria-label={isPlaying ? 'Pause visualization' : 'Play visualization'}
           >
             {isPlaying ? (
-              <Pause className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+              <Pause className="w-5 h-5 fill-current" />
             ) : (
-              <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+              <Play className="w-5 h-5 fill-current" />
             )}
             <span className="font-semibold text-sm sm:text-base tracking-tight">
               {isPlaying ? 'Pause' : 'Play'}
@@ -69,17 +69,17 @@ export const PlaybackControls: React.FC = () => {
           {/* Next Button */}
           <button
             onClick={nextStep}
-            className="p-2 sm:p-3 bg-slate-100 dark:bg-cyber-surface hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-lg transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:active:scale-100 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-cyber-blue shadow-sm"
+            className="min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 p-2.5 sm:p-3 bg-slate-100 dark:bg-cyber-surface hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-lg transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:active:scale-100 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-cyber-blue shadow-sm flex items-center justify-center"
             disabled={currentStep >= totalSteps - 1}
             title="Next Step (→)"
             aria-label="Go to next step"
           >
-            <SkipForward className="w-4 h-4 sm:w-5 sm:h-5 text-slate-600 dark:text-slate-400" />
+            <SkipForward className="w-5 h-5 sm:w-5 sm:h-5 text-slate-600 dark:text-slate-400" />
           </button>
         </div>
 
         {/* Speed Control */}
-        <div className="flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-2 sm:py-3 bg-slate-100 dark:bg-cyber-surface border border-slate-200 dark:border-white/5 rounded-lg w-full sm:w-auto justify-center shadow-surface">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 px-3 sm:px-4 py-2 sm:py-3 bg-slate-100 dark:bg-cyber-surface border border-slate-200 dark:border-white/5 rounded-lg w-full sm:w-auto justify-center shadow-surface">
           <div className="flex items-center gap-2">
             <Gauge className="w-3 h-3 sm:w-4 sm:h-4 text-slate-500 dark:text-slate-400" />
             <span className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">Speed</span>
@@ -149,12 +149,14 @@ export const PlaybackControls: React.FC = () => {
           </span>
         </div>
 
-        {/* Progress Bar */}
-        <div className="relative h-1.5 bg-slate-200 dark:bg-cyber-dark/80 rounded-full overflow-hidden shadow-inner">
-          <div
-            className="absolute inset-y-0 left-0 bg-cyber-blue shadow-[0_0_8px_rgba(59,130,246,0.8)] rounded-full transition-all duration-200 ease-out"
-            style={{ width: `${progress}%` }}
-          />
+        {/* Progress Bar - larger touch target on mobile */}
+        <div className="relative py-2 -my-2 cursor-pointer touch-none" aria-hidden="true">
+          <div className="relative h-1.5 sm:h-1.5 bg-slate-200 dark:bg-cyber-dark/80 rounded-full overflow-hidden shadow-inner">
+            <div
+              className="absolute inset-y-0 left-0 bg-cyber-blue shadow-[0_0_8px_rgba(59,130,246,0.8)] rounded-full transition-all duration-200 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -1,7 +1,9 @@
 import React from 'react';
 
+type JsonLdValue = string | number | boolean | null | JsonLdValue[] | { [key: string]: JsonLdValue };
+
 interface JsonLdProps {
-  data: object;
+  data: Record<string, JsonLdValue>;
 }
 
 export const JsonLd: React.FC<JsonLdProps> = ({ data }) => {

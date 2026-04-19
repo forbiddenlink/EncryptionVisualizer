@@ -1,10 +1,14 @@
 import React, { useEffect, useMemo } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { AESStateMatrix } from './AESStateMatrix';
-import { type AESStep } from '@/lib/crypto/aes';
-import { useVisualizationStore } from '@/store/visualizationStore';
+import type { AESStep } from '@/lib/types';
+import { useVisualizationStore, type VisualizationSteps } from '@/store/visualizationStore';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ArrowRight, Info, Cpu } from 'lucide-react';
+
+function isAESSteps(steps: VisualizationSteps): steps is AESStep[] {
+  return steps.length === 0 || ('state' in steps[0] && 'type' in steps[0]);
+}
 
 interface AESVisualizerProps {
   steps?: AESStep[];
@@ -12,7 +16,7 @@ interface AESVisualizerProps {
 
 export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }) => {
   const { currentStep, totalSteps, isPlaying, speed, setTotalSteps, setCurrentStep, pause, steps: storeSteps } = useVisualizationStore();
-  const steps = propSteps || (storeSteps as unknown as AESStep[]);
+  const steps = propSteps || (isAESSteps(storeSteps) ? storeSteps : []);
   const prefersReducedMotion = useReducedMotion();
 
   const transition = useMemo(() =>
@@ -48,7 +52,6 @@ export const AESVisualizer: React.FC<AESVisualizerProps> = ({ steps: propSteps }
 
   const step = steps[currentStep];
 
-  // Determine step color scheme and info based on type
   const getStepInfo = (type: AESStep['type']) => {
     switch (type) {
       case 'initial':

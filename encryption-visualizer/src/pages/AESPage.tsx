@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useExpandedSections } from '@/hooks/useExpandedSections';
 import { AESInputPanel } from '@/components/visualizations/AES/AESInputPanel';
 import { LearningResourceSchema } from '@/components/seo/JsonLd';
 import { algorithmSchemas } from '@/data/structuredData';
@@ -7,6 +8,7 @@ import { AESVisualizer } from '@/components/visualizations/AES/AESVisualizer';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { encryptAESWithSteps } from '@/lib/crypto/aes';
 import { useVisualizationStore } from '@/store/visualizationStore';
+import { useProgressStore } from '@/store/progressStore';
 import { aesEducationalContent } from '@/data/aesEducationalContent';
 import {
   BookOpen,
@@ -22,6 +24,7 @@ import {
   XCircle,
   Lightbulb,
   ExternalLink,
+  Check,
 } from 'lucide-react';
 import { QuizSystem } from '@/components/educational/QuizSystem';
 import { aesQuizQuestions } from '@/data/quizzes/aesQuiz';
@@ -36,28 +39,54 @@ const iconMap = {
   database: Database,
 };
 
+const AES_SECTIONS = [
+  'whatIsAES',
+  'fourOperations',
+  'keySizes',
+  'security',
+  'realWorld',
+  'commonMistakes',
+  'furtherLearning',
+] as const;
+
+const ALGORITHM_ID = 'aes';
+
 export const AESPage = () => {
   const location = useLocation();
   const setSteps = useVisualizationStore((state) => state.setSteps);
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['whatIsAES', 'fourOperations']));
+  const { expandedSections, toggleSection } = useExpandedSections(['whatIsAES', 'fourOperations']);
+  const markSectionViewed = useProgressStore((state) => state.markSectionViewed);
+  const sectionProgress = useProgressStore((state) => state.sectionProgress);
 
   const schemaData = algorithmSchemas.aes;
+
+  const viewedSections = sectionProgress[ALGORITHM_ID] ?? {};
+  const viewedCount = Object.values(viewedSections).filter(Boolean).length;
+  const totalSections = AES_SECTIONS.length;
+  const progressPct = Math.round((viewedCount / totalSections) * 100);
+
+  // Track section views when expanded
+  useEffect(() => {
+    for (const sectionId of expandedSections) {
+      markSectionViewed(ALGORITHM_ID, sectionId);
+    }
+  }, [expandedSections, markSectionViewed]);
+
+  const handleToggleSection = (sectionId: string) => {
+    toggleSection(sectionId);
+    // Mark as viewed when expanding (not collapsing)
+    if (!expandedSections.has(sectionId)) {
+      markSectionViewed(ALGORITHM_ID, sectionId);
+    }
+  };
 
   const handleEncrypt = (plaintext: string, key: string) => {
     const steps = encryptAESWithSteps(plaintext, key);
     setSteps(steps);
   };
 
-  const toggleSection = (sectionId: string) => {
-    setExpandedSections((prev) => {
-      const next = new Set(prev);
-      if (next.has(sectionId)) {
-        next.delete(sectionId);
-      } else {
-        next.add(sectionId);
-      }
-      return next;
-    });
+  const isSectionViewed = (sectionId: string): boolean => {
+    return viewedSections[sectionId] === true;
   };
 
   return (
@@ -97,11 +126,39 @@ export const AESPage = () => {
 
         {/* Right Column: Educational Content */}
         <div className="lg:col-span-1 space-y-4">
+          {/* Section Progress Header */}
+          <div className="glass-card p-3 rounded-xl flex items-center gap-3">
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+                  Section Progress
+                </span>
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                  {viewedCount}/{totalSections}
+                </span>
+              </div>
+              <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-purple-500 dark:bg-purple-400 rounded-full transition-all duration-500"
+                  style={{ width: `${progressPct}%` }}
+                />
+              </div>
+            </div>
+            {progressPct === 100 && (
+              <CheckCircle className="w-5 h-5 text-green-500 dark:text-green-400 flex-shrink-0" />
+            )}
+          </div>
+
           {/* What is AES? */}
           <EducationalCard
-            title={aesEducationalContent.whatIsAES.title}
+            title={
+              <span className="flex items-center gap-2">
+                {isSectionViewed('whatIsAES') && <Check className="w-3.5 h-3.5 text-green-500 dark:text-green-400" />}
+                {aesEducationalContent.whatIsAES.title}
+              </span>
+            }
             isExpanded={expandedSections.has('whatIsAES')}
-            onToggle={() => toggleSection('whatIsAES')}
+            onToggle={() => handleToggleSection('whatIsAES')}
           >
             <div className="flex items-start gap-3">
               <div className="p-2 bg-blue-100 dark:bg-cyber-blue/20 rounded-lg">
@@ -115,9 +172,14 @@ export const AESPage = () => {
 
           {/* The Four Operations */}
           <EducationalCard
-            title={aesEducationalContent.fourOperations.title}
+            title={
+              <span className="flex items-center gap-2">
+                {isSectionViewed('fourOperations') && <Check className="w-3.5 h-3.5 text-green-500 dark:text-green-400" />}
+                {aesEducationalContent.fourOperations.title}
+              </span>
+            }
             isExpanded={expandedSections.has('fourOperations')}
-            onToggle={() => toggleSection('fourOperations')}
+            onToggle={() => handleToggleSection('fourOperations')}
           >
             <div className="space-y-3">
               {aesEducationalContent.fourOperations.operations.map((op, idx) => (
@@ -138,9 +200,14 @@ export const AESPage = () => {
 
           {/* Key Sizes */}
           <EducationalCard
-            title={aesEducationalContent.keySize.title}
+            title={
+              <span className="flex items-center gap-2">
+                {isSectionViewed('keySizes') && <Check className="w-3.5 h-3.5 text-green-500 dark:text-green-400" />}
+                {aesEducationalContent.keySize.title}
+              </span>
+            }
             isExpanded={expandedSections.has('keySizes')}
-            onToggle={() => toggleSection('keySizes')}
+            onToggle={() => handleToggleSection('keySizes')}
           >
             <div className="space-y-3">
               {aesEducationalContent.keySize.variants.map((variant, idx) => (
@@ -158,9 +225,14 @@ export const AESPage = () => {
 
           {/* Security Notes */}
           <EducationalCard
-            title={aesEducationalContent.securityNotes.title}
+            title={
+              <span className="flex items-center gap-2">
+                {isSectionViewed('security') && <Check className="w-3.5 h-3.5 text-green-500 dark:text-green-400" />}
+                {aesEducationalContent.securityNotes.title}
+              </span>
+            }
             isExpanded={expandedSections.has('security')}
-            onToggle={() => toggleSection('security')}
+            onToggle={() => handleToggleSection('security')}
           >
             <div className="space-y-2">
               {aesEducationalContent.securityNotes.notes.map((note, idx) => (
@@ -176,9 +248,14 @@ export const AESPage = () => {
 
           {/* Real-World Use */}
           <EducationalCard
-            title={aesEducationalContent.realWorldUse.title}
+            title={
+              <span className="flex items-center gap-2">
+                {isSectionViewed('realWorld') && <Check className="w-3.5 h-3.5 text-green-500 dark:text-green-400" />}
+                {aesEducationalContent.realWorldUse.title}
+              </span>
+            }
             isExpanded={expandedSections.has('realWorld')}
-            onToggle={() => toggleSection('realWorld')}
+            onToggle={() => handleToggleSection('realWorld')}
           >
             <div className="grid grid-cols-2 gap-2">
               {aesEducationalContent.realWorldUse.examples.map((example, idx) => {
@@ -201,9 +278,14 @@ export const AESPage = () => {
 
           {/* Common Mistakes */}
           <EducationalCard
-            title={aesEducationalContent.commonMistakes.title}
+            title={
+              <span className="flex items-center gap-2">
+                {isSectionViewed('commonMistakes') && <Check className="w-3.5 h-3.5 text-green-500 dark:text-green-400" />}
+                {aesEducationalContent.commonMistakes.title}
+              </span>
+            }
             isExpanded={expandedSections.has('commonMistakes')}
-            onToggle={() => toggleSection('commonMistakes')}
+            onToggle={() => handleToggleSection('commonMistakes')}
           >
             <div className="space-y-3">
               {aesEducationalContent.commonMistakes.mistakes.map((mistake, idx) => (
@@ -224,9 +306,14 @@ export const AESPage = () => {
 
           {/* Further Learning */}
           <EducationalCard
-            title={aesEducationalContent.furtherLearning.title}
+            title={
+              <span className="flex items-center gap-2">
+                {isSectionViewed('furtherLearning') && <Check className="w-3.5 h-3.5 text-green-500 dark:text-green-400" />}
+                {aesEducationalContent.furtherLearning.title}
+              </span>
+            }
             isExpanded={expandedSections.has('furtherLearning')}
-            onToggle={() => toggleSection('furtherLearning')}
+            onToggle={() => handleToggleSection('furtherLearning')}
           >
             <div className="space-y-2">
               {aesEducationalContent.furtherLearning.resources.map((resource, idx) => (

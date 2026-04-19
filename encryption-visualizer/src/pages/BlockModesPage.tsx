@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useExpandedSections } from '@/hooks/useExpandedSections';
+import { useAutoAdvance } from '@/hooks/useAutoAdvance';
 import { BlockModesVisualizer } from '@/components/visualizations/BlockModes/BlockModesVisualizer';
 import { ECBDiagram } from '@/components/visualizations/BlockModes/ECBDiagram';
 import { CBCDiagram } from '@/components/visualizations/BlockModes/CBCDiagram';
@@ -46,7 +48,6 @@ export const BlockModesPage = () => {
     isPlaying,
     speed,
     setSteps,
-    setCurrentStep,
     play,
     pause,
     reset,
@@ -58,9 +59,7 @@ export const BlockModesPage = () => {
   const [activeMode, setActiveMode] = useState<BlockMode>('ecb');
   const [plaintext, setPlaintext] = useState('Hello World! This is a test message for block cipher modes.');
   const [key, setKey] = useState('mysecretkey12345');
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(
-    new Set(['whatAreBlockModes', 'ecbPenguin'])
-  );
+  const { expandedSections, toggleSection } = useExpandedSections(['whatAreBlockModes', 'ecbPenguin']);
 
   // Pattern demo state
   const [patternDemo, setPatternDemo] = useState<{
@@ -70,18 +69,6 @@ export const BlockModesPage = () => {
   } | null>(null);
 
   const blockModeSteps = steps as BlockModeStep[];
-
-  const toggleSection = (sectionId: string) => {
-    setExpandedSections((prev) => {
-      const next = new Set(prev);
-      if (next.has(sectionId)) {
-        next.delete(sectionId);
-      } else {
-        next.add(sectionId);
-      }
-      return next;
-    });
-  };
 
   const handleEncrypt = () => {
     let newSteps: BlockModeStep[];
@@ -109,19 +96,7 @@ export const BlockModesPage = () => {
   };
 
   // Auto-advance steps when playing
-  useEffect(() => {
-    if (isPlaying && currentStep < steps.length - 1) {
-      const timer = setTimeout(
-        () => {
-          setCurrentStep(currentStep + 1);
-        },
-        2000 / speed
-      );
-      return () => clearTimeout(timer);
-    } else if (isPlaying && currentStep === steps.length - 1) {
-      pause();
-    }
-  }, [isPlaying, currentStep, steps.length, speed, setCurrentStep, pause]);
+  useAutoAdvance(steps.length);
 
   // Get blocks for diagrams
   const outputStep = blockModeSteps.find((s) => s.type === 'output');

@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useExpandedSections } from '@/hooks/useExpandedSections';
+import { useAutoAdvance } from '@/hooks/useAutoAdvance';
 import { SignatureInputPanel } from '@/components/visualizations/Signatures/SignatureInputPanel';
 import { SignatureVisualizer } from '@/components/visualizations/Signatures/SignatureVisualizer';
 import { SignVerifyPanel } from '@/components/visualizations/Signatures/SignVerifyPanel';
@@ -49,7 +51,6 @@ export const SignaturesPage = () => {
     isPlaying,
     speed,
     setSteps,
-    setCurrentStep,
     play,
     pause,
     reset,
@@ -59,23 +60,9 @@ export const SignaturesPage = () => {
   } = useVisualizationStore();
 
   const [keyPair, setKeyPair] = useState<RSAKeyPair | null>(null);
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(
-    new Set(['whatIsSignature', 'howSigningWorks'])
-  );
+  const { expandedSections, toggleSection } = useExpandedSections(['whatIsSignature', 'howSigningWorks']);
 
   const signatureSteps = steps as SignatureStep[];
-
-  const toggleSection = (sectionId: string) => {
-    setExpandedSections((prev) => {
-      const next = new Set(prev);
-      if (next.has(sectionId)) {
-        next.delete(sectionId);
-      } else {
-        next.add(sectionId);
-      }
-      return next;
-    });
-  };
 
   const handleSign = (message: string, keySize: 'small' | 'medium' | 'large') => {
     // Generate new key pair or reuse existing
@@ -94,16 +81,7 @@ export const SignaturesPage = () => {
   };
 
   // Auto-advance steps when playing
-  useEffect(() => {
-    if (isPlaying && currentStep < steps.length - 1) {
-      const timer = setTimeout(() => {
-        setCurrentStep(currentStep + 1);
-      }, 2000 / speed);
-      return () => clearTimeout(timer);
-    } else if (isPlaying && currentStep === steps.length - 1) {
-      pause();
-    }
-  }, [isPlaying, currentStep, steps.length, speed, setCurrentStep, pause]);
+  useAutoAdvance(steps.length);
 
   return (
     <>

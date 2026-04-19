@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { m, AnimatePresence } from 'framer-motion';
 
 interface EducationalCardProps {
-  title: string;
+  title: React.ReactNode;
   isExpanded: boolean;
   onToggle: () => void;
   children: React.ReactNode;

@@ -49,7 +49,6 @@ export const useThemeStore = create<ThemeStore>()(
   )
 );
 
-// Initialize theme on first load
 if (typeof window !== 'undefined') {
   const stored = localStorage.getItem('cryptoviz-theme');
   if (stored) {
