@@ -6,6 +6,7 @@ import { LearningResourceSchema } from '@/components/seo/JsonLd';
 import { algorithmSchemas } from '@/data/structuredData';
 import { HashVisualizer } from '@/components/visualizations/Hash/HashVisualizer';
 import { AvalancheEffectDemo } from '@/components/visualizations/Hash/AvalancheEffectDemo';
+import { HashPlayground } from '@/components/visualizations/Hash/HashPlayground';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { useVisualizationStore } from '@/store/visualizationStore';
 import { hashWithSteps, type HashStep } from '@/lib/crypto/hash';
@@ -144,6 +145,9 @@ export const HashingPage = () => {
 
           {/* Avalanche Effect Demo */}
           <AvalancheEffectDemo />
+
+          {/* Playground */}
+          <HashPlayground />
         </div>
 
         {/* Right Column: Educational Content */}

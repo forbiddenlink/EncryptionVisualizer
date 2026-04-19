@@ -7,6 +7,7 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { passwordHashWithSteps } from '@/lib/crypto/password-hashing';
 import { useVisualizationStore } from '@/store/visualizationStore';
 import type { PasswordHashStep } from '@/lib/types/password-hashing';
+import { KeyStretchDemo } from '@/components/visualizations/KeyDerivation/KeyStretchDemo';
 import { BookOpen, Info, CheckCircle, Globe, FileText, XCircle, Lightbulb, ExternalLink, Lock, Hash, Repeat, Timer } from 'lucide-react';
 import { QuizSystem } from '@/components/educational/QuizSystem';
 import { passwordHashingQuizQuestions } from '@/data/quizzes/passwordHashingQuiz';
@@ -334,6 +335,9 @@ export const PasswordHashingPage = () => {
             <ErrorBoundary>
               <PasswordHashVisualizer steps={hashSteps} currentStep={currentStep} />
             </ErrorBoundary>
+
+            {/* Key Stretching Demo */}
+            <KeyStretchDemo />
           </div>
 
           {/* Right Column: Educational Content */}

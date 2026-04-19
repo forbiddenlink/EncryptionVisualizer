@@ -2,6 +2,7 @@ import { useExpandedSections } from '@/hooks/useExpandedSections';
 import { useAutoAdvance } from '@/hooks/useAutoAdvance';
 import { DHInputPanel } from '@/components/visualizations/DiffieHellman/DHInputPanel';
 import { DHVisualizer } from '@/components/visualizations/DiffieHellman/DHVisualizer';
+import { DHPlayground } from '@/components/visualizations/DiffieHellman/DHPlayground';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { generateDHKeyExchangeWithSteps } from '@/lib/crypto/diffie-hellman';
 import { useVisualizationStore } from '@/store/visualizationStore';
@@ -153,6 +154,9 @@ export const DiffieHellmanPage = () => {
           <ErrorBoundary>
             <DHVisualizer steps={dhSteps} currentStep={currentStep} />
           </ErrorBoundary>
+
+          {/* DH Playground */}
+          <DHPlayground />
         </div>
 
         {/* Right Column: Educational Content */}

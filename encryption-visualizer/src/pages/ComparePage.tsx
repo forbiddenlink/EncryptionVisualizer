@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import { useCompareStore, type ComparableAlgorithm } from '@/store/compareStore';
 import { CompareControls } from '@/components/compare/CompareControls';
 import { ComparePanel } from '@/components/compare/ComparePanel';
+import { SecurityLevelChart } from '@/components/compare/SecurityLevelChart';
+import { PerformanceChart } from '@/components/compare/PerformanceChart';
+import { UseCaseMatrix } from '@/components/compare/UseCaseMatrix';
 import { GitCompare, ArrowLeftRight } from 'lucide-react';
 
 const validAlgorithms: ComparableAlgorithm[] = ['aes', 'rsa', 'hashing', 'signatures', 'diffie-hellman', 'block-modes'];
@@ -107,6 +110,21 @@ export const ComparePage = () => {
             </tr>
           </tbody>
         </table>
+      </div>
+
+      {/* Security Level Chart */}
+      <div className="glass-card p-4 sm:p-6">
+        <SecurityLevelChart />
+      </div>
+
+      {/* Performance Chart */}
+      <div className="glass-card p-4 sm:p-6">
+        <PerformanceChart />
+      </div>
+
+      {/* Use Case Matrix */}
+      <div className="glass-card p-4 sm:p-6">
+        <UseCaseMatrix />
       </div>
     </div>
   );
