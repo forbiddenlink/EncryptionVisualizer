@@ -39,7 +39,7 @@ export const TLSPage = () => {
 
   const handleStart = () => {
     const session = simulateTLSHandshake();
-    setSteps(session.steps as any);
+    setSteps(session.steps);
     reset();
     play();
   };

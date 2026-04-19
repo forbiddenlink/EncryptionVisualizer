@@ -63,18 +63,7 @@ function getStepGradient(type: TLSStep['type']): string {
   }
 }
 
-function getActorBorder(actor: TLSStep['actor']): string {
-  switch (actor) {
-    case 'client':
-      return 'border-blue-500/50';
-    case 'server':
-      return 'border-violet-500/50';
-    case 'both':
-      return 'border-pink-500/50';
-    default:
-      return 'border-transparent';
-  }
-}
+
 
 export const TLSVisualizer: React.FC<TLSVisualizerProps> = ({ steps, currentStep }) => {
   const prefersReducedMotion = useReducedMotion();

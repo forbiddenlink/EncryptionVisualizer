@@ -4,7 +4,6 @@ import { Search, Shield, Clock, Key, Layers } from 'lucide-react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { FrequencyAnalysisChart } from './FrequencyAnalysisChart';
 import { BruteForceDemo } from './BruteForceDemo';
-import { getLetterCount } from '@/lib/crypto/cryptanalysis';
 import type { CryptanalysisStep, AttackType } from '@/lib/types/cryptanalysis';
 
 interface CryptanalysisVisualizerProps {

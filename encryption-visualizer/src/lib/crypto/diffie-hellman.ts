@@ -11,7 +11,7 @@
  */
 
 import type { DHStep, DHParams } from '../types/index.js';
-import { isPrime, modPow, generatePrime } from './rsa.js';
+import { modPow, generatePrime } from './rsa.js';
 
 /**
  * Find a primitive root (generator) for a given prime p

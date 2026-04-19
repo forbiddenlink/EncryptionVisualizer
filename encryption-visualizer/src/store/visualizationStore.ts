@@ -1,7 +1,13 @@
 import { create } from 'zustand';
 import type { VisualizationState, Algorithm, AESStep, RSAStep, HashStep, SignatureStep, DHStep, BlockModeStep } from '@/lib/types';
+import type { TLSStep } from '@/lib/types/tls';
+import type { ECCStep } from '@/lib/types/ecc';
+import type { CryptanalysisStep } from '@/lib/types/cryptanalysis';
+import type { HMACStep } from '@/lib/types/hmac';
+import type { PaddingStep } from '@/lib/types/padding';
+import type { PasswordHashStep } from '@/lib/types/password-hashing';
 
-export type VisualizationSteps = AESStep[] | RSAStep[] | HashStep[] | SignatureStep[] | DHStep[] | BlockModeStep[];
+export type VisualizationSteps = AESStep[] | RSAStep[] | HashStep[] | SignatureStep[] | DHStep[] | BlockModeStep[] | TLSStep[] | ECCStep[] | CryptanalysisStep[] | HMACStep[] | PaddingStep[] | PasswordHashStep[];
 
 interface VisualizationStore extends VisualizationState {
   steps: VisualizationSteps;

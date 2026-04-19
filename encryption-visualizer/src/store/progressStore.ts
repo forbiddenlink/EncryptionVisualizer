@@ -12,6 +12,8 @@ interface ProgressStore {
   quizScores: Record<string, QuizScore>;
   sectionProgress: Record<string, Record<string, boolean>>;
   missedQuestions: Record<string, string[]>;
+  pathProgress: Record<string, string[]>;
+  achievements: string[];
 
   markAlgorithmComplete: (algorithm: string) => void;
   saveQuizScore: (algorithm: string, score: number, total: number) => void;
@@ -26,6 +28,9 @@ interface ProgressStore {
   addMissedQuestion: (algorithm: string, questionId: string) => void;
   removeMissedQuestion: (algorithm: string, questionId: string) => void;
   getMissedQuestions: (algorithm: string) => string[];
+
+  completeModule: (pathId: string, moduleId: string) => void;
+  addAchievement: (achievementId: string) => void;
 }
 
 const ALL_ALGORITHMS = ['aes', 'rsa', 'hashing', 'signatures'];
@@ -37,6 +42,8 @@ export const useProgressStore = create<ProgressStore>()(
       quizScores: {},
       sectionProgress: {},
       missedQuestions: {},
+      pathProgress: {},
+      achievements: [],
 
       markAlgorithmComplete: (algorithm: string) => {
         set((state) => {
@@ -85,6 +92,8 @@ export const useProgressStore = create<ProgressStore>()(
           quizScores: {},
           sectionProgress: {},
           missedQuestions: {},
+          pathProgress: {},
+          achievements: [],
         });
       },
 
@@ -140,6 +149,26 @@ export const useProgressStore = create<ProgressStore>()(
 
       getMissedQuestions: (algorithm: string) => {
         return get().missedQuestions[algorithm] ?? [];
+      },
+
+      completeModule: (pathId: string, moduleId: string) => {
+        set((state) => {
+          const existing = state.pathProgress[pathId] ?? [];
+          if (existing.includes(moduleId)) return state;
+          return {
+            pathProgress: {
+              ...state.pathProgress,
+              [pathId]: [...existing, moduleId],
+            },
+          };
+        });
+      },
+
+      addAchievement: (achievementId: string) => {
+        set((state) => {
+          if (state.achievements.includes(achievementId)) return state;
+          return { achievements: [...state.achievements, achievementId] };
+        });
       },
     }),
     {

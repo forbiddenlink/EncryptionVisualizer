@@ -34,9 +34,7 @@ export const LearningPathsPage = () => {
   const navigate = useNavigate();
 
   const pathProgress = useProgressStore((s) => s.pathProgress);
-  const completedAlgorithms = useProgressStore((s) => s.completedAlgorithms);
   const earnedAchievements = useProgressStore((s) => s.achievements);
-  const completeModule = useProgressStore((s) => s.completeModule);
 
   const getCompletedModules = (pathId: string): string[] => {
     return pathProgress[pathId] ?? [];

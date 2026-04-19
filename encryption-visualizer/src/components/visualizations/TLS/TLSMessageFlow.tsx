@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import type { TLSStep } from '@/lib/types/tls';
 import { m } from 'framer-motion';
-import { Lock, Unlock } from 'lucide-react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 interface TLSMessageFlowProps {
@@ -14,11 +13,6 @@ const COLUMN_WIDTH = 120;
 const ARROW_START = COLUMN_WIDTH + 20;
 const ARROW_END = 380 - 20;
 const CENTER_X = (ARROW_START + ARROW_END) / 2;
-
-function getStepColorClass(step: TLSStep): string {
-  if (step.dataExchanged?.encrypted) return 'text-emerald-500 dark:text-emerald-400';
-  return 'text-red-500 dark:text-red-400';
-}
 
 function getArrowStroke(step: TLSStep): string {
   if (step.dataExchanged?.encrypted) return '#10B981';
@@ -98,7 +92,6 @@ export const TLSMessageFlow: React.FC<TLSMessageFlowProps> = ({ steps, currentSt
           const arrowColor = getArrowStroke(step);
 
           const isClientToServer = step.actor === 'client' || step.dataExchanged?.direction === 'client-to-server';
-          const isServerToClient = step.actor === 'server' || step.dataExchanged?.direction === 'server-to-client';
           const isBoth = step.actor === 'both';
 
           const fromX = isClientToServer ? ARROW_START - 40 : ARROW_END + 40;
